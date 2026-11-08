@@ -7,6 +7,9 @@ import argparse
 import csv
 import json
 import sys
+import shutil
+import ssl
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -14,64 +17,118 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+SSL_CONTEXT = ssl.create_default_context()
 
-DATASETS: dict[str, dict[str, str]] = {
-    "oregon_orpin": {
-        "group": "primary",
-        "domain": "data.oregon.gov",
-        "dataset_id": "6e9e-sfc4",
+
+# Groups:
+#   primary / secondary  -- contract ledgers with amendment histories (original 9 sources)
+#   expansion            -- additional state and local contract ledgers with amendment data
+#   cooperative          -- cooperative-purchasing (NASPO ValuePoint, Sourcewell, OMNIA, TIPS,
+#                           Texas DIR, state master contracts...) sales, vehicle flags, and
+#                           vendor/reseller relationships with certification (HUB/MWBE) grades
+#
+# Datasets with a "query" are aggregated server-side with SoQL (the raw tables hold
+# millions of invoice lines); every other dataset is downloaded row-for-row.
+TX_DIR_GROUP_COLS = (
+    "fiscal_year,customer_type,contract_number,contract_type,contract_subtype,"
+    "vendor_name,vendor_hub_type,reseller_name,reseller_hub_type"
+)
+
+DATASETS: dict[str, dict[str, Any]] = {
+    # ---- primary -----------------------------------------------------------
+    "oregon_orpin": {"group": "primary", "domain": "data.oregon.gov", "dataset_id": "6e9e-sfc4"},
+    "cook_county": {"group": "primary", "domain": "datacatalog.cookcountyil.gov", "dataset_id": "qh8j-6k63"},
+    "chicago": {"group": "primary", "domain": "data.cityofchicago.org", "dataset_id": "rsxa-ify5"},
+    "washington_state": {"group": "primary", "domain": "data.wa.gov", "dataset_id": "s8d5-pj78"},  # FY2024
+    # ---- secondary ---------------------------------------------------------
+    "baton_rouge": {"group": "secondary", "domain": "data.brla.gov", "dataset_id": "2ung-w7t4"},
+    "austin": {"group": "secondary", "domain": "datahub.austintexas.gov", "dataset_id": "84ih-p28j"},
+    "vermont": {"group": "secondary", "domain": "data.vermont.gov", "dataset_id": "dz5q-8uqb"},
+    "oregon_lottery": {"group": "secondary", "domain": "data.oregon.gov", "dataset_id": "rkhh-35im"},
+    "nyc_sca": {"group": "secondary", "domain": "data.cityofnewyork.us", "dataset_id": "gzvm-na49"},
+    # ---- expansion: more states & local governments ------------------------
+    "washington_fy2021": {"group": "expansion", "domain": "data.wa.gov", "dataset_id": "buf8-6px9"},
+    "washington_fy2022": {"group": "expansion", "domain": "data.wa.gov", "dataset_id": "pwse-3zea"},
+    "washington_fy2023": {"group": "expansion", "domain": "data.wa.gov", "dataset_id": "mz6y-pfem"},
+    "washington_fy2025": {"group": "expansion", "domain": "data.wa.gov", "dataset_id": "6fx9-ncas"},
+    "oregon_judicial": {"group": "expansion", "domain": "data.oregon.gov", "dataset_id": "3wxk-gaen"},
+    "oregon_treasury": {"group": "expansion", "domain": "data.oregon.gov", "dataset_id": "4iz8-xm93"},
+    "west_hollywood": {"group": "expansion", "domain": "data.weho.org", "dataset_id": "atdr-sk64"},
+    # ---- cooperative purchasing, resellers & certification grades -----------
+    "wa_it_contracts_2020": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "reg9-mjd3"},
+    "wa_it_contracts_2021": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "bcyw-k8i3"},
+    "wa_it_contracts_2022": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "dzvi-rs2c"},
+    "wa_it_contracts_2023": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "hycx-v82h"},
+    "wa_it_contracts_2024": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "ktim-amuz"},
+    "wa_it_contracts_2025": {"group": "cooperative", "domain": "data.wa.gov", "dataset_id": "3txe-z9i9"},
+    "wa_master_contract_sales": {
+        "group": "cooperative", "domain": "data.wa.gov", "dataset_id": "n8q6-4twj",
+        "query": {
+            "$select": "year,customer_type,contract_number,contract_title,vendor_name,omwbe,vet_owned,"
+                       "small_business,sum(q1_sales_reported)+sum(q2_sales_reported)+sum(q3_sales_reported)"
+                       "+sum(q4_sales_reported) as sales,count(*) as n_lines",
+            "$group": "year,customer_type,contract_number,contract_title,vendor_name,omwbe,vet_owned,small_business",
+            "$order": "year,contract_number,vendor_name,customer_type",
+        },
     },
-    "cook_county": {
-        "group": "primary",
-        "domain": "datacatalog.cookcountyil.gov",
-        "dataset_id": "qh8j-6k63",
+    "tx_dir_sales_archive": {
+        "group": "cooperative", "domain": "data.texas.gov", "dataset_id": "w64c-ndf7",
+        "query": {
+            "$select": TX_DIR_GROUP_COLS + ",sum(purchase_amount) as sales,count(*) as n_lines",
+            "$group": TX_DIR_GROUP_COLS,
+            "$order": TX_DIR_GROUP_COLS,
+        },
     },
-    "chicago": {
-        "group": "primary",
-        "domain": "data.cityofchicago.org",
-        "dataset_id": "rsxa-ify5",
+    "tx_dir_sales_fy2026": {
+        "group": "cooperative", "domain": "data.texas.gov", "dataset_id": "a743-wj72",
+        "query": {
+            "$select": TX_DIR_GROUP_COLS + ",sum(purchase_amount) as sales,count(*) as n_lines",
+            "$group": TX_DIR_GROUP_COLS,
+            "$order": TX_DIR_GROUP_COLS,
+        },
     },
-    "washington_state": {
-        "group": "primary",
-        "domain": "data.wa.gov",
-        "dataset_id": "s8d5-pj78",
-    },
-    "baton_rouge": {
-        "group": "secondary",
-        "domain": "data.brla.gov",
-        "dataset_id": "2ung-w7t4",
-    },
-    "austin": {
-        "group": "secondary",
-        "domain": "datahub.austintexas.gov",
-        "dataset_id": "84ih-p28j",
-    },
-    "vermont": {
-        "group": "secondary",
-        "domain": "data.vermont.gov",
-        "dataset_id": "dz5q-8uqb",
-    },
-    "oregon_lottery": {
-        "group": "secondary",
-        "domain": "data.oregon.gov",
-        "dataset_id": "rkhh-35im",
-    },
+    "tx_dir_active_contracts": {"group": "cooperative", "domain": "data.texas.gov", "dataset_id": "vipt-h4ye"},
+    "ny_var_report": {"group": "cooperative", "domain": "data.ny.gov", "dataset_id": "cjqa-a3p4"},
+    "delaware_coop_spend": {"group": "cooperative", "domain": "data.delaware.gov", "dataset_id": "6a9e-y46r"},
+    "delaware_central_spend": {"group": "cooperative", "domain": "data.delaware.gov", "dataset_id": "sifm-293u"},
 }
+
+GROUPS = ("primary", "secondary", "expansion", "cooperative")
 
 
 def get_json(url: str) -> Any:
     request = Request(url, headers={"User-Agent": "change-order-research/1.0"})
-    with urlopen(request, timeout=60) as response:
-        return json.load(response)
+    try:
+        with urlopen(request, context=SSL_CONTEXT, timeout=300) as response:
+            return json.load(response)
+    except URLError as e:
+        # Some Python builds (e.g. Homebrew) ship without access to the OS trust store.
+        # Fall back to curl, which uses the system certificates, instead of disabling
+        # certificate verification.
+        if "CERTIFICATE_VERIFY_FAILED" in str(e) and shutil.which("curl"):
+            out = subprocess.run(
+                ["curl", "-sSfL", "--max-time", "600", "-A", "change-order-research/1.0", url],
+                capture_output=True, check=True,
+            )
+            return json.loads(out.stdout)
+        raise
 
 
-def fetch_records(domain: str, dataset_id: str, page_size: int) -> list[dict[str, Any]]:
+def fetch_records(
+    domain: str,
+    dataset_id: str,
+    page_size: int,
+    query: dict[str, str] | None = None,
+) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     offset = 0
 
     while True:
-        query = urlencode({"$limit": page_size, "$offset": offset})
-        url = f"https://{domain}/resource/{dataset_id}.json?{query}"
+        params = dict(query or {})
+        params.update({"$limit": page_size, "$offset": offset})
+        if "$order" not in params:
+            params["$order"] = ":id"  # stable paging
+        url = f"https://{domain}/resource/{dataset_id}.json?{urlencode(params)}"
         page = get_json(url)
         if not isinstance(page, list):
             raise ValueError(f"Expected a list from {url}")
@@ -85,7 +142,7 @@ def fetch_records(domain: str, dataset_id: str, page_size: int) -> list[dict[str
 def write_dataset(
     output_dir: Path,
     name: str,
-    config: dict[str, str],
+    config: dict[str, Any],
     page_size: int,
 ) -> None:
     domain = config["domain"]
@@ -95,7 +152,7 @@ def write_dataset(
 
     print(f"Downloading {name} from {source_url}", file=sys.stderr)
     metadata = get_json(metadata_url)
-    records = fetch_records(domain, dataset_id, page_size)
+    records = fetch_records(domain, dataset_id, page_size, config.get("query"))
     destination = output_dir / name
     destination.mkdir(parents=True, exist_ok=True)
 
@@ -106,6 +163,7 @@ def write_dataset(
         "domain": domain,
         "dataset_id": dataset_id,
         "group": config["group"],
+        "aggregation_query": config.get("query"),
         "record_count": len(records),
         "metadata": metadata,
     }
@@ -129,7 +187,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--group",
-        choices=("primary", "secondary", "all"),
+        choices=GROUPS + ("all",),
         default="primary",
         help="Dataset group to download (default: primary)",
     )
@@ -167,7 +225,7 @@ def main() -> int:
     try:
         for name in names:
             write_dataset(args.output_dir, name, DATASETS[name], args.page_size)
-    except (HTTPError, URLError, TimeoutError, ValueError) as error:
+    except (HTTPError, URLError, TimeoutError, ValueError, subprocess.CalledProcessError) as error:
         print(f"download failed: {error}", file=sys.stderr)
         return 1
     return 0
