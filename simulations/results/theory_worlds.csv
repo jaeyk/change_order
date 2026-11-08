@@ -1,0 +1,41 @@
+world,world_label,fingerprint,label,observed,chance_mean,chance_sd,z
+A,"Chance, heterogeneous contracts",early,First amendment in first 25% of term,0.3899,0.3965,0.0121,-0.54
+A,"Chance, heterogeneous contracts",late,Any amendment in last 10% of term or after,0.1841,0.1789,0.0128,0.41
+A,"Chance, heterogeneous contracts",lift,Late-extension lift after earlier amendments,3.2761,3.8613,0.4032,-1.45
+A,"Chance, heterogeneous contracts",accel,P(next gap between amendments is shorter),0.504,0.5009,0.0255,0.12
+A,"Chance, heterogeneous contracts",accel_pre,"Same, using only amendments before the last 10% of term",0.5047,0.4998,0.0296,0.17
+A,"Chance, heterogeneous contracts",escal,P(second amendment larger than first),0.4918,0.5009,0.0189,-0.48
+A,"Chance, heterogeneous contracts",cont,Rise in P(another amendment) from k=0 to k=3,0.1502,0.1272,0.0264,0.87
+A,"Chance, heterogeneous contracts",vendor,Vendor share of variance in amendment risk,0.0,0.003,0.0044,-0.68
+B,"Design, no lock-in",early,First amendment in first 25% of term,0.7345,0.4579,0.0091,30.45
+B,"Design, no lock-in",late,Any amendment in last 10% of term or after,0.1155,0.2185,0.0073,-14.03
+B,"Design, no lock-in",lift,Late-extension lift after earlier amendments,4.314,2.4259,0.2939,6.42
+B,"Design, no lock-in",accel,P(next gap between amendments is shorter),0.4414,0.5003,0.0186,-3.17
+B,"Design, no lock-in",accel_pre,"Same, using only amendments before the last 10% of term",0.4397,0.4983,0.02,-2.93
+B,"Design, no lock-in",escal,P(second amendment larger than first),0.5081,0.5012,0.0104,0.66
+B,"Design, no lock-in",cont,Rise in P(another amendment) from k=0 to k=3,-0.0608,-0.0893,0.0193,1.48
+B,"Design, no lock-in",vendor,Vendor share of variance in amendment risk,0.1429,0.0025,0.0046,30.64
+C,Design with lock-in spiral,early,First amendment in first 25% of term,0.5781,0.5858,0.0091,-0.85
+C,Design with lock-in spiral,late,Any amendment in last 10% of term or after,0.5241,0.3353,0.0093,20.4
+C,Design with lock-in spiral,lift,Late-extension lift after earlier amendments,3.3821,8.6144,1.0855,-4.82
+C,Design with lock-in spiral,accel,P(next gap between amendments is shorter),0.4754,0.498,0.0148,-1.53
+C,Design with lock-in spiral,accel_pre,"Same, using only amendments before the last 10% of term",0.4923,0.4983,0.015,-0.4
+C,Design with lock-in spiral,escal,P(second amendment larger than first),0.6093,0.4973,0.0128,8.76
+C,Design with lock-in spiral,cont,Rise in P(another amendment) from k=0 to k=3,0.22,0.2227,0.0143,-0.19
+C,Design with lock-in spiral,vendor,Vendor share of variance in amendment risk,0.0567,0.0023,0.0031,17.49
+D,Chance + routine renewals,early,First amendment in first 25% of term,0.2869,0.4014,0.0099,-11.6
+D,Chance + routine renewals,late,Any amendment in last 10% of term or after,0.5563,0.1848,0.0092,40.25
+D,Chance + routine renewals,lift,Late-extension lift after earlier amendments,1.273,2.5463,0.2797,-4.55
+D,Chance + routine renewals,accel,P(next gap between amendments is shorter),0.4814,0.4991,0.0241,-0.73
+D,Chance + routine renewals,accel_pre,"Same, using only amendments before the last 10% of term",0.4733,0.5009,0.0259,-1.07
+D,Chance + routine renewals,escal,P(second amendment larger than first),0.4994,0.5003,0.0112,-0.07
+D,Chance + routine renewals,cont,Rise in P(another amendment) from k=0 to k=3,-0.0282,-0.0231,0.0262,-0.2
+D,Chance + routine renewals,vendor,Vendor share of variance in amendment risk,0.0,0.0029,0.0044,-0.66
+E,"Mixed: half chance, half C",early,First amendment in first 25% of term,0.5143,0.5479,0.0128,-2.62
+E,"Mixed: half chance, half C",late,Any amendment in last 10% of term or after,0.3996,0.3034,0.0123,7.82
+E,"Mixed: half chance, half C",lift,Late-extension lift after earlier amendments,4.4768,10.7291,1.3092,-4.78
+E,"Mixed: half chance, half C",accel,P(next gap between amendments is shorter),0.478,0.4988,0.0172,-1.21
+E,"Mixed: half chance, half C",accel_pre,"Same, using only amendments before the last 10% of term",0.4925,0.4997,0.0186,-0.39
+E,"Mixed: half chance, half C",escal,P(second amendment larger than first),0.5497,0.4986,0.0141,3.62
+E,"Mixed: half chance, half C",cont,Rise in P(another amendment) from k=0 to k=3,0.2269,0.325,0.0173,-5.67
+E,"Mixed: half chance, half C",vendor,Vendor share of variance in amendment risk,0.0001,0.0043,0.0056,-0.77

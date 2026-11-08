@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="970" viewBox="0 0 1100 970" font-family="Helvetica, Arial, sans-serif" role="img">
+<title>Figure 1. Who buys off whose contract (sales dollars)</title>
+<rect width="1100" height="970" fill="#ffffff"/>
+<text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Figure 1. Who buys off whose contract (sales dollars)</text>
+<text x="24.0" y="60.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical piggybacking $34.5B (89% of cooperative sales); horizontal pooling $4.1B (11%); central purchasing $28.0B shown dotted.</text>
+<line x1="24.0" y1="88.0" x2="50.0" y2="88.0" stroke="#eb6834" stroke-width="4"/>
+<text x="56.0" y="92.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical down: locals on state/multi-state contracts</text>
+<line x1="405.6" y1="88.0" x2="431.6" y2="88.0" stroke="#2a78d6" stroke-width="4"/>
+<text x="437.6" y="92.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Horizontal: peers pooling</text>
+<line x1="617.1" y1="88.0" x2="643.1" y2="88.0" stroke="#1baf7a" stroke-width="4"/>
+<text x="649.1" y="92.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical up: state on local co-op</text>
+<line x1="24.0" y1="112.0" x2="50.0" y2="112.0" stroke="#9aa1a4" stroke-width="4" stroke-dasharray="1 5"/>
+<text x="56.0" y="116.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Central: own state&#x27;s contract</text>
+<line x1="260.7" y1="112.0" x2="286.7" y2="112.0" stroke="#b9bfc1" stroke-width="4" stroke-dasharray="6 5"/>
+<text x="292.7" y="116.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Direction unknown</text>
+<circle cx="30" cy="136" r="5" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="40.0" y="140.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">buyer</text>
+<rect x="90" y="131" width="10" height="10" rx="2" fill="#15191c"/>
+<text x="106.0" y="140.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">contract vehicle (node size = total volume; line width = volume of each link)</text>
+<rect x="12" y="170" width="1076" height="290" rx="10" fill="#f1f3f2"/>
+<rect x="12" y="510" width="1076" height="300" rx="10" fill="#f1f3f2"/>
+<text x="26.0" y="227.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">STATE BUYERS</text>
+<text x="26.0" y="242.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">agencies, universities, other states</text>
+<text x="26.0" y="397.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">STATE &amp; MULTI-STATE CONTRACTS</text>
+<text x="26.0" y="412.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">DIR, DES, NASPO, MMCAP</text>
+<text x="26.0" y="567.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">LOCAL COOPERATIVES</text>
+<text x="26.0" y="582.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Sourcewell, OMNIA, TIPS</text>
+<text x="26.0" y="737.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">LOCAL BUYERS</text>
+<text x="26.0" y="752.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">cities, counties, schools</text>
+<path d="M384.3,230.0 C384.3,315.0 458.0,315.0 458.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="16.20" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M507.1,740.0 C507.1,570.0 458.0,570.0 458.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="15.81" stroke-linecap="round"/>
+<path d="M630.0,740.0 C630.0,570.0 458.0,570.0 458.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="15.30" stroke-linecap="round"/>
+<path d="M875.7,740.0 C875.7,570.0 802.0,570.0 802.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="13.68" stroke-linecap="round"/>
+<path d="M998.6,230.0 C998.6,315.0 802.0,315.0 802.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="13.45" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M630.0,230.0 C630.0,315.0 458.0,315.0 458.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="11.79" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M998.6,740.0 C998.6,570.0 802.0,570.0 802.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="7.92" stroke-linecap="round"/>
+<path d="M752.9,230.0 C752.9,315.0 802.0,315.0 802.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="7.03" stroke-linecap="round"/>
+<path d="M875.7,740.0 C875.7,570.0 630.0,570.0 630.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="5.99" stroke-linecap="round"/>
+<path d="M875.7,230.0 C875.7,315.0 802.0,315.0 802.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="5.62" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M261.4,230.0 C261.4,315.0 286.0,315.0 286.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="5.51" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M998.6,230.0 C998.6,315.0 630.0,315.0 630.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="5.08" stroke-linecap="round"/>
+<path d="M752.9,230.0 C752.9,315.0 630.0,315.0 630.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="4.82" stroke-linecap="round"/>
+<path d="M507.1,230.0 C507.1,315.0 458.0,315.0 458.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="4.67" stroke-linecap="round"/>
+<path d="M261.4,740.0 C261.4,570.0 286.0,570.0 286.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="3.21" stroke-linecap="round"/>
+<path d="M998.6,740.0 C998.6,570.0 630.0,570.0 630.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="3.10" stroke-linecap="round"/>
+<path d="M875.7,230.0 C875.7,315.0 630.0,315.0 630.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.90" stroke-linecap="round"/>
+<path d="M261.4,230.0 C261.4,400.0 415.0,400.0 415.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.82" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M384.3,740.0 C384.3,570.0 286.0,570.0 286.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.63" stroke-linecap="round"/>
+<path d="M752.9,740.0 C752.9,570.0 630.0,570.0 630.0,400.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.32" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M752.9,740.0 C752.9,570.0 802.0,570.0 802.0,400.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.23" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M384.3,740.0 C384.3,655.0 415.0,655.0 415.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.11" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M261.4,740.0 C261.4,655.0 415.0,655.0 415.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.93" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M875.7,740.0 C875.7,570.0 974.0,570.0 974.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.61" stroke-linecap="round"/>
+<path d="M998.6,230.0 C998.6,315.0 974.0,315.0 974.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M875.7,230.0 C875.7,315.0 974.0,315.0 974.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.44" stroke-linecap="round"/>
+<path d="M998.6,740.0 C998.6,570.0 974.0,570.0 974.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.40" stroke-linecap="round"/>
+<path d="M875.7,740.0 C875.7,655.0 845.0,655.0 845.0,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.35" stroke-linecap="round"/>
+<path d="M998.6,740.0 C998.6,655.0 845.0,655.0 845.0,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.33" stroke-linecap="round"/>
+<path d="M998.6,230.0 C998.6,400.0 845.0,400.0 845.0,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.31" stroke-linecap="round"/>
+<path d="M875.7,230.0 C875.7,400.0 845.0,400.0 845.0,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.23" stroke-linecap="round"/>
+<circle cx="261.4" cy="230.0" r="6.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="261.4" y="202.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Delaware: state</text>
+<text x="261.4" y="215.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
+<circle cx="384.3" cy="230.0" r="11.1" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="384.3" y="197.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas: state</text>
+<text x="384.3" y="210.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
+<circle cx="507.1" cy="230.0" r="5.6" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="507.1" y="203.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Other states</text>
+<text x="507.1" y="216.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">(via Texas)</text>
+<circle cx="630.0" cy="230.0" r="9.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="630.0" y="200.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas: public</text>
+<text x="630.0" y="213.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">universities</text>
+<circle cx="752.9" cy="230.0" r="7.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="752.9" y="201.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Other states</text>
+<text x="752.9" y="214.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">(via Washington)</text>
+<circle cx="875.7" cy="230.0" r="6.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="875.7" y="189.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington:</text>
+<text x="875.7" y="202.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">public</text>
+<text x="875.7" y="215.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">universities</text>
+<circle cx="998.6" cy="230.0" r="10.1" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="998.6" y="198.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington:</text>
+<text x="998.6" y="211.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">state agencies</text>
+<rect x="279.7" y="393.7" width="12.7" height="12.7" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="286.0" y="372.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Delaware</text>
+<text x="286.0" y="385.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">statewide</text>
+<rect x="441.0" y="383.0" width="34.0" height="34.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="458.0" y="434.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas DIR</text>
+<rect x="622.4" y="392.4" width="15.2" height="15.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="630.0" y="384.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">NASPO ValuePoint</text>
+<rect x="788.5" y="386.5" width="27.0" height="27.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="802.0" y="430.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">WA DES statewide</text>
+<rect x="969.7" y="395.7" width="8.5" height="8.5" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="974.0" y="387.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">MMCAP</text>
+<rect x="410.1" y="565.1" width="9.9" height="9.9" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="415.0" y="531.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Delaware</text>
+<text x="415.0" y="544.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">external</text>
+<text x="415.0" y="557.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">cooperatives</text>
+<rect x="840.9" y="565.9" width="8.2" height="8.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="845.0" y="591.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Sourcewell</text>
+<circle cx="261.4" cy="740.0" r="5.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="261.4" y="762.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Delaware: school</text>
+<text x="261.4" y="775.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">districts</text>
+<circle cx="384.3" cy="740.0" r="4.8" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="384.3" y="761.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Delaware: local</text>
+<text x="384.3" y="774.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">governments</text>
+<circle cx="507.1" cy="740.0" r="10.9" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="507.1" y="767.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas: local</text>
+<text x="507.1" y="780.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">governments</text>
+<circle cx="630.0" cy="740.0" r="10.6" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="630.0" y="767.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas: school</text>
+<text x="630.0" y="780.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">districts</text>
+<circle cx="752.9" cy="740.0" r="4.7" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="752.9" y="761.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington:</text>
+<text x="752.9" y="774.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">tribal</text>
+<text x="752.9" y="787.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">governments</text>
+<circle cx="875.7" cy="740.0" r="10.3" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="875.7" y="767.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington:</text>
+<text x="875.7" y="780.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">local</text>
+<text x="875.7" y="793.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">governments</text>
+<circle cx="998.6" cy="740.0" r="7.3" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="998.6" y="764.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington:</text>
+<text x="998.6" y="777.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">school districts</text>
+<text x="24.0" y="924.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Sources: Texas DIR cooperative sales FY2010–FY2027; Washington DES statewide-contract sales 2015–2026; Delaware statewide and external-cooperative spend FY2023–FY2027.</text>
+<text x="24.0" y="942.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Federal links omitted (thin in these data): Washington: federal agencies → WA DES statewide $49M; Washington: federal agencies → NASPO ValuePoint $3M; Washington: federal agencies → MMCAP $17K.</text>
+</svg>

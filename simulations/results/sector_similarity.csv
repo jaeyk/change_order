@@ -1,0 +1,14 @@
+sector,contracts,cos_B_gaps,cos_C_spiral,cos_D_renewals,cos_E_mixed,fingerprints_deviating_from_chance,closest_world
+non_tech,278380,-0.412,0.745,0.711,0.812,6,E
+all_tech,46166,-0.439,0.71,0.648,0.764,7,E
+subsector:tech_general,20759,-0.446,0.764,0.746,0.764,7,C
+domain:general_enterprise_it,17646,-0.375,0.775,0.667,0.784,7,E
+subsector:software_saas,17482,-0.401,0.77,0.712,0.621,7,C
+domain:public_assistance,9483,-0.416,0.715,0.785,0.548,5,D
+domain:health_care,7710,-0.429,0.707,0.702,0.601,6,C
+subsector:hardware_telecom,4942,-0.389,0.651,0.648,0.702,6,E
+subsector:it_services,2983,-0.562,0.674,0.802,0.645,4,D
+domain:transportation,2651,-0.383,0.734,0.763,0.628,6,D
+domain:administration_finance,2602,-0.51,0.745,0.888,0.673,5,D
+domain:public_safety,2229,-0.384,0.736,0.757,0.674,5,D
+domain:environment,2059,-0.172,0.88,0.645,0.575,4,C

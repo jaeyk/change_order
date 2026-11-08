@@ -10,6 +10,7 @@ import sys
 import shutil
 import ssl
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -30,7 +31,7 @@ SSL_CONTEXT = ssl.create_default_context()
 # Datasets with a "query" are aggregated server-side with SoQL (the raw tables hold
 # millions of invoice lines); every other dataset is downloaded row-for-row.
 TX_DIR_GROUP_COLS = (
-    "fiscal_year,customer_type,contract_number,contract_type,contract_subtype,"
+    "fiscal_year,customer_type,rfo_number,contract_number,contract_type,contract_subtype,"
     "vendor_name,vendor_hub_type,reseller_name,reseller_hub_type"
 )
 
@@ -93,11 +94,34 @@ DATASETS: dict[str, dict[str, Any]] = {
     "delaware_central_spend": {"group": "cooperative", "domain": "data.delaware.gov", "dataset_id": "sifm-293u"},
 }
 
-GROUPS = ("primary", "secondary", "expansion", "cooperative")
+# ---- reseller evidence --------------------------------------------------------------
+# Federal Supply Schedule contracts (GSA MAS + VA FSS) from USASpending, award type IDV_C.
+# Used (1) as extra reseller evidence -- holders registered under wholesale/retail NAICS
+# (42, 44-45) are dealers -- and (2) for the vendor-qualification covariate (GSA MAS holder).
+DATASETS["federal_supply_schedules"] = {
+    "group": "federal_schedules",
+    "source": "usaspending",
+    "endpoint": "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+    "filters": {
+        "award_type_codes": ["IDV_C"],
+        "time_period": [{"start_date": "2007-10-01", "end_date": datetime.now(timezone.utc).strftime("%Y-%m-%d")}],
+    },
+    "fields": [
+        "Award ID", "Recipient Name", "Recipient UEI", "Start Date", "End Date", "Last Date to Order",
+        "Awarding Agency", "Awarding Sub Agency", "Description", "NAICS", "PSC", "Contract Award Type",
+    ],
+}
+
+GROUPS = ("primary", "secondary", "expansion", "cooperative", "federal_schedules")
 
 
-def get_json(url: str) -> Any:
-    request = Request(url, headers={"User-Agent": "change-order-research/1.0"})
+def get_json(url: str, payload: dict[str, Any] | None = None) -> Any:
+    """GET (or POST a JSON payload) and decode the JSON response."""
+    data = json.dumps(payload).encode() if payload is not None else None
+    headers = {"User-Agent": "change-order-research/1.0"}
+    if data is not None:
+        headers["Content-Type"] = "application/json"
+    request = Request(url, data=data, headers=headers)
     try:
         with urlopen(request, context=SSL_CONTEXT, timeout=300) as response:
             return json.load(response)
@@ -106,12 +130,55 @@ def get_json(url: str) -> Any:
         # Fall back to curl, which uses the system certificates, instead of disabling
         # certificate verification.
         if "CERTIFICATE_VERIFY_FAILED" in str(e) and shutil.which("curl"):
-            out = subprocess.run(
-                ["curl", "-sSfL", "--max-time", "600", "-A", "change-order-research/1.0", url],
-                capture_output=True, check=True,
-            )
+            cmd = ["curl", "-sSfL", "--max-time", "600", "-A", "change-order-research/1.0"]
+            if data is not None:
+                cmd += ["-X", "POST", "-H", "Content-Type: application/json", "--data-binary", "@-"]
+            out = subprocess.run(cmd + [url], input=data, capture_output=True, check=True)
             return json.loads(out.stdout)
         raise
+
+
+def fetch_usaspending(config: dict[str, Any], page_size: int = 100) -> list[dict[str, Any]]:
+    """Keyset-paginate USASpending's spending_by_award search (avoids deep-page limits)."""
+    records: list[dict[str, Any]] = []
+    last_id: Any = None
+    last_sort: Any = None
+    while True:
+        payload: dict[str, Any] = {
+            "filters": config["filters"],
+            "fields": config["fields"],
+            "limit": min(page_size, 100),
+            "sort": "Award ID",
+            "order": "asc",
+            "page": 1,
+        }
+        if last_id is not None:
+            payload["last_record_unique_id"] = last_id
+            payload["last_record_sort_value"] = last_sort
+        for attempt in range(6):
+            try:
+                page = get_json(config["endpoint"], payload)
+                break
+            except (HTTPError, URLError, TimeoutError, subprocess.CalledProcessError) as err:
+                if attempt == 5:
+                    raise
+                wait = 5 * 2 ** attempt
+                print(f"  request failed ({err}); retrying in {wait}s", file=sys.stderr)
+                time.sleep(wait)
+        rows = page.get("results", [])
+        for r in rows:
+            for key in ("NAICS", "PSC"):
+                v = r.pop(key, None) or {}
+                r[f"{key.lower()}_code"] = v.get("code") if isinstance(v, dict) else v
+                r[f"{key.lower()}_description"] = v.get("description") if isinstance(v, dict) else ""
+        records.extend(rows)
+        if len(records) % 5000 < len(rows) or not rows:
+            print(f"  fetched {len(records):,} records", file=sys.stderr)
+        meta = page.get("page_metadata", {})
+        if not rows or not meta.get("hasNext"):
+            print(f"  fetched {len(records):,} records", file=sys.stderr)
+            return records
+        last_id, last_sort = meta.get("last_record_unique_id"), meta.get("last_record_sort_value")
 
 
 def fetch_records(
@@ -145,6 +212,19 @@ def write_dataset(
     config: dict[str, Any],
     page_size: int,
 ) -> None:
+    if config.get("source") == "usaspending":
+        print(f"Downloading {name} from {config['endpoint']}", file=sys.stderr)
+        records = fetch_usaspending(config)
+        metadata_record = {
+            "downloaded_at_utc": datetime.now(timezone.utc).isoformat(),
+            "source_url": config["endpoint"],
+            "group": config["group"],
+            "filters": config["filters"],
+            "record_count": len(records),
+        }
+        _write_outputs(output_dir / name, metadata_record, records)
+        return
+
     domain = config["domain"]
     dataset_id = config["dataset_id"]
     metadata_url = f"https://{domain}/api/views/{dataset_id}"
@@ -153,9 +233,6 @@ def write_dataset(
     print(f"Downloading {name} from {source_url}", file=sys.stderr)
     metadata = get_json(metadata_url)
     records = fetch_records(domain, dataset_id, page_size, config.get("query"))
-    destination = output_dir / name
-    destination.mkdir(parents=True, exist_ok=True)
-
     metadata_record = {
         "downloaded_at_utc": datetime.now(timezone.utc).isoformat(),
         "source_url": source_url,
@@ -167,6 +244,11 @@ def write_dataset(
         "record_count": len(records),
         "metadata": metadata,
     }
+    _write_outputs(output_dir / name, metadata_record, records)
+
+
+def _write_outputs(destination: Path, metadata_record: dict[str, Any], records: list[dict[str, Any]]) -> None:
+    destination.mkdir(parents=True, exist_ok=True)
     (destination / "metadata.json").write_text(
         json.dumps(metadata_record, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",

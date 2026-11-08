@@ -15,16 +15,30 @@ from typing import Any
 from cooperative_and_resellers import (
     STATE_MASTER,
     agency_key,
+    build_award_structure,
     build_cooperative_sales,
+    build_vendor_qualifications,
     build_reseller_registry,
     build_reseller_relationships,
     contract_key,
+    coop_direction,
     detect_coop_vehicle,
     harmonize_flags_cert,
     harmonize_wa_cert,
     load_wa_it_coop_flags,
+    normalize_vendor_name,
     procurement_channel,
+    vendor_qualification,
 )
+
+# Ledgers whose published extracts carry no usable amendment history:
+#   baton_rouge -- one header + line items per PO, single snapshot date, no versions
+#   nyc_sca     -- change-order-only file (every contract selected on the outcome)
+#   vermont     -- repeated rows are duplicates; max amount never changes across rows
+#   austin      -- one version per document in the published extract
+# They stay in the data (certifications, cooperative tags, award structure) but are
+# excluded from amendment-rate comparisons and regressions.
+NO_AMENDMENT_HISTORY = {"baton_rouge", "nyc_sca", "vermont", "austin"}
 
 # State and level of government for each normalized jurisdiction.
 JURISDICTION_META: dict[str, tuple[str, str]] = {
@@ -276,6 +290,17 @@ def process_chicago(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
         vendor = primary.get("vendor_name") or ""
         desc = primary.get("purchase_order_description") or ""
         ctype = primary.get("contract_type") or ""
+        ptype = (primary.get("procurement_type") or "").strip()
+        # Chicago records the procurement method explicitly:
+        #   REFERENCE CONTRACT = buying off another government's contract (piggyback)
+        #   JOINT PURCHASE     = joint solicitation with sister agencies (CHA, CPS, Park District...)
+        #   MASTER AGREEMENT   = the City's own master agreement (not cooperative)
+        if ptype.upper() == "REFERENCE CONTRACT":
+            vehicle = detect_coop_vehicle(desc) or "other_cooperative"
+        elif ptype.upper() == "JOINT PURCHASE":
+            vehicle = "local_joint_purchase"
+        else:
+            vehicle = detect_coop_vehicle(desc)
 
         orig_val = sum(clean_currency(r.get("award_amount")) for r in base_rows)
         added_val = sum(clean_currency(r.get("award_amount")) for r in rev_rows)
@@ -309,6 +334,8 @@ def process_chicago(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
             "start_date": format_date(start_dt),
             "end_date": format_date(end_dt),
             "duration_days": duration_days if duration_days is not None else "",
+            "coop_vehicle": vehicle,
+            "procurement_method": ptype,
         })
 
         for idx, ar in enumerate(rev_rows, 1):
@@ -389,6 +416,9 @@ def process_oregon(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
             "start_date": format_date(start_dt),
             "end_date": format_date(end_dt),
             "duration_days": duration_days if duration_days is not None else "",
+            # ORPIN "Price Agreement" = DAS statewide price agreement (central state contract)
+            "coop_vehicle": detect_coop_vehicle(title) or (STATE_MASTER if atype == "Price Agreement" else ""),
+            "procurement_method": atype,
         })
 
         for r in rows[1:]:
@@ -465,6 +495,13 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
         desc = f"{primary.get('purpose_of_the_contract') or ''} {primary.get('purpose_of_the_contract_1') or ''}".strip()
         proc_type = primary.get("procurement_type") or primary.get("procurement_type_competitive") or ""
 
+        start_key = lambda x: str(x.get("contract_effective_start") or x.get("period_of_performance_start") or "")
+        pvendor = normalize_vendor_name(primary.get("contractor_name_search_for") or primary.get("contractor_name") or "")
+        # Rows on the original start date from *other* contractors are co-awardees (multiple
+        # award), not amendments.
+        co_awardees = [r for r in rows[1:] if start_key(r) == start_key(primary) and normalize_vendor_name(
+            r.get("contractor_name_search_for") or r.get("contractor_name") or "") != pvendor]
+        rows = [r for r in rows if not any(r is c for c in co_awardees)]
         costs = [clean_currency(r.get("cost_of_contract") or r.get("state_amount")) for r in rows]
         orig_val = costs[0] if costs else 0.0
         final_val = max(costs) if costs else orig_val
@@ -511,7 +548,10 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
             "end_date": format_date(end_dt),
             "duration_days": duration_days if duration_days is not None else "",
             "coop_vehicle": vehicle,
+            "procurement_method": proc_type,
             "vendor_certification": cert,
+            "n_contractors": 1 + len({normalize_vendor_name(
+                r.get("contractor_name_search_for") or r.get("contractor_name") or "") for r in co_awardees}),
         })
 
         for r in rows[1:]:
@@ -531,6 +571,13 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
 
 
 def process_baton_rouge(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Baton Rouge purchase orders.
+
+    Each source_document has exactly one header row (record_type 'H', carrying the PO total)
+    and N line-item rows ('D', item_number 1..N, amount 0). There is a single input date per
+    document and no version / change-order field, so the ledger is a current snapshot:
+    amendments are NOT observable. Line items are counted, not treated as amendments.
+    """
     path = raw_dir / "baton_rouge" / "records.json"
     if not path.exists():
         return [], []
@@ -544,28 +591,16 @@ def process_baton_rouge(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[
             groups[sdoc].append(r)
 
     contract_rows = []
-    amendment_rows = []
-
     for sdoc, rows in groups.items():
-        primary = rows[0]
+        headers = [r for r in rows if r.get("record_type") == "H"]
+        primary = headers[0] if headers else rows[0]
         dept = primary.get("dept_name") or ""
         vendor = primary.get("vendor_name_1") or ""
         desc = primary.get("source_doc_desc") or ""
         comm = primary.get("source_doc_type_description") or ""
-
-        # Amounts
-        amounts = [clean_currency(r.get("total_amount")) for r in rows]
-        orig_val = amounts[0] if amounts else 0.0
-        final_val = max(amounts) if amounts else orig_val
-        delta_val = final_val - orig_val
-
+        value = clean_currency(primary.get("total_amount"))
         start_dt = parse_iso_date(primary.get("input_date"))
-
         is_tech, subsector, domain = classify_contract(desc, dept, comm, vendor)
-        amend_count = len(rows) - 1
-        is_amended = 1 if amend_count > 0 or delta_val != 0 else 0
-        pct_growth = (delta_val / orig_val * 100.0) if orig_val > 0 else 0.0
-
         contract_rows.append({
             "jurisdiction": "baton_rouge",
             "contract_id": sdoc,
@@ -576,12 +611,14 @@ def process_baton_rouge(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[
             "is_tech": is_tech,
             "tech_subsector": subsector,
             "tech_domain": domain,
-            "initial_award_val": orig_val,
-            "final_award_val": final_val,
-            "delta_val": delta_val,
-            "pct_growth": round(pct_growth, 2),
-            "amendment_count": amend_count,
-            "is_amended": is_amended,
+            "initial_award_val": value,
+            "final_award_val": value,
+            "delta_val": 0.0,
+            "pct_growth": 0.0,
+            "amendment_count": 0,
+            "is_amended": 0,
+            "amendment_observable": 0,
+            "n_line_items": sum(1 for r in rows if r.get("record_type") == "D"),
             "start_date": format_date(start_dt),
             "end_date": "",
             "duration_days": "",
@@ -591,21 +628,7 @@ def process_baton_rouge(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[
                 vet=primary.get("vet_sm_bus"),
             ),
         })
-
-        for idx, r in enumerate(rows[1:], 1):
-            a_dt = parse_iso_date(r.get("input_date"))
-            a_amt = clean_currency(r.get("total_amount"))
-            amendment_rows.append({
-                "jurisdiction": "baton_rouge",
-                "contract_id": sdoc,
-                "amendment_seq": idx,
-                "amendment_date": format_date(a_dt),
-                "delta_amount": a_amt,
-                "category": r.get("source_doc_status_description") or "Adjustment",
-                "description": r.get("source_doc_desc") or "",
-            })
-
-    return contract_rows, amendment_rows
+    return contract_rows, []
 
 
 def process_nyc_sca(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -637,6 +660,7 @@ def process_nyc_sca(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
 
         contract_rows.append({
             "jurisdiction": "nyc_sca",
+            "amendment_observable": 0,  # change-order-only file: every contract is selected on the outcome
             "contract_id": cid,
             "title_desc": desc,
             "department": dept,
@@ -694,13 +718,20 @@ def process_vermont(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
         desc = primary.get("description") or ""
         comm = primary.get("type") or ""
 
-        orig_val = clean_currency(primary.get("max_amount"))
+        # Repeated rows are mostly duplicates with blank dates; a change in the maximum amount
+        # is the observable amendment signal.
+        dated = [r for r in rows if r.get("start_date")] or rows
+        primary = dated[0]
+        amounts = [clean_currency(r.get("max_amount")) for r in dated]
+        distinct_amounts = list(dict.fromkeys(a for a in amounts if a))
+        orig_val = distinct_amounts[0] if distinct_amounts else 0.0
+        final_val = max(distinct_amounts) if distinct_amounts else orig_val
         start_dt = parse_iso_date(primary.get("start_date"))
-        end_dt = parse_iso_date(primary.get("exp_date"))
+        end_dt = parse_iso_date(max((str(r.get("exp_date") or "") for r in dated), default="") or None)
         duration_days = (end_dt - start_dt).days if (start_dt and end_dt and end_dt >= start_dt) else None
 
         is_tech, subsector, domain = classify_contract(desc, dept, comm, vendor)
-        amend_count = len(rows) - 1
+        amend_count = max(len(distinct_amounts) - 1, 0)
 
         contract_rows.append({
             "jurisdiction": "vermont",
@@ -713,9 +744,9 @@ def process_vermont(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
             "tech_subsector": subsector,
             "tech_domain": domain,
             "initial_award_val": orig_val,
-            "final_award_val": orig_val,
-            "delta_val": 0.0,
-            "pct_growth": 0.0,
+            "final_award_val": final_val,
+            "delta_val": final_val - orig_val,
+            "pct_growth": round((final_val - orig_val) / orig_val * 100.0, 2) if orig_val > 0 else 0.0,
             "amendment_count": amend_count,
             "is_amended": 1 if amend_count > 0 else 0,
             "start_date": format_date(start_dt),
@@ -748,7 +779,10 @@ def process_austin(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
         except Exception:
             pass
         base = rows[0]
-        final = rows[-1]
+        # Several vendor lines can share a version (co-awardees on one master agreement);
+        # amendments are additional versions, not additional vendor lines.
+        versions = sorted({_int(r.get("doc_vers_no")) for r in rows})
+        final = [r for r in rows if _int(r.get("doc_vers_no")) == versions[-1]][0]
         dept = base.get("doc_dept_cd") or ""
         vendor = base.get("lgl_nm") or ""
         desc = base.get("doc_dscr") or ""
@@ -763,7 +797,7 @@ def process_austin(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
         duration_days = (end_dt - start_dt).days if (start_dt and end_dt and end_dt >= start_dt) else None
 
         is_tech, subsector, domain = classify_contract(desc, dept, comm, vendor)
-        amend_count = len(rows) - 1
+        amend_count = len(versions) - 1
         pct_growth = (delta_val / orig_val * 100.0) if orig_val > 0 else 0.0
 
         contract_rows.append({
@@ -785,6 +819,9 @@ def process_austin(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
             "start_date": format_date(start_dt),
             "end_date": format_date(end_dt),
             "duration_days": duration_days if duration_days is not None else "",
+            "procurement_method": base.get("rpt_dscr") or "",
+            "coop_vehicle": detect_coop_vehicle(desc) or (
+                "other_cooperative" if "cooperative" in f"{base.get('rpt_dscr')} {comm}".lower() else ""),
         })
 
     return contract_rows, amendment_rows
@@ -813,11 +850,17 @@ def process_oregon_lottery(raw_dir: Path) -> tuple[list[dict[str, Any]], list[di
         desc = primary.get("contract_description") or ""
         comm = primary.get("line_item_description") or ""
 
-        orig_val = sum(clean_currency(r.get("net_amount")) for r in rows)
-        start_dt = parse_iso_date(primary.get("created"))
+        # Rows are PO line items. A change order shows up as lines created on a later date,
+        # so amendments = distinct creation dates after the first (not the number of lines).
+        dates = sorted({str(r.get("created") or "")[:10] for r in rows} - {""})
+        first = dates[0] if dates else ""
+        orig_val = sum(clean_currency(r.get("net_amount")) for r in rows
+                       if str(r.get("created") or "")[:10] == first or not first)
+        final_val = sum(clean_currency(r.get("net_amount")) for r in rows)
+        start_dt = parse_iso_date(first) if first else parse_iso_date(primary.get("created"))
 
         is_tech, subsector, domain = classify_contract(desc, dept, comm, vendor)
-        amend_count = len(rows) - 1
+        amend_count = max(len(dates) - 1, 0)
 
         contract_rows.append({
             "jurisdiction": "oregon_lottery",
@@ -830,11 +873,12 @@ def process_oregon_lottery(raw_dir: Path) -> tuple[list[dict[str, Any]], list[di
             "tech_subsector": subsector,
             "tech_domain": domain,
             "initial_award_val": orig_val,
-            "final_award_val": orig_val,
-            "delta_val": 0.0,
-            "pct_growth": 0.0,
+            "final_award_val": final_val,
+            "delta_val": final_val - orig_val,
+            "pct_growth": round((final_val - orig_val) / orig_val * 100.0, 2) if orig_val > 0 else 0.0,
             "amendment_count": amend_count,
             "is_amended": 1 if amend_count > 0 else 0,
+            "n_line_items": len(rows),
             "start_date": format_date(start_dt),
             "end_date": "",
             "duration_days": "",
@@ -1008,6 +1052,68 @@ def process_west_hollywood(raw_dir: Path) -> tuple[list[dict[str, Any]], list[di
     return contract_rows, []
 
 
+def _int(v: Any) -> int:
+    try:
+        return int(float(v))
+    except (TypeError, ValueError):
+        return 0
+
+
+# (dataset dir, contract-id field, vendor field, id transform, version fn) used to count
+# distinct contractors on the ORIGINAL award of each contract ID. Counting only the lowest
+# version keeps vendor renames on later revisions from looking like multiple awards (which
+# would mechanically correlate with being amended).
+CONTRACTOR_COUNT_SPECS = {
+    "cook_county": ("cook_county", "contract_number", "vendor_name", None,
+                    lambda r: 0 if (r.get("category") or {}).get("description") == "New Contract" else 1),
+    "chicago": ("chicago", "purchase_order_contract_number", "vendor_name", None,
+                lambda r: _int(r.get("revision_number"))),
+    "oregon": ("oregon_orpin", "document_number", "contractor_information", None,
+               lambda r: _int(r.get("amendment_number"))),
+    "baton_rouge": ("baton_rouge", "source_document", "vendor_name_1", None, lambda r: 0),
+    "austin": ("austin", "doc_id", "lgl_nm", None, lambda r: _int(r.get("doc_vers_no"))),
+    "vermont": ("vermont", "contract", "vendor_name", None, lambda r: 0),
+    "oregon_lottery": ("oregon_lottery", "purchase_order", "vendor", None, lambda r: 0),
+    "oregon_judicial": ("oregon_judicial", "award_number", "company_name",
+                        lambda a: a.rpartition("-")[0] if a.rpartition("-")[2].isdigit() and a.rpartition("-")[0] else a,
+                        lambda r: _int(r.get("fiscal_year"))),
+    "oregon_treasury": ("oregon_treasury", "contract_id", "contractor_name", None, lambda r: _int(r.get("fiscal_year"))),
+    "west_hollywood": ("west_hollywood", "contract_number", "contractor_name", None, lambda r: 0),
+    "nyc_sca": ("nyc_sca", "change_order_project_sca_contract_identifier", "change_order_project_to_vendor_", None,
+                lambda r: 0),
+}
+
+
+def count_contractors(raw_dir: Path) -> dict[tuple[str, str], int]:
+    """Distinct contractors on the original (lowest-version) award of each contract ID."""
+    best: dict[tuple[str, str], tuple[int, set[str]]] = {}
+    for jur, (ds, id_field, vendor_field, fn, version) in CONTRACTOR_COUNT_SPECS.items():
+        path = raw_dir / ds / "records.json"
+        if not path.exists():
+            continue
+        with path.open(encoding="utf-8") as f:
+            for r in json.load(f):
+                cid = r.get(id_field)
+                v = normalize_vendor_name(r.get(vendor_field) or "")
+                if not cid or not v:
+                    continue
+                cid = fn(str(cid).strip()) if fn else cid
+                ver = version(r)
+                key = (jur, cid)
+                cur = best.get(key)
+                if cur is None or ver < cur[0]:
+                    best[key] = (ver, {v})
+                elif ver == cur[0]:
+                    cur[1].add(v)
+    return {k: len(v[1]) for k, v in best.items()}
+
+
+def award_structure(n_contractors: int, vendor_role: str) -> str:
+    base = "multiple_award" if n_contractors > 1 else "single_award"
+    role = "reseller" if vendor_role == "authorized_reseller" else "prime_direct"
+    return f"{base}_{role}"
+
+
 def main() -> int:
     raw_dir = Path("data/raw")
     out_dir = Path("data/processed")
@@ -1044,15 +1150,27 @@ def main() -> int:
     registry = build_reseller_registry(raw_dir)
     print(f"  {len(registry.exact):,} firms classified as resellers from observed relationships "
           f"(+{len(registry.prefixes)} curated VAR prefixes)", file=sys.stderr)
+    quals = build_vendor_qualifications(raw_dir)
+    print(f"  {len(quals):,} vendors with observed contract-vehicle qualifications", file=sys.stderr)
+    contractor_counts = count_contractors(raw_dir)
     for c in all_contracts:
+        if not c.get("n_contractors"):
+            c["n_contractors"] = contractor_counts.get((c["jurisdiction"], c["contract_id"]), 1)
         state, level = JURISDICTION_META.get(c["jurisdiction"], ("", ""))
         c["state"] = state
         c["gov_level"] = level
         vehicle = c.get("coop_vehicle") or detect_coop_vehicle(c["title_desc"], c["commodity_or_type"])
         c["coop_vehicle"] = vehicle
-        c["procurement_channel"] = procurement_channel(vehicle)
+        direction = coop_direction(vehicle, level, state)
+        c["coop_direction"] = direction
+        c["procurement_channel"] = procurement_channel(vehicle, direction)
         c["vendor_role"] = registry.role(c["vendor_name"])
         c["vendor_certification"] = c.get("vendor_certification") or "not_reported"
+        c["award_structure"] = award_structure(c["n_contractors"], c["vendor_role"])
+        c["amendment_observable"] = 0 if c["jurisdiction"] in NO_AMENDMENT_HISTORY else 1
+        c.setdefault("n_line_items", "")
+        c.setdefault("procurement_method", "")
+        c.update(vendor_qualification(quals, c["vendor_name"]))
 
     # Write contracts CSV
     contract_fields = [
@@ -1060,7 +1178,9 @@ def main() -> int:
         "commodity_or_type", "is_tech", "tech_subsector", "tech_domain", "initial_award_val",
         "final_award_val", "delta_val", "pct_growth", "amendment_count",
         "is_amended", "start_date", "end_date", "duration_days",
-        "coop_vehicle", "procurement_channel", "vendor_role", "vendor_certification",
+        "coop_vehicle", "coop_direction", "procurement_channel", "vendor_role", "vendor_certification",
+        "n_contractors", "award_structure", "amendment_observable", "n_line_items", "procurement_method",
+        "qualification_tier", "gsa_mas_holder", "n_vehicles_held", "fss_holder_role",
     ]
     with (out_dir / "contracts_normalized.csv").open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=contract_fields)
@@ -1096,6 +1216,25 @@ def main() -> int:
             writer.writeheader()
             writer.writerows(rel)
     print(f"  reseller_relationships.csv: {len(rel):,} rows", file=sys.stderr)
+    # Contract-vehicle qualifications per vendor (covariates)
+    qrows = sorted(quals.values(), key=lambda r: r["vendor_key"])
+    if qrows:
+        with (out_dir / "vendor_qualifications.csv").open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=list(qrows[0]))
+            writer.writeheader()
+            writer.writerows(qrows)
+    print(f"  vendor_qualifications.csv: {len(qrows):,} rows", file=sys.stderr)
+
+    # Single vs. multiple award, prime-direct vs. resellers, for cooperative vehicles
+    awards = build_award_structure(raw_dir)
+    if awards:
+        fields = list(dict.fromkeys(k for r in awards for k in r))
+        with (out_dir / "award_structure.csv").open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fields)
+            writer.writeheader()
+            writer.writerows(awards)
+    print(f"  award_structure.csv: {len(awards):,} rows", file=sys.stderr)
+
     with (out_dir / "reseller_registry.csv").open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=["reseller_key", "reseller_relationships", "prime_contracts",
                                                "classified_as_reseller", "sources"])

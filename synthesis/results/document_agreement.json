@@ -1,0 +1,17 @@
+{
+ "reviewed": 47,
+ "decidable": 38,
+ "agreement": 0.921,
+ "precision_by_automated_code": {
+  "re-competition delayed": "10/10",
+  "no cause stated": "16/16",
+  "design": "2/3",
+  "neutral": "3/4",
+  "chance": "4/5"
+ },
+ "confusion": {
+  "auto=design | manual=re-competition delayed": 1,
+  "auto=chance | manual=no cause stated": 1,
+  "auto=neutral | manual=design": 1
+ }
+}

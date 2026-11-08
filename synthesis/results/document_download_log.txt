@@ -1,0 +1,85 @@
+[2/300] 13526_r1: 200 image/png
+[3/300] 18455_r1: 200 image/png
+[5/300] 11238_r1: 200 image/png
+[7/300] 18369_r2: 200 image/png
+[9/300] 11471_r1: 200 image/png
+[16/300] 11247_r1: 200 image/png
+[18/300] 3858_r1: 200 image/png
+[22/300] T28052_r2: 200 image/png
+[25/300] T24572_r1: 200 image/png
+[31/300] T27896_r3: 200 image/png
+[35/300] 13942_r8: 200 image/png
+[36/300] T27262_r1: 200 image/png
+[39/300] downloaded 25
+[43/300] T27535_r6: 200 image/png
+[44/300] T26138_r5: 200 image/png
+[49/300] 611_r7: 200 image/png
+[60/300] T28191_r5: 200 image/png
+[62/300] 1941_r2: 200 image/png
+[66/300] 18741_r4: 200 image/png
+[67/300] 13247_r1: 200 image/png
+[72/300] downloaded 50
+[80/300] 11443_r3: 200 image/png
+[82/300] 18874_r3: 200 image/png
+[84/300] 40_r4: 200 image/png
+[93/300] 3220_r2: 200 image/png
+[95/300] 40_r3: 200 image/png
+[102/300] downloaded 75
+[105/300] 18874_r4: 200 image/png
+[108/300] P011818_r8: 200 image/png
+[121/300] 9711_r1: 200 image/png
+[124/300] 16570_r1: 200 image/png
+[132/300] downloaded 100
+[137/300] T26130_r2: 200 image/png
+[141/300] 9092_r2: 200 image/png
+[143/300] 12010_r6: 200 image/png
+[147/300] 17610_r2: 200 image/png
+[152/300] P012091_r2: 200 image/png
+[154/300] 16243_r2: 200 image/png
+[157/300] 8832_r17: 200 image/png
+[164/300] downloaded 125
+[168/300] 19576_r5: 200 image/png
+[171/300] 15746_r4: 200 image/png
+[173/300] 6970_r11: 200 image/png
+[176/300] 10120_r8: 200 image/png
+[177/300] D2952390860_r5: 200 image/png
+[178/300] T28236_r6: 200 image/png
+[185/300] 12456_r1: 200 image/png
+[187/300] 9291_r2: 200 image/png
+[189/300] T27781_r1: 200 image/png
+[191/300] T28227_r3: 200 image/png
+[199/300] downloaded 150
+[200/300] 25379_r1: 200 image/png
+[209/300] T28227_r5: 200 image/png
+[211/300] 20689_r2: 200 image/png
+[226/300] T28227_r16: 200 image/png
+[229/300] downloaded 175
+[230/300] T27781_r6: 200 image/png
+[242/300] 6599_r2: 200 image/png
+[245/300] D1948551281_r2: 200 image/png
+[251/300] 8803_r3: 200 image/png
+[258/300] downloaded 200
+[260/300] 12208_r1: 200 image/png
+[266/300] 18826_r2: 200 image/png
+[270/300] 9965_r3: 200 image/png
+[273/300] 18869_r2: 200 image/png
+[279/300] 8095_r2: 200 image/png
+[281/300] 22310_r15: 200 image/png
+[282/300] 18873_r4: 200 image/png
+[283/300] 12457_r89: 200 image/png
+[286/300] 4711_r49: 200 image/png
+[288/300] 2036_r9: 200 image/png
+[290/300] 12129_r108: 200 image/png
+[293/300] P011889_r26: 200 image/png
+[296/300] downloaded 225
+downloaded 229 new documents; total on disk 235
+OCR 25
+OCR 50
+OCR 75
+OCR 100
+OCR 125
+OCR 150
+OCR 175
+OCR 200
+OCR 225
+OCR'd 229 documents

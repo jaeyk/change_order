@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="600" viewBox="0 0 1320 600" font-family="Helvetica, Arial, sans-serif" role="img">
+<title>Figure 3. Amendments snowball contract value</title>
+<rect width="1320" height="600" fill="#ffffff"/>
+<text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Figure 3. Amendments snowball contract value</text>
+<text x="24.0" y="58.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Contract value as a multiple of the original award (geometric mean), Chicago, Cook County and Oregon ledgers (contracts ≥ $1,000).</text>
+<text x="24.0" y="86.0" font-size="14" fill="#15191c" text-anchor="start" font-weight="bold">A. Value path, amendment by amendment</text>
+<text x="24.0" y="104.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Same contracts throughout: those amended at least 6 times</text>
+<line x1="64.0" y1="455.3" x2="474.0" y2="455.3" stroke="#dfe3e1" stroke-width="1"/>
+<text x="56.0" y="459.3" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">1×</text>
+<line x1="64.0" y1="343.5" x2="474.0" y2="343.5" stroke="#dfe3e1" stroke-width="1"/>
+<text x="56.0" y="347.5" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">1.5×</text>
+<line x1="64.0" y1="231.8" x2="474.0" y2="231.8" stroke="#dfe3e1" stroke-width="1"/>
+<text x="56.0" y="235.8" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">2×</text>
+<line x1="64.0" y1="120.0" x2="474.0" y2="120.0" stroke="#dfe3e1" stroke-width="1"/>
+<text x="56.0" y="124.0" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">2.5×</text>
+<text x="64.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">0</text>
+<text x="132.3" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">1</text>
+<text x="200.7" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">2</text>
+<text x="269.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">3</text>
+<text x="337.3" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">4</text>
+<text x="405.7" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">5</text>
+<text x="474.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">6</text>
+<text x="269.0" y="538.0" font-size="12" fill="#4d5458" text-anchor="middle" font-weight="normal">Amendments so far</text>
+<polyline points="64.0,455.3 132.3,425.5 200.7,400.8 269.0,321.9 337.3,233.8 405.7,192.2 474.0,139.9" fill="none" stroke="#eb6834" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="64.0" cy="455.3" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="132.3" cy="425.5" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="200.7" cy="400.8" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="269.0" cy="321.9" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="337.3" cy="233.8" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="405.7" cy="192.2" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="474.0" cy="139.9" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<polyline points="64.0,455.3 132.3,421.6 200.7,393.4 269.0,347.3 337.3,292.1 405.7,259.5 474.0,226.0" fill="none" stroke="#eda100" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="64.0" cy="455.3" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="132.3" cy="421.6" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="200.7" cy="393.4" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="269.0" cy="347.3" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="337.3" cy="292.1" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="405.7" cy="259.5" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="474.0" cy="226.0" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<polyline points="64.0,455.3 132.3,419.8 200.7,390.8 269.0,418.0 337.3,326.3 405.7,297.5 474.0,270.7" fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="64.0" cy="455.3" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="132.3" cy="419.8" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="200.7" cy="390.8" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="269.0" cy="418.0" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="337.3" cy="326.3" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="405.7" cy="297.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="474.0" cy="270.7" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<polyline points="64.0,455.3 132.3,475.1 200.7,443.5 269.0,451.8 337.3,411.6 405.7,389.1 474.0,370.5" fill="none" stroke="#1baf7a" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="64.0" cy="455.3" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="132.3" cy="475.1" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="200.7" cy="443.5" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="269.0" cy="451.8" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="337.3" cy="411.6" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="405.7" cy="389.1" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="474.0" cy="370.5" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<polyline points="64.0,455.3 132.3,428.4 200.7,403.9 269.0,386.1 337.3,370.1 405.7,355.6 474.0,342.2" fill="none" stroke="#9aa1a4" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<circle cx="64.0" cy="455.3" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="132.3" cy="428.4" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="200.7" cy="403.9" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="269.0" cy="386.1" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="337.3" cy="370.1" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="405.7" cy="355.6" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="474.0" cy="342.2" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<text x="484.0" y="143.9" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Hardware &amp; telecom 2.41×  (n=82)</text>
+<text x="484.0" y="230.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">General technology 2.03×  (n=361)</text>
+<text x="484.0" y="274.7" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Software &amp; SaaS 1.83×  (n=76)</text>
+<text x="484.0" y="346.2" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Non-technology 1.51×  (n=4107)</text>
+<text x="484.0" y="374.5" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">IT services 1.38×  (n=20)</text>
+<text x="680.0" y="86.0" font-size="14" fill="#15191c" text-anchor="start" font-weight="bold">B. Final value by total number of amendments</text>
+<text x="680.0" y="104.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">All contracts; points need ≥ 10 contracts</text>
+<line x1="720.0" y1="465.5" x2="1130.0" y2="465.5" stroke="#dfe3e1" stroke-width="1"/>
+<text x="712.0" y="469.5" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">1×</text>
+<line x1="720.0" y1="379.1" x2="1130.0" y2="379.1" stroke="#dfe3e1" stroke-width="1"/>
+<text x="712.0" y="383.1" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">1.5×</text>
+<line x1="720.0" y1="292.7" x2="1130.0" y2="292.7" stroke="#dfe3e1" stroke-width="1"/>
+<text x="712.0" y="296.7" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">2×</text>
+<line x1="720.0" y1="206.4" x2="1130.0" y2="206.4" stroke="#dfe3e1" stroke-width="1"/>
+<text x="712.0" y="210.4" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">2.5×</text>
+<line x1="720.0" y1="120.0" x2="1130.0" y2="120.0" stroke="#dfe3e1" stroke-width="1"/>
+<text x="712.0" y="124.0" font-size="11" fill="#7c8387" text-anchor="end" font-weight="normal">3×</text>
+<text x="720.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">0</text>
+<text x="802.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">1</text>
+<text x="884.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">2</text>
+<text x="966.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">3–5</text>
+<text x="1048.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">6–10</text>
+<text x="1130.0" y="518.0" font-size="11" fill="#7c8387" text-anchor="middle" font-weight="normal">11+</text>
+<text x="925.0" y="538.0" font-size="12" fill="#4d5458" text-anchor="middle" font-weight="normal">Total amendments</text>
+<polyline points="720.0,465.5 802.0,460.3 884.0,366.8 966.0,306.8 1048.0,133.3 1130.0,215.3" fill="none" stroke="#eb6834" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="720.0" cy="465.5" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="802.0" cy="460.3" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="884.0" cy="366.8" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="966.0" cy="306.8" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1048.0" cy="133.3" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1130.0" cy="215.3" r="4" fill="#eb6834" stroke="#ffffff" stroke-width="2"/>
+<polyline points="720.0,465.5 802.0,433.2 884.0,372.6 966.0,288.7 1048.0,226.2 1130.0,308.0" fill="none" stroke="#eda100" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="720.0" cy="465.5" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="802.0" cy="433.2" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="884.0" cy="372.6" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="966.0" cy="288.7" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1048.0" cy="226.2" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1130.0" cy="308.0" r="4" fill="#eda100" stroke="#ffffff" stroke-width="2"/>
+<polyline points="720.0,465.5 802.0,440.9 884.0,371.6 966.0,240.4 1048.0,265.5 1130.0,311.0" fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="720.0" cy="465.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="802.0" cy="440.9" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="884.0" cy="371.6" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="966.0" cy="240.4" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1048.0" cy="265.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1130.0" cy="311.0" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<polyline points="720.0,465.5 802.0,488.4 884.0,460.3 966.0,360.3 1048.0,383.0" fill="none" stroke="#1baf7a" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="720.0" cy="465.5" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="802.0" cy="488.4" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="884.0" cy="460.3" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="966.0" cy="360.3" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1048.0" cy="383.0" r="4" fill="#1baf7a" stroke="#ffffff" stroke-width="2"/>
+<polyline points="720.0,465.5 802.0,495.4 884.0,407.7 966.0,351.4 1048.0,346.3 1130.0,373.7" fill="none" stroke="#9aa1a4" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="5 4"/>
+<circle cx="720.0" cy="465.5" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="802.0" cy="495.4" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="884.0" cy="407.7" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="966.0" cy="351.4" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1048.0" cy="346.3" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<circle cx="1130.0" cy="373.7" r="4" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<text x="1140.0" y="219.3" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Hardware &amp; telecom 2.45×</text>
+<text x="1140.0" y="312.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">General technology 1.91×</text>
+<text x="1140.0" y="327.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Software &amp; SaaS 1.89×</text>
+<text x="1140.0" y="377.7" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">Non-technology 1.53×</text>
+<text x="1058.0" y="392.7" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">IT services 1.48×</text>
+<text x="24.0" y="554.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Reading: in panel A every line follows one fixed group of contracts, so the climb is compounding, not a change in which contracts are counted. Geometric means damp extreme outliers.</text>
+<text x="24.0" y="572.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Washington is excluded because its amendment rows may report running totals; Baton Rouge, Vermont, Austin and NYC SCA have no usable amendment history.</text>
+</svg>

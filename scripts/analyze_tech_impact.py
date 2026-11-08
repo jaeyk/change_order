@@ -246,6 +246,14 @@ def load_contracts(csv_path: Path) -> list[dict[str, Any]]:
                 "state": r.get("state", ""),
                 "gov_level": r.get("gov_level", ""),
                 "coop_vehicle": r.get("coop_vehicle", ""),
+                "coop_direction": r.get("coop_direction", ""),
+                "n_contractors": int(r.get("n_contractors") or 1),
+                "award_structure": r.get("award_structure", ""),
+                "amendment_observable": int(r.get("amendment_observable") or 1),
+                "qualification_tier": r.get("qualification_tier", "none_observed"),
+                "gsa_mas_holder": int(r.get("gsa_mas_holder") or 0),
+                "n_vehicles_held": int(r.get("n_vehicles_held") or 0),
+                "fss_holder_role": r.get("fss_holder_role", ""),
                 "procurement_channel": r.get("procurement_channel", "direct_or_unknown"),
                 "vendor_role": r.get("vendor_role", "unknown"),
                 "vendor_certification": r.get("vendor_certification", "not_reported"),
@@ -304,6 +312,10 @@ def main() -> int:
     print(f"Loading normalized contracts from {csv_path}...", file=sys.stderr)
     contracts = load_contracts(csv_path)
     print(f"Loaded {len(contracts):,} contracts.", file=sys.stderr)
+    n_all = len(contracts)
+    contracts = [r for r in contracts if r["amendment_observable"] == 1]
+    print(f"Using {len(contracts):,} contracts whose ledgers record amendment history "
+          f"(excluded {n_all - len(contracts):,} from Baton Rouge / NYC SCA).", file=sys.stderr)
 
     # 1. Overall Tech vs Non-Tech
     tech_contracts = [r for r in contracts if r["is_tech"] == 1]

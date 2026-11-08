@@ -6,6 +6,12 @@ An empirical research toolkit and reproducible data pipeline for analyzing how p
 
 ## 1. Target Data & Jurisdictions
 
+> **Synthesis:** [synthesis/](synthesis/README.md) lays out how theory, simulations and data combine, and the next steps: estimation, validation, and policy counterfactuals.
+>
+> **Theory:** [game_theory/](game_theory/README.md) models amendments as a vendor strategy and asks why they happen: by chance, or by design (Model 10). Descriptive amendment dynamics come from `scripts/amendment_dynamics.py`.
+>
+> See **[data.md](data.md)** for the full data structure: source datasets (Table 1), processed files (Table 2), and variable dictionaries (Tables 3–9).
+
 The project targets contract ledgers that capture amendment histories and change orders rather than procurement portals that only list open solicitations:
 
 ### A. Contract Ledgers with Amendment Histories (12 jurisdictions in 8 states: state, county, city and authority ledgers)
@@ -67,6 +73,7 @@ python3 scripts/download_data.py --group primary      # Chicago, Cook County, Or
 python3 scripts/download_data.py --group secondary    # Baton Rouge, Austin, Vermont, Oregon Lottery, NYC SCA
 python3 scripts/download_data.py --group expansion    # Washington FY2021-23/FY2025, Oregon Judicial & Treasury, West Hollywood
 python3 scripts/download_data.py --group cooperative  # WA IT/master-contract, Texas DIR, NY VAR, Delaware cooperative data
+python3 scripts/download_data.py --group federal_schedules  # GSA MAS + VA schedule holders (USASpending): extra reseller evidence + qualification covariates
 # or everything at once:
 python3 scripts/download_data.py --group all
 ```
@@ -74,18 +81,20 @@ python3 scripts/download_data.py --group all
 If your Python build cannot reach the OS certificate store, the downloader falls back to `curl` (certificate verification stays on).
 
 ### Step 2: Normalization, Tech Classification & Domain Tagging
-Standardizes schemas into contract-level and amendment-level tables, cleans currency/date fields, and classifies contracts into **Tech vs. Non-Tech**, **Tech Subsectors**, **Functional Program Domains**, **Procurement Channel / Cooperative Vehicle**, **Vendor Role (prime vs. reseller)**, and **Certification Grade**:
+Standardizes schemas into contract-level and amendment-level tables, cleans currency/date fields, and classifies contracts into **Tech vs. Non-Tech**, **Tech Subsectors**, **Functional Program Domains**, **Cooperative Vehicle & Direction (horizontal vs. vertical)**, **Award Structure (single vs. multiple award)**, **Vendor Role (prime vs. reseller)**, **Vendor Qualification (contract vehicles held, e.g. GSA MAS)**, and **Certification Grade**:
 
 ```bash
 python3 scripts/normalize_and_classify.py
 ```
 
 Outputs generated under `data/processed/`:
-- `contracts_normalized.csv`: Contract grain (**447,003 records**) with state, level of government, initial value, final value, delta, growth %, amendment count, duration, tech tags, `coop_vehicle`, `procurement_channel`, `vendor_role`, and `vendor_certification`.
-- `amendments_normalized.csv`: Amendment grain (**485,813 records**) with modification sequence, amendment date, delta amount, and description.
-- `cooperative_sales.csv`: Cooperative / master-contract spend (**119,906 rows**) by program, vehicle, fiscal year, customer type, prime vendor, reseller, and the certification grade of each.
+- `contracts_normalized.csv`: Contract grain (**447,003 records**) with state, level of government, values, growth %, amendment count, duration, tech tags, and: `procurement_method` (the source's own field), `coop_vehicle`, `coop_direction`, `procurement_channel`, `n_contractors`, `award_structure`, `vendor_role`, `qualification_tier`, `gsa_mas_holder`, `n_vehicles_held`, `fss_holder_role`, `vendor_certification`, `amendment_observable`, `n_line_items`.
+- `amendments_normalized.csv`: Amendment grain (**231,178 records**).
+- `cooperative_sales.csv`: Cooperative / master-contract spend (**119,906 rows**) by program, vehicle, buyer level, `coop_direction`, prime vendor, reseller, and the certification grade of each.
+- `award_structure.csv`: One row per cooperative or federal-schedule contract (Texas DIR, NY OGS, WA DES, Delaware, GSA MAS, VA FSS) with solicitation, number of primes awarded under it, number of resellers, and (schedules) holder NAICS role.
+- `vendor_qualifications.csv`: One row per vendor with the contract vehicles it holds (GSA MAS, VA FSS, Texas DIR prime/reseller, NY OGS master/VAR, WA DES master, Delaware) and a qualification tier — used as covariates.
 - `reseller_relationships.csv`: Prime vendor → authorized reseller pairs (**9,775 rows**, Texas DIR + NY OGS).
-- `reseller_registry.csv`: Every firm observed as a reseller, with its reseller vs. prime counts and whether it is classified as a reseller.
+- `reseller_registry.csv`: Every firm considered as a reseller, its reseller vs. prime counts, evidence sources, and whether it is classified as a reseller.
 
 ### Step 3: Tech vs. Non-Tech Analysis & Econometric Regressions
 Computes comparative metrics, programmatic domain distributions, top overrun case studies, and runs a logistic regression with fixed effects for every jurisdiction:
@@ -96,8 +105,8 @@ python3 scripts/analyze_tech_impact.py
 
 Structured findings are exported to `data/processed/tech_analysis_results.json`.
 
-### Step 3b: Cooperative Purchasing, Reseller & Certification-Grade Analysis
-Amendment outcomes by procurement channel, cooperative vehicle, vendor role, and certification grade; who buys through cooperative contracts; Texas DIR direct vs. reseller sales and HUB grades; reseller networks; and logistic models with channel / reseller / grade terms:
+### Step 3b: Cooperative Purchasing, Award Structure, Reseller & Qualification Analysis
+Amendment outcomes by channel (horizontal / vertical / central), cooperative vehicle, award structure, vendor role, vehicle qualification and certification grade; who buys through cooperative contracts and in which direction; Texas DIR direct vs. reseller sales and HUB grades; reseller networks; and logistic models with all of these terms:
 
 ```bash
 python3 scripts/analyze_cooperative_resellers.py
@@ -111,6 +120,17 @@ Generates a standalone, self-contained interactive HTML dashboard with KPI cards
 ```bash
 python3 scripts/generate_dashboard.py
 # Open data/processed/dashboard.html in any web browser
+```
+
+### Step 5: Network Page and Publication Figures
+Builds the interactive horizontal-vs-vertical cooperative purchasing network and the static figures (standard-library SVG; PNG copies are exported with headless Chrome when available):
+
+```bash
+python3 scripts/build_procurement_network.py   # data/processed/procurement_network.{json,html}
+python3 scripts/amendment_reasons.py           # why amendments happened: stated reasons → chance / design / ambiguous
+python3 scripts/amendment_dynamics.py          # descriptive amendment dynamics
+python3 simulations/simulate_amendments.py     # theory worlds + sector fingerprints (~15 min) → simulations/results/
+python3 scripts/make_figures.py                # figures/fig1–fig5 *.svg + figure_data.json
 ```
 
 ---
@@ -136,18 +156,52 @@ Identifies the substantive public policy area where technology is deployed:
 7. **Administration & Finance**: Government-wide financial ERP, tax/revenue collection, citywide procurement contracts.
 8. **General Enterprise IT**: Centralized data centers, hosting, help desk, enterprise networks.
 
-### C. Procurement Channel & Cooperative Vehicle
-`coop_vehicle` is taken from an explicit cooperative-name field where one exists (WA IT Contracts reports, joined on agency number + contract number), otherwise detected in contract text; `procurement_channel` collapses it:
-- `cooperative`: `naspo_valuepoint` (incl. WSCA), `sourcewell` (NJPA), `omnia_partners` (U.S. Communities, National IPA), `tips_taps`, `e_and_i`, `ncpa`, `gsa_federal`, `buyboard`, `hgacbuy`, `texas_dir`, `mhec`, `peppm`, `kcda`, `wsipc`, `oetc`, `internet2`, `calif_cmas`, `other_cooperative`.
-- `statewide_master`: the state's own master/convenience contracts (WA "Statewide Contract" procurement type, DES SVAR, etc.).
-- `direct_or_unknown`: the agency's own solicitation, or the source doesn't say.
+### C. Cooperative Vehicle and Direction: Horizontal vs. Vertical
+`coop_vehicle` comes from the source's own procurement-method field where one exists — Washington IT Contracts reports (explicit cooperative name, joined on agency + contract number), Washington `procurement_type` ("Statewide Contract"), Chicago `procurement_type` (REFERENCE CONTRACT / JOINT PURCHASE), Oregon ORPIN `award_type` ("Price Agreement"), Austin `rpt_dscr` — and otherwise from contract text (e.g. "State of Illinois contract CMS…", "State Contract 4400…", "Sourcewell contract #…", "OMNIA Partners contract #…").
 
-### D. Vendor Role: Prime/Direct vs. Authorized Reseller
-`reseller_registry.csv` is built from firms observed as an **authorized reseller of another firm's contract** (Texas DIR reseller fields, NY OGS VAR report) plus a curated list of national VARs (CDW-G, SHI, Carahsoft, Insight, Presidio, DLT, SoftwareOne…). A firm counts as a reseller only if it resells on ≥ 2 distinct contract/prime pairs **and** on more pairs than the number of contracts it holds as prime; manufacturers (Dell, HP, Cisco, Microsoft, Ricoh, Canon…) are excluded. Vendor names are normalized (case, punctuation, DBA clauses, corporate suffixes) before matching.
+Each vehicle has the level of government that **established** it:
 
-### E. Certification Grades (Qualifications)
+| Vehicle level | Vehicles |
+| :--- | :--- |
+| federal | `gsa_federal` (GSA MAS / Cooperative Purchasing / 1122) |
+| multi-state | `naspo_valuepoint` (incl. WSCA), `mhec`, `mmcap` |
+| state | `texas_dir`, `state_master_contract` (WA DES, Oregon DAS price agreements, DE GSS), `state_contract` (a named state's contract), `calif_cmas` |
+| higher-ed consortium | `e_and_i`, `internet2` |
+| local-government consortium | `sourcewell`, `omnia_partners` (U.S. Communities / National IPA), `tips_taps`, `ncpa`, `buyboard`, `hgacbuy`, `kcda`, `wsipc`, `oetc`, `peppm`, `local_joint_purchase` |
+
+`coop_direction` compares that level with the **buyer's** level:
+- **`horizontal`** — peers pooling demand: states through NASPO ValuePoint/MHEC; cities, counties and schools through Sourcewell, OMNIA, TIPS, BuyBoard or a joint purchase; one state's agencies (or locals) using another state's vehicle (e.g. out-of-state buyers on Texas DIR).
+- **`vertical_downward`** — a lower level piggybacks on a higher level's contract: cities, counties and school districts on Texas DIR / WA DES / Delaware / "state contract"; states or locals on GSA schedules; locals on NASPO ValuePoint through a state participating addendum.
+- **`vertical_upward`** — a higher level buys through a lower-level consortium (e.g. a Washington state agency using Sourcewell or OMNIA).
+- **`central`** — a state agency on its **own** state's master contract. This is centralized purchasing, not cooperative purchasing, and is reported separately.
+- **`unknown`** — the vehicle is cooperative but its level is unknown (e.g. "reference contract", "piggyback" without a named vehicle).
+
+`procurement_channel` = `cooperative_<direction>`, `central_state_contract`, or `direct_or_unknown`.
+
+### D. Award Structure: Single vs. Multiple Award, Prime-Direct vs. Reseller
+- **Contract ledgers** (`award_structure` in `contracts_normalized.csv`): `n_contractors` = distinct contractors on the **original award** of a contract ID (lowest version only, so vendor renames on later revisions don't count). `single_award_*` = one contractor, `multiple_award_*` = several co-awardees on the same contract; the suffix (`prime_direct` / `reseller`) is the role of the listed vendor.
+- **Cooperative vehicles and federal schedules** (`award_structure.csv`): `multiple_award` = ≥ 2 primes under the same solicitation — a Texas DIR RFO, an NY OGS lot, a WA DES or Delaware statewide contract number, a federal schedule (GSA MAS and VA FSS are multiple-award by design). Then `_with_resellers` (≥ 1 authorized reseller sells under the contract), `_prime_direct` (none), `_prime_direct_or_unknown` (the source doesn't report resellers), or `_dealer_holder` (the schedule holder itself is a dealer — wholesale/retail NAICS).
+
+### E. Vendor Role: Prime/Direct vs. Authorized Reseller
+A vendor is `authorized_reseller` if any of these hold (after name normalization: case, punctuation, DBA clauses, corporate suffixes):
+1. **Observed reselling** another firm's contract — Texas DIR reseller fields, NY OGS VAR report — on ≥ 2 distinct contract/prime pairs **and** on more pairs than the contracts it holds as prime;
+2. **Federal schedule dealer** — its GSA MAS / VA FSS contracts are mostly under wholesale or retail NAICS (42xxxx, 44–45xxxx). This reaches regional resellers nationwide that never appear in Texas or New York data;
+3. A **curated national VAR** (CDW-G, SHI, Carahsoft, Insight, Presidio, DLT, SoftwareOne…).
+
+Manufacturers (Dell, HP, Cisco, Microsoft, Ricoh, Canon…) are always `prime_or_direct`.
+
+### F. Vendor Qualification: Contract Vehicles Held (covariates)
+"Qualification" means which **pre-qualified contract vehicles** a firm holds — like a GSA Multiple Award Schedule contract — and in what role. These are vendor-level covariates, not outcomes. `vendor_qualifications.csv` flags `gsa_mas_holder`, `va_fss_holder`, `texas_dir_prime`, `texas_dir_reseller`, `ny_ogs_master_holder`, `ny_ogs_var`, `wa_des_master_holder`, `delaware_contract_holder`, the schedule holder's NAICS role (`manufacturer` / `dealer_reseller` / `service_provider`), and a tier:
+- `federal_schedule_holder` — holds a GSA MAS or VA FSS contract;
+- `state_vehicle_prime` — prime on a state cooperative / master vehicle (Texas DIR, NY OGS, WA DES, Delaware) but no federal schedule;
+- `authorized_reseller_only` — only authorized to resell under someone else's vehicle;
+- `none_observed`.
+
+The federal schedule data is **not required** to identify resellers (§4E rules 1 and 3 work without it); it adds regional dealers as extra evidence and supplies the `gsa_mas_holder` covariate.
+
+### G. Certification Grades
 HUB (Texas), OMWBE (Washington), DBE / minority / veteran flags (Baton Rouge) and small-business flags are harmonized into one ordered grade:
-`minority_or_women_owned` → `disadvantaged_business` → `veteran_owned` → `small_business` → `not_certified`, with `not_reported` where a source has no such field. In Texas DIR sales the **prime vendor and the reseller each carry their own grade**, so a sale can be HUB-credited through the reseller even when the prime is not.
+`minority_or_women_owned` → `disadvantaged_business` → `veteran_owned` → `small_business` → `not_certified`, with `not_reported` where a source has no such field. In Texas DIR sales the **prime vendor and the reseller each carry their own grade**.
 
 ---
 
@@ -233,3 +287,26 @@ In the **Washington-only model** (FY2021–FY2025, N = 51,362), where cooperativ
 - **Reseller classification is a name-based heuristic** (see §4D). It recognizes resellers active on Texas DIR / NY OGS contracts or on the curated VAR list; regional resellers elsewhere may be tagged `prime_or_direct`.
 - **Texas DIR active-contracts HUB fields** report the same value for prime and reseller on 100% of rows, so prime-vs-reseller grade comparisons use the sales data instead. FY2026+ sales come from DIR's new Vendor Sales Reporting system; the drop in reseller share there may partly be a reporting change.
 - **West Hollywood** publishes amendment-count fields that are empty; amendments are inferred from original vs. current totals.
+
+---
+
+## 7. Figures
+
+All figures are in [`figures/`](figures/) as SVG (vector, for papers) and 2× PNG. The numbers behind them are in `figures/figure_data.json`.
+
+**Figure 1–2. Who buys off whose contract.** Four tiers: state buyers, state & multi-state contract vehicles, local cooperatives, local buyers. Short links stay within a level of government (horizontal pooling, or central purchasing on a state's own contract, dotted); long links cross levels (vertical piggybacking). Figure 1 weights links by sales dollars (Texas DIR, Washington DES, Delaware); Figure 2 by contract counts in the ledgers. The federal tier is omitted because it is thin in these data (listed in each figure's footnote).
+
+![Figure 1](figures/fig1_network_dollars.png)
+![Figure 2](figures/fig2_network_contracts.png)
+
+**Figure 3. Amendments snowball contract value.** Contract value as a multiple of the original award (geometric mean) in ledgers that report each amendment's dollar change (Chicago, Cook County, Oregon ORPIN / Treasury / Judicial). Panel A follows one fixed group of contracts (amended ≥ 6 times) amendment by amendment, so the climb is compounding rather than a change in which contracts are counted: hardware & telecom contracts reach 2.4× their original value after six amendments, general technology 2.0×, software & SaaS 1.8×, non-technology 1.5×. Panel B shows final value by total number of amendments.
+
+![Figure 3](figures/fig3_amendment_snowball.png)
+
+**Figure 4. By program domain.** Share of contracts amended, value growth among amended contracts, and the share of amended contracts that at least doubled. Technology contracts in public assistance (1.55×), environment (1.49×) and general enterprise IT (1.46×) grow most when amended, against 1.11× for non-technology contracts.
+
+![Figure 4](figures/fig4_growth_by_domain.png)
+
+**Figure 5. Which sectors carry the fingerprints of designed amendments.** Simulated theory worlds (top) and sectors (bottom), each compared with a pure-chance world matched to its own amendment-count distribution. Every sector shows the end-of-term renewal regime. Vendor concentration separates design from chance and renewals; escalating amendment sizes separate lock-in. Software & SaaS and general enterprise IT carry both most strongly. Simulation code, results and figures S1–S3 are in [simulations/](simulations/README.md). See [game_theory/amendments/07_simulated_implications.md](game_theory/amendments/07_simulated_implications.md).
+
+![Figure 5](figures/fig5_amendment_fingerprints.png)

@@ -1,0 +1,18 @@
+[estimate] subsector:software_saas            n=  2,453 Q=  15.366 lock-in share=0.038 [0.0234, 0.4179]  pi_d=0.246 [0.172, 0.372]  psi=0.506 [0.085, 3.539]
+[estimate] domain:general_enterprise_it       n=  5,503 Q=  44.553 lock-in share=0.094 [0.0022, 0.1539]  pi_d=0.142 [0.01, 0.398]  psi=0.762 [0.0, 1714.166]
+[estimate] subsector:tech_general             n= 18,779 Q= 294.337 lock-in share=0.084 [0.0089, 0.1333]  pi_d=0.347 [0.043, 0.773]  psi=1.331 [0.007, 8.875]
+[estimate] subsector:hardware_telecom         n=  2,484 Q=   10.63 lock-in share=0.136 [0.0153, 0.7152]  pi_d=0.403 [0.103, 0.727]  psi=0.995 [0.0, 340856.916]
+[estimate] domain:health_care                 n=  4,484 Q=  25.367 lock-in share=0.107 [0.0071, 0.5231]  pi_d=0.409 [0.017, 0.922]  psi=1.334 [0.005, 558.491]
+[estimate] domain:public_assistance           n=  9,460 Q=  166.21 lock-in share=0.027 [0.0015, 0.9638]  pi_d=0.111 [0.012, 0.761]  psi=0.286 [0.0, 2709.624]
+[estimate] domain:administration_finance      n=  1,133 Q=  39.171 lock-in share=0.111 [-0.0036, 0.9682]  pi_d=0.197 [0.018, 0.485]  psi=0.962 [0.0, 23215.853]
+[estimate] non_tech                           n=117,060 Q=  82.781 lock-in share=0.127 [0.1011, 0.2217]  pi_d=0.207 [0.166, 0.265]  psi=0.380 [0.042, 1.225]
+Wrote /Users/jaeyeonkim/Documents/change_order/synthesis/results/smm_estimates.csv
+[recover] subsector:software_saas      fitted parameters  rep0: share true=0.038 est=0.187 [0.0245, 0.2387]  pi_d true=0.246 est=0.204
+[recover] subsector:software_saas      fitted parameters  rep1: share true=0.038 est=0.069 [0.0721, 0.1208]  pi_d true=0.246 est=0.199
+[recover] subsector:software_saas      fitted parameters  rep2: share true=0.038 est=0.057 [0.0243, 0.2943]  pi_d true=0.246 est=0.205
+[recover] subsector:software_saas      no lock-in         rep0: share true=0.000 est=0.243 [0.0503, 0.4257]  pi_d true=0.000 est=0.473
+[recover] subsector:software_saas      no lock-in         rep1: share true=0.000 est=0.147 [0.039, 0.3258]  pi_d true=0.000 est=0.208
+[recover] subsector:software_saas      no lock-in         rep2: share true=0.000 est=0.036 [0.0034, 0.1306]  pi_d true=0.000 est=0.206
+[recover] subsector:hardware_telecom   fitted parameters  rep0: share true=0.136 est=0.157 [0.0544, 0.7154]  pi_d true=0.403 est=0.452
+[recover] subsector:hardware_telecom   fitted parameters  rep1: share true=0.136 est=0.125 [0.1023, 0.2003]  pi_d true=0.403 est=0.129
+[recover] subsector:hardware_telecom   fitted parameters  rep2: share true=0.136 est=0.129 [0.0069, 0.5068]  pi_d true=0.403 est=0.405

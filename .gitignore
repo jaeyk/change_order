@@ -2,3 +2,7 @@ data/raw/
 data/processed/
 __pycache__/
 *.py[cod]
+
+# compiled OCR helper (built from synthesis/tools/ocr.swift)
+synthesis/tools/ocr
+.DS_Store

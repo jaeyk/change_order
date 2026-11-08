@@ -1,0 +1,273 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="850" viewBox="0 0 1180 850" font-family="Helvetica, Arial, sans-serif" role="img">
+<title>Figure 5. Which sectors carry the fingerprints of designed amendments</title>
+<rect width="1180" height="850" fill="#ffffff"/>
+<text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Figure 5. Which sectors carry the fingerprints of designed amendments</text>
+<text x="24.0" y="58.0" font-size="12.5" fill="#4d5458" text-anchor="start" font-weight="normal">Each cell: deviation from a pure-chance world matched to the same amendment-count distribution (z-score). Top block: simulated theory worlds. Bottom block: sectors, ranked by lock-in index.</text>
+<text x="359.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">Early first</text>
+<text x="359.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">amendment</text>
+<text x="477.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">End-of-term</text>
+<text x="477.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">amendment</text>
+<text x="595.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">Late lift after</text>
+<text x="595.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">earlier amendments</text>
+<text x="713.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">Acceleration</text>
+<text x="713.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">(before term end)</text>
+<text x="831.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">Escalating</text>
+<text x="831.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">amendment size</text>
+<text x="949.0" y="118.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">Vendor share</text>
+<text x="949.0" y="132.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="bold">of risk</text>
+<rect x="768" y="104" width="244" height="586" rx="8" fill="none" stroke="#7c8387" stroke-dasharray="4 3"/>
+<text x="890.0" y="706.0" font-size="11" fill="#4d5458" text-anchor="middle" font-weight="normal">Core lock-in fingerprints</text>
+<text x="24.0" y="142.0" font-size="10.5" fill="#7c8387" text-anchor="start" font-weight="bold">SIMULATED WORLDS</text>
+<text x="24.0" y="169.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">B  Design: scope gaps, no lock-in</text>
+<rect x="302" y="152" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="359.0" y="169.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+30</text>
+<rect x="420" y="152" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="477.0" y="169.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-14</text>
+<rect x="538" y="152" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="595.0" y="169.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+6.4</text>
+<rect x="656" y="152" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="713.0" y="169.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-2.9</text>
+<rect x="774" y="152" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="169.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+0.7</text>
+<rect x="892" y="152" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="169.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+31</text>
+<text x="24.0" y="199.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">C  Design: lock-in spiral</text>
+<rect x="302" y="182" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="359.0" y="199.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.8</text>
+<rect x="420" y="182" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="199.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+20</text>
+<rect x="538" y="182" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="199.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-4.8</text>
+<rect x="656" y="182" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="199.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.4</text>
+<rect x="774" y="182" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="831.0" y="199.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+8.8</text>
+<rect x="892" y="182" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="199.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+17</text>
+<text x="24.0" y="229.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">D  Chance + routine renewals</text>
+<rect x="302" y="212" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="229.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-12</text>
+<rect x="420" y="212" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="229.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+40</text>
+<rect x="538" y="212" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="229.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-4.5</text>
+<rect x="656" y="212" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="229.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-1.1</text>
+<rect x="774" y="212" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="229.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.1</text>
+<rect x="892" y="212" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="949.0" y="229.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.7</text>
+<text x="24.0" y="259.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">E  Half chance, half lock-in</text>
+<rect x="302" y="242" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="359.0" y="259.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-2.6</text>
+<rect x="420" y="242" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="477.0" y="259.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+7.8</text>
+<rect x="538" y="242" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="259.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-4.8</text>
+<rect x="656" y="242" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="259.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.4</text>
+<rect x="774" y="242" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="259.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+3.6</text>
+<rect x="892" y="242" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="949.0" y="259.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.8</text>
+<line x1="24.0" y1="280.0" x2="1156.0" y2="280.0" stroke="#dfe3e1" stroke-width="1"/>
+<text x="24.0" y="292.0" font-size="10.5" fill="#7c8387" text-anchor="start" font-weight="bold">SECTORS (Chicago, Oregon, Cook County; vendor share adds Washington)</text>
+<text x="24.0" y="317.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="bold">Software &amp; SaaS</text>
+<text x="290.0" y="317.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 1 · n=17,482</text>
+<rect x="302" y="300" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="317.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-13</text>
+<rect x="420" y="300" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="317.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+27</text>
+<rect x="538" y="300" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="317.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-4.1</text>
+<rect x="656" y="300" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="713.0" y="317.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+6.2</text>
+<rect x="774" y="300" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="317.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+3.7</text>
+<rect x="892" y="300" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="317.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+32</text>
+<text x="24.0" y="347.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="bold">General enterprise IT</text>
+<text x="290.0" y="347.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 1 · n=17,646</text>
+<rect x="302" y="330" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="347.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-23</text>
+<rect x="420" y="330" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="347.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+34</text>
+<rect x="538" y="330" width="114" height="26" rx="3" fill="#5598e7"/>
+<text x="595.0" y="347.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-5.4</text>
+<rect x="656" y="330" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="713.0" y="347.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.9</text>
+<rect x="774" y="330" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="831.0" y="347.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+6.6</text>
+<rect x="892" y="330" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="347.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+19</text>
+<text x="24.0" y="377.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="bold">All technology</text>
+<text x="290.0" y="377.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 1 · n=46,166</text>
+<rect x="302" y="360" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="377.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-46</text>
+<rect x="420" y="360" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="377.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+74</text>
+<rect x="538" y="360" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="595.0" y="377.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-14</text>
+<rect x="656" y="360" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="713.0" y="377.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+7.6</text>
+<rect x="774" y="360" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="377.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+4.6</text>
+<rect x="892" y="360" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="377.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+73</text>
+<text x="24.0" y="407.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="bold">General technology</text>
+<text x="290.0" y="407.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 1 · n=20,759</text>
+<rect x="302" y="390" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="407.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-42</text>
+<rect x="420" y="390" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="407.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+80</text>
+<rect x="538" y="390" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="595.0" y="407.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-11</text>
+<rect x="656" y="390" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="713.0" y="407.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.3</text>
+<rect x="774" y="390" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="407.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.9</text>
+<rect x="892" y="390" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="407.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+56</text>
+<text x="24.0" y="437.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Administration &amp; finance (tech)</text>
+<text x="290.0" y="437.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 2 · n=2,602</text>
+<rect x="302" y="420" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="437.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-12</text>
+<rect x="420" y="420" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="437.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+14</text>
+<rect x="538" y="420" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="437.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-2.8</text>
+<rect x="656" y="420" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="437.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-2.0</text>
+<rect x="774" y="420" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="437.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.8</text>
+<rect x="892" y="420" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="949.0" y="437.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+5.8</text>
+<text x="24.0" y="467.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Non-technology</text>
+<text x="290.0" y="467.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 2 · n=278,380</text>
+<rect x="302" y="450" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="467.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-131</text>
+<rect x="420" y="450" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="467.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+116</text>
+<rect x="538" y="450" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="595.0" y="467.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-22</text>
+<rect x="656" y="450" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="467.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.2</text>
+<rect x="774" y="450" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="467.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+4.0</text>
+<rect x="892" y="450" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="467.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+164</text>
+<text x="24.0" y="497.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Hardware &amp; telecom</text>
+<text x="290.0" y="497.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=4,942</text>
+<rect x="302" y="480" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="497.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-19</text>
+<rect x="420" y="480" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="497.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+26</text>
+<rect x="538" y="480" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="497.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-3.8</text>
+<rect x="656" y="480" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="713.0" y="497.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+6.1</text>
+<rect x="774" y="480" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="497.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+1.7</text>
+<rect x="892" y="480" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="497.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+13</text>
+<text x="24.0" y="527.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Health care (tech)</text>
+<text x="290.0" y="527.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=7,710</text>
+<rect x="302" y="510" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="527.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-19</text>
+<rect x="420" y="510" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="527.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+34</text>
+<rect x="538" y="510" width="114" height="26" rx="3" fill="#5598e7"/>
+<text x="595.0" y="527.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-5.6</text>
+<rect x="656" y="510" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="713.0" y="527.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+8.0</text>
+<rect x="774" y="510" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="527.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+1.6</text>
+<rect x="892" y="510" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="527.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+25</text>
+<text x="24.0" y="557.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Public assistance (tech)</text>
+<text x="290.0" y="557.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=9,483</text>
+<rect x="302" y="540" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="557.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-27</text>
+<rect x="420" y="540" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="557.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+82</text>
+<rect x="538" y="540" width="114" height="26" rx="3" fill="#5598e7"/>
+<text x="595.0" y="557.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-5.6</text>
+<rect x="656" y="540" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="713.0" y="557.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.8</text>
+<rect x="774" y="540" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="557.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-0.6</text>
+<rect x="892" y="540" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="557.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+63</text>
+<text x="24.0" y="587.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Environment (tech)</text>
+<text x="290.0" y="587.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 2 · n=2,059 · thin</text>
+<rect x="302" y="570" width="114" height="26" rx="3" fill="#5598e7"/>
+<text x="359.0" y="587.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-5.0</text>
+<rect x="420" y="570" width="114" height="26" rx="3" fill="#e66767"/>
+<text x="477.0" y="587.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+9.6</text>
+<rect x="538" y="570" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="595.0" y="587.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-1.1</text>
+<rect x="656" y="570" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="587.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-1.3</text>
+<rect x="774" y="570" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="831.0" y="587.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.9</text>
+<rect x="892" y="570" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="587.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+30</text>
+<text x="24.0" y="617.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">IT services</text>
+<text x="290.0" y="617.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=2,983 · thin</text>
+<rect x="302" y="600" width="114" height="26" rx="3" fill="#5598e7"/>
+<text x="359.0" y="617.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-6.9</text>
+<rect x="420" y="600" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="617.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+13</text>
+<rect x="538" y="600" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="595.0" y="617.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-1.6</text>
+<rect x="656" y="600" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="713.0" y="617.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+4.9</text>
+<rect x="774" y="600" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="617.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+0.7</text>
+<rect x="892" y="600" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="949.0" y="617.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+4.6</text>
+<text x="24.0" y="647.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Public safety (tech)</text>
+<text x="290.0" y="647.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=2,229 · thin</text>
+<rect x="302" y="630" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="647.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-12</text>
+<rect x="420" y="630" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="647.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+20</text>
+<rect x="538" y="630" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="647.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-3.5</text>
+<rect x="656" y="630" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="713.0" y="647.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+1.5</text>
+<rect x="774" y="630" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="647.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+1.2</text>
+<rect x="892" y="630" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="647.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+10</text>
+<text x="24.0" y="677.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">Transportation (tech)</text>
+<text x="290.0" y="677.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">tier 3 · n=2,651 · thin</text>
+<rect x="302" y="660" width="114" height="26" rx="3" fill="#1c5cab"/>
+<text x="359.0" y="677.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">-11</text>
+<rect x="420" y="660" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="477.0" y="677.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+25</text>
+<rect x="538" y="660" width="114" height="26" rx="3" fill="#b7d3f6"/>
+<text x="595.0" y="677.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">-3.0</text>
+<rect x="656" y="660" width="114" height="26" rx="3" fill="#f5c1b6"/>
+<text x="713.0" y="677.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+2.0</text>
+<rect x="774" y="660" width="114" height="26" rx="3" fill="#f0efec"/>
+<text x="831.0" y="677.0" font-size="11" fill="#15191c" text-anchor="middle" font-weight="normal">+0.8</text>
+<rect x="892" y="660" width="114" height="26" rx="3" fill="#b83535"/>
+<text x="949.0" y="677.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">+33</text>
+<text x="24.0" y="772.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">z vs. matched chance</text>
+<rect x="24" y="780" width="22" height="14" rx="2" fill="#1c5cab"/>
+<text x="52.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">≤ −10</text>
+<rect x="105" y="780" width="22" height="14" rx="2" fill="#5598e7"/>
+<text x="133.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">−10 to −5</text>
+<rect x="214" y="780" width="22" height="14" rx="2" fill="#b7d3f6"/>
+<text x="242.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">−5 to −2</text>
+<rect x="316" y="780" width="22" height="14" rx="2" fill="#f0efec"/>
+<text x="344.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">within ±2</text>
+<rect x="425" y="780" width="22" height="14" rx="2" fill="#f5c1b6"/>
+<text x="453.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">+2 to +5</text>
+<rect x="527" y="780" width="22" height="14" rx="2" fill="#e66767"/>
+<text x="555.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">+5 to +10</text>
+<rect x="636" y="780" width="22" height="14" rx="2" fill="#b83535"/>
+<text x="664.0" y="791.0" font-size="11" fill="#4d5458" text-anchor="start" font-weight="normal">≥ +10</text>
+<text x="24.0" y="822.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Vendor share separates design from chance and renewals; escalation separates lock-in. Tier 1 (bold) = both plus acceleration. &quot;thin&quot; = fewer than 30 eligible contracts.</text>
+</svg>

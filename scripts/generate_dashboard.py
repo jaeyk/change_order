@@ -259,11 +259,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <div id="coop-section" style="display:none">
       <header style="margin-top: 36px;">
         <h1>Cooperative Purchasing, Resellers &amp; Certification Grades</h1>
-        <p class="subtitle">NASPO ValuePoint, Sourcewell, OMNIA, TIPS, E&amp;I, NCPA, Texas DIR and state master contracts; prime vendors vs. authorized resellers; HUB / OMWBE / small / veteran grades</p>
+        <p class="subtitle">Horizontal vs. vertical cooperation (NASPO ValuePoint, Sourcewell, OMNIA, TIPS, Texas DIR, state contracts); single vs. multiple award; prime vendors vs. authorized resellers</p>
       </header>
       <div class="grid-2">
         <div class="panel">
-          <h2>Amendment Rate by Procurement Channel</h2>
+          <h2>Amendment Rate by Channel (horizontal vs. vertical cooperation)</h2>
           <table>
             <thead><tr><th>Channel</th><th class="num">All: n</th><th class="num">All: amend %</th><th class="num">Tech: n</th><th class="num">Tech: amend %</th></tr></thead>
             <tbody id="channel-tbody"></tbody>
@@ -290,6 +290,22 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           <table>
             <thead><tr><th>Grade</th><th class="num">Contracts</th><th class="num">Amend %</th><th class="num">Net growth</th></tr></thead>
             <tbody id="cert-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <h2>Award Structure (contract ledgers)</h2>
+          <table>
+            <thead><tr><th>Structure</th><th class="num">Contracts</th><th class="num">Amend %</th><th class="num">Net growth</th></tr></thead>
+            <tbody id="award-tbody"></tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h2>Vendor Qualification (contract vehicles held)</h2>
+          <table>
+            <thead><tr><th>Tier</th><th class="num">Contracts</th><th class="num">Amend %</th><th class="num">Net growth</th></tr></thead>
+            <tbody id="qual-tbody"></tbody>
           </table>
         </div>
       </div>
@@ -451,6 +467,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       simple('role-tbody', COOP.by_vendor_role_tech);
       simple('vehicle-tbody', COOP.by_coop_vehicle);
       simple('cert-tbody', COOP.by_certification);
+      simple('award-tbody', COOP.by_award_structure);
+      simple('qual-tbody', COOP.by_qualification_tier);
 
       const cs = document.getElementById('coopsales-tbody');
       for (const [prog, v] of Object.entries(COOP.cooperative_sales || {})) {

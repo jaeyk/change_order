@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="640" viewBox="0 0 1180 640" font-family="Helvetica, Arial, sans-serif" role="img">
+<title>Y4. What the amendment documents say</title>
+<rect width="1180" height="640" fill="#ffffff"/>
+<text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Y4. What 235 Chicago amendment documents say about why the contract changed</text>
+<text x="24.0" y="58.0" font-size="12.5" fill="#4d5458" text-anchor="start" font-weight="normal">Stratified sample of revisions (20 per sector × amendment order), OCR&#x27;d and coded. Share of documents by stated reason.</text>
+<rect x="24" y="84" width="14" height="14" rx="2" fill="#eb6834"/>
+<text x="44.0" y="96.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Extended until a new contract is awarded</text>
+<rect x="334.0" y="84" width="14" height="14" rx="2" fill="#2a78d6"/>
+<text x="354.0" y="96.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Design cause stated</text>
+<rect x="505.4" y="84" width="14" height="14" rx="2" fill="#1baf7a"/>
+<text x="525.4" y="96.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Chance cause stated</text>
+<rect x="676.8" y="84" width="14" height="14" rx="2" fill="#9aa1a4"/>
+<text x="696.8" y="96.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Planned price adjustment</text>
+<rect x="881.1999999999999" y="84" width="14" height="14" rx="2" fill="#b9bfc1"/>
+<text x="901.2" y="96.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">No cause stated</text>
+<text x="24.0" y="170.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">Software &amp; SaaS</text>
+<text x="220.0" y="170.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=44</text>
+<rect x="230.0" y="154" width="277.5" height="26" fill="#eb6834"/>
+<text x="236.0" y="172.0" font-size="11.5" fill="#ffffff" text-anchor="start" font-weight="normal">34%</text>
+<rect x="509.5" y="154" width="16.6" height="26" fill="#2a78d6"/>
+<rect x="528.2" y="154" width="16.6" height="26" fill="#1baf7a"/>
+<rect x="546.8" y="154" width="501.2" height="26" fill="#b9bfc1"/>
+<text x="552.8" y="172.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">61%</text>
+<text x="24.0" y="216.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">General technology</text>
+<text x="220.0" y="216.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=50</text>
+<rect x="230.0" y="200" width="276.8" height="26" fill="#eb6834"/>
+<text x="236.0" y="218.0" font-size="11.5" fill="#ffffff" text-anchor="start" font-weight="normal">34%</text>
+<rect x="508.8" y="200" width="14.4" height="26" fill="#1baf7a"/>
+<rect x="525.2" y="200" width="63.6" height="26" fill="#9aa1a4"/>
+<text x="531.2" y="218.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">8%</text>
+<rect x="590.8" y="200" width="457.2" height="26" fill="#b9bfc1"/>
+<text x="596.8" y="218.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">56%</text>
+<text x="24.0" y="262.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">IT services</text>
+<text x="220.0" y="262.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=51</text>
+<rect x="230.0" y="246" width="158.8" height="26" fill="#eb6834"/>
+<text x="236.0" y="264.0" font-size="11.5" fill="#ffffff" text-anchor="start" font-weight="normal">20%</text>
+<rect x="390.8" y="246" width="46.2" height="26" fill="#2a78d6"/>
+<rect x="439.0" y="246" width="46.2" height="26" fill="#1baf7a"/>
+<rect x="487.3" y="246" width="560.7" height="26" fill="#b9bfc1"/>
+<text x="493.3" y="264.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">69%</text>
+<text x="24.0" y="308.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Hardware &amp; telecom</text>
+<text x="220.0" y="308.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=45</text>
+<rect x="230.0" y="292" width="89.1" height="26" fill="#eb6834"/>
+<text x="236.0" y="310.0" font-size="11.5" fill="#ffffff" text-anchor="start" font-weight="normal">11%</text>
+<rect x="321.1" y="292" width="34.4" height="26" fill="#2a78d6"/>
+<rect x="357.6" y="292" width="690.4" height="26" fill="#b9bfc1"/>
+<text x="363.6" y="310.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">84%</text>
+<text x="24.0" y="354.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Non-technology</text>
+<text x="220.0" y="354.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=45</text>
+<rect x="230.0" y="338" width="34.4" height="26" fill="#eb6834"/>
+<text x="236.0" y="356.0" font-size="11.5" fill="#ffffff" text-anchor="start" font-weight="normal">4%</text>
+<rect x="266.4" y="338" width="16.2" height="26" fill="#2a78d6"/>
+<rect x="284.7" y="338" width="16.2" height="26" fill="#1baf7a"/>
+<rect x="302.9" y="338" width="745.1" height="26" fill="#b9bfc1"/>
+<text x="308.9" y="356.0" font-size="11.5" fill="#15191c" text-anchor="start" font-weight="normal">91%</text>
+<text x="24.0" y="420.0" font-size="13" fill="#15191c" text-anchor="start" font-weight="bold">Extended until a new contract is awarded, by amendment order (all sectors)</text>
+<text x="24.0" y="453.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">1st amendment</text>
+<rect x="230" y="438" width="95.8" height="22" fill="#eb6834"/>
+<text x="333.8" y="454.0" font-size="11.5" fill="#4d5458" text-anchor="start" font-weight="normal">12% (n=77)</text>
+<text x="24.0" y="485.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">2nd-3rd amendment</text>
+<rect x="230" y="470" width="166.1" height="22" fill="#eb6834"/>
+<text x="404.1" y="486.0" font-size="11.5" fill="#4d5458" text-anchor="start" font-weight="normal">20% (n=79)</text>
+<text x="24.0" y="517.0" font-size="12" fill="#15191c" text-anchor="start" font-weight="normal">4th+ amendment</text>
+<rect x="230" y="502" width="249.1" height="22" fill="#eb6834"/>
+<text x="487.1" y="518.0" font-size="11.5" fill="#4d5458" text-anchor="start" font-weight="normal">30% (n=79)</text>
+<text x="24.0" y="594.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Coder agreement with manual review: 92% on 38 decidable documents (in-sample: rules were revised on them). Delay and no-cause codes were 26/26 correct.</text>
+<text x="24.0" y="612.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">65 sampled revisions (mostly 2003–2011) have no document online; the coded sample is mostly 2012 onward.</text>
+</svg>

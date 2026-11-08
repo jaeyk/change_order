@@ -1,0 +1,95 @@
+{
+ "documents_coded": 235,
+ "by_sector": {
+  "software_saas": {
+   "no cause stated": 27,
+   "re-competition delayed": 15,
+   "design": 1,
+   "chance": 1
+  },
+  "tech_general": {
+   "no cause stated": 28,
+   "neutral": 4,
+   "chance": 1,
+   "re-competition delayed": 17
+  },
+  "hardware_telecom": {
+   "design": 2,
+   "no cause stated": 38,
+   "re-competition delayed": 5
+  },
+  "it_services": {
+   "no cause stated": 35,
+   "chance": 3,
+   "re-competition delayed": 10,
+   "design": 3
+  },
+  "non_tech": {
+   "no cause stated": 41,
+   "chance": 1,
+   "re-competition delayed": 2,
+   "design": 1
+  }
+ },
+ "by_order": {
+  "1st": {
+   "no cause stated": 61,
+   "re-competition delayed": 9,
+   "neutral": 2,
+   "chance": 4,
+   "design": 1
+  },
+  "2nd-3rd": {
+   "no cause stated": 58,
+   "re-competition delayed": 16,
+   "design": 4,
+   "chance": 1
+  },
+  "4th+": {
+   "no cause stated": 50,
+   "re-competition delayed": 24,
+   "chance": 1,
+   "neutral": 2,
+   "design": 2
+  }
+ },
+ "by_escalation": {
+  "n/a": {
+   "no cause stated": 112,
+   "re-competition delayed": 37,
+   "design": 3,
+   "neutral": 2,
+   "chance": 5
+  },
+  "True": {
+   "re-competition delayed": 7,
+   "no cause stated": 27,
+   "chance": 1
+  },
+  "False": {
+   "no cause stated": 30,
+   "re-competition delayed": 5,
+   "neutral": 2,
+   "design": 4
+  }
+ },
+ "change_types": {
+  "time extension": 98,
+  "vendor limit increase (funds)": 66,
+  "price change": 15,
+  "unclassified": 89,
+  "administrative": 12,
+  "scope change": 8
+ },
+ "causes": {
+  "re-competition delayed: extended until a new contract is awarded": 52,
+  "design: change order / unforeseen work": 4,
+  "chance: law, regulation or new program": 3,
+  "neutral: planned price adjustment under the contract": 4,
+  "design: system / license dependence": 1,
+  "design: price or rate increase": 3,
+  "chance: grant or outside funding": 3,
+  "chance: emergency / COVID": 1
+ },
+ "with_summary_report": 142
+}

@@ -1,0 +1,314 @@
+<title>Piggyback Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: one wide canvas of four tiers (state buyers / state vehicles / local cooperatives / local buyers); controls and summary above, table below */
+:root {
+  --bg: #f7f8f6;
+  --panel: #ffffff;
+  --ink: #15191c;
+  --ink-2: #4d5458;
+  --ink-3: #7c8387;
+  --rule: #dfe3e1;
+  --band: #eef1ef;
+  --horizontal: #2a78d6;
+  --vdown: #eb6834;
+  --vup: #1baf7a;
+  --central: #9aa1a4;
+  --unknown: #b9bfc1;
+  --focus: #2a78d6;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141716; --panel: #1b1f1e; --ink: #eef0ee; --ink-2: #b7bdbb; --ink-3: #868d8b;
+    --rule: #2f3533; --band: #1f2423; --horizontal: #3987e5; --vdown: #d95926; --vup: #199e70;
+    --central: #6f7674; --unknown: #59605e; --focus: #3987e5; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141716; --panel: #1b1f1e; --ink: #eef0ee; --ink-2: #b7bdbb; --ink-3: #868d8b;
+  --rule: #2f3533; --band: #1f2423; --horizontal: #3987e5; --vdown: #d95926; --vup: #199e70;
+  --central: #6f7674; --unknown: #59605e; --focus: #3987e5; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+h1 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 40px); line-height: 1.12; margin: 4px 0 10px; text-wrap: balance; font-weight: 700; }
+.dek { max-width: 68ch; color: var(--ink-2); margin: 0; }
+.dek b { color: var(--ink); font-weight: 600; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--panel); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 7px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
+.seg button:focus-visible, .check input:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.check { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); cursor: pointer; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.stat { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.stat .k { font-size: 12px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; }
+.stat .v { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 13px; color: var(--ink-2); }
+.swatch { width: 18px; height: 0; border-top: 3px solid; display: inline-block; flex: none; }
+.sw-h { border-color: var(--horizontal); } .sw-d { border-color: var(--vdown); } .sw-u { border-color: var(--vup); }
+.sw-c { border-color: var(--central); border-top-style: dotted; } .sw-x { border-color: var(--unknown); border-top-style: dashed; }
+.canvas { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; overflow-x: auto; position: relative; }
+svg { display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--ink-2); padding: 12px 16px 0; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.tier-label { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; fill: var(--ink-3); }
+.tier-sub { font-size: 11px; fill: var(--ink-3); }
+.node-label { font-size: 11.5px; fill: var(--ink); }
+.node-label.muted { fill: var(--ink-3); }
+.edge { fill: none; stroke-linecap: round; transition: opacity .15s; }
+.dim .edge:not(.on) { opacity: .08; }
+.dim .node:not(.on) { opacity: .25; }
+.dim .node-label:not(.on) { opacity: .3; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 8px 10px; border-radius: 6px; max-width: 280px; line-height: 1.35; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.tip b { font-weight: 600; }
+.read { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.read p { margin: 0; color: var(--ink-2); font-size: 14px; min-width: 0; }
+.read p b { color: var(--ink); }
+details { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; }
+summary { cursor: pointer; padding: 12px 16px; font-weight: 600; }
+.tbl { overflow-x: auto; padding: 0 16px 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--rule); }
+th { color: var(--ink-3); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.notes { font-size: 13px; color: var(--ink-3); max-width: 90ch; display: grid; gap: 6px; }
+.notes p { margin: 0; }
+@media (prefers-reduced-motion: reduce) { .edge { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Cooperative purchasing · state and local government</div>
+    <h1>Who buys off whose contract</h1>
+    <p class="dek">Each line runs from a buyer to the contract vehicle it bought through. <b>Short lines stay within one level of government</b>: peers pooling demand (horizontal) or a state agency using its own state's contract (central). <b>Long lines cross the middle</b>: a local government piggybacking on a state or multi-state contract (vertical), or a state agency using a local cooperative.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Measure">
+      <button type="button" id="v-dollars" aria-pressed="true">Sales dollars</button>
+      <button type="button" id="v-contracts" aria-pressed="false">Contract counts</button>
+    </div>
+    <label class="check"><input type="checkbox" id="show-central" checked> Show central purchasing</label>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="canvas" id="canvas">
+    <div class="legend">
+      <span><i class="swatch sw-d"></i>Vertical: lower level buys off higher level's contract</span>
+      <span><i class="swatch sw-h"></i>Horizontal: peers pooling</span>
+      <span><i class="swatch sw-u"></i>Vertical: higher level buys through local cooperative</span>
+      <span><i class="swatch sw-c"></i>Central: state agency on its own state's contract</span>
+      <span><i class="swatch sw-x"></i>Cooperative, direction unknown</span>
+      <span>● buyer &nbsp; ■ contract vehicle</span>
+    </div>
+    <svg id="net" role="img" aria-labelledby="net-title"><title id="net-title">Network of buyers and the contract vehicles they purchase through</title></svg>
+    <div class="tip" id="tip" hidden></div>
+  </div>
+
+  <section class="read" id="read"></section>
+
+  <details>
+    <summary>Table view: every link</summary>
+    <div class="tbl"><table id="tbl"><thead><tr><th>Buyer</th><th>Contract vehicle</th><th>Direction</th><th class="num" id="tbl-unit">Sales</th></tr></thead><tbody></tbody></table></div>
+  </details>
+
+  <div class="notes" id="notes"></div>
+</div>
+
+<script>
+const DATA = __DATA__;
+const TOTALS = __TOTALS__;
+const DIR = {
+  vertical_downward: { label: "Vertical (piggyback)", color: "var(--vdown)", dash: null },
+  horizontal: { label: "Horizontal (pooling)", color: "var(--horizontal)", dash: null },
+  vertical_upward: { label: "Vertical (state on local co-op)", color: "var(--vup)", dash: null },
+  central: { label: "Central (own state)", color: "var(--central)", dash: "1 5" },
+  unknown: { label: "Direction unknown", color: "var(--unknown)", dash: "6 5" },
+};
+const ROWS = [
+  { key: "state_buyer", label: "State buyers", sub: "agencies, universities, other states" },
+  { key: "state_vehicle", label: "State & multi-state contracts", sub: "DIR, DES, NASPO, MMCAP…" },
+  { key: "local_vehicle", label: "Local cooperatives", sub: "Sourcewell, OMNIA, TIPS…" },
+  { key: "local_buyer", label: "Local buyers", sub: "cities, counties, schools" },
+];
+let view = "dollars", showCentral = true;
+const svg = document.getElementById("net"), tip = document.getElementById("tip"), canvas = document.getElementById("canvas");
+const NS = "http://www.w3.org/2000/svg";
+const fmt = v => view === "dollars"
+  ? (v >= 1e9 ? `$${(v / 1e9).toFixed(1)}B` : v >= 1e6 ? `$${(v / 1e6).toFixed(0)}M` : `$${(v / 1e3).toFixed(0)}K`)
+  : `${v.toLocaleString()} contract${v === 1 ? "" : "s"}`;
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; }
+function wrap(text, max) {
+  const words = text.split(" "), lines = []; let cur = "";
+  for (const w of words) { if ((cur + " " + w).trim().length > max && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim(); }
+  if (cur) lines.push(cur); return lines.slice(0, 3);
+}
+
+function layout(edges) {
+  const nodes = new Map();
+  for (const e of edges) {
+    for (const [id, row] of [[e.buyer, e.brow], [e.vehicle, e.vrow]]) {
+      const k = row + "|" + id;
+      if (!nodes.has(k)) nodes.set(k, { id, row, total: 0, edges: [] });
+      const n = nodes.get(k); n.total += e.value; n.edges.push(e);
+    }
+    e.bk = e.brow + "|" + e.buyer; e.vk = e.vrow + "|" + e.vehicle;
+  }
+  const byRow = {}; ROWS.forEach(r => byRow[r.key] = [...nodes.values()].filter(n => n.row === r.key));
+  // initial order: buyers grouped by name, then barycentric sweeps to reduce crossings
+  ROWS.forEach(r => byRow[r.key].sort((a, b) => a.id.localeCompare(b.id)));
+  const place = () => ROWS.forEach(r => byRow[r.key].forEach((n, i, arr) => n.pos = (i + 0.5) / arr.length));
+  place();
+  const other = (n, e) => nodes.get(e.bk === n.row + "|" + n.id ? e.vk : e.bk);
+  for (let it = 0; it < 8; it++) {
+    for (const r of ROWS) {
+      for (const n of byRow[r.key]) {
+        let s = 0, w = 0;
+        for (const e of n.edges) { const o = other(n, e); const ww = Math.sqrt(e.value); s += o.pos * ww; w += ww; }
+        n.bary = w ? s / w : n.pos;
+      }
+      byRow[r.key].sort((a, b) => a.bary - b.bary);
+      place();
+    }
+  }
+  return { nodes, byRow };
+}
+
+function render() {
+  const all = DATA[view].edges;
+  const edges = all.filter(e => showCentral || e.dir !== "central").map(e => ({ ...e }));
+  const { nodes, byRow } = layout(edges);
+  const maxCount = Math.max(...ROWS.map(r => byRow[r.key].length), 1);
+  const left = 170, right = 40;
+  const W = Math.max(980, left + right + maxCount * 92);
+  const rowY = { state_buyer: 92, state_vehicle: 262, local_vehicle: 432, local_buyer: 602 };
+  const H = 710;
+  svg.innerHTML = ""; svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  el("title", { id: "net-title" }, svg).textContent = "Network of buyers and the contract vehicles they purchase through";
+  // level bands
+  const bands = [["State level", 30, 300], ["Local level", 370, 670]];
+  for (const [name, y0, y1] of bands) {
+    el("rect", { x: 8, y: y0, width: W - 16, height: y1 - y0, rx: 10, fill: "var(--band)" }, svg);
+  }
+  ROWS.forEach(r => {
+    const t = el("text", { x: 22, y: rowY[r.key] - 4, class: "tier-label" }, svg); t.textContent = r.label.toUpperCase();
+    const s = el("text", { x: 22, y: rowY[r.key] + 12, class: "tier-sub" }, svg); s.textContent = r.sub;
+  });
+  const span = W - left - right;
+  for (const n of nodes.values()) { n.x = left + n.pos * span; n.y = rowY[n.row]; }
+  const maxE = Math.max(...edges.map(e => e.value)), maxN = Math.max(...[...nodes.values()].map(n => n.total));
+  const ew = v => 1.2 + 15 * Math.sqrt(v / maxE);
+  const nr = v => 4 + 13 * Math.sqrt(v / maxN);
+  const gE = el("g", {}, svg), gN = el("g", {}, svg), gL = el("g", {}, svg);
+  // draw larger edges first so thin ones stay visible on top
+  edges.sort((a, b) => b.value - a.value);
+  for (const e of edges) {
+    const a = nodes.get(e.bk), b = nodes.get(e.vk);
+    const my = (a.y + b.y) / 2;
+    const d = `M${a.x},${a.y} C${a.x},${my} ${b.x},${my} ${b.x},${b.y}`;
+    const p = el("path", { d, class: "edge", stroke: DIR[e.dir].color, "stroke-width": ew(e.value), "stroke-opacity": e.dir === "central" || e.dir === "unknown" ? .8 : .72 }, gE);
+    if (DIR[e.dir].dash) p.setAttribute("stroke-dasharray", DIR[e.dir].dash);
+    // wide invisible hit target
+    const hit = el("path", { d, fill: "none", stroke: "transparent", "stroke-width": Math.max(12, ew(e.value) + 8), tabindex: 0 }, gE);
+    hit.setAttribute("aria-label", `${e.buyer} to ${e.vehicle}: ${DIR[e.dir].label}, ${fmt(e.value)}`);
+    e.path = p; e.a = a; e.b = b;
+    const show = ev => { focus([e], [a, b]); tipAt(ev, `<b>${e.buyer}</b> → <b>${e.vehicle}</b><br>${DIR[e.dir].label}<br>${fmt(e.value)}`); };
+    hit.addEventListener("pointermove", show); hit.addEventListener("focus", ev => show(ev));
+    hit.addEventListener("pointerleave", clear); hit.addEventListener("blur", clear);
+  }
+  for (const r of ROWS) {
+    const row = byRow[r.key];
+    row.forEach((n, i) => {
+      const isVehicle = r.key.endsWith("vehicle"), rad = nr(n.total);
+      const shape = isVehicle
+        ? el("rect", { x: n.x - rad, y: n.y - rad, width: rad * 2, height: rad * 2, rx: 3, class: "node", fill: "var(--ink)", stroke: "var(--panel)", "stroke-width": 2 }, gN)
+        : el("circle", { cx: n.x, cy: n.y, r: rad, class: "node", fill: "var(--panel)", stroke: "var(--ink)", "stroke-width": 2 }, gN);
+      shape.setAttribute("tabindex", 0);
+      shape.setAttribute("aria-label", `${n.id}: ${fmt(n.total)}`);
+      n.shape = shape;
+      // labels: above for the top row, below for the bottom row, staggered for the middle rows
+      const above = r.key === "state_buyer" || (isVehicle && r.key === "state_vehicle" && i % 2 === 0) || (r.key === "local_vehicle" && i % 2 === 0);
+      const lines = wrap(n.id, 16);
+      const lh = 13, off = rad + 8;
+      const startY = above ? n.y - off - (lines.length - 1) * lh : n.y + off + 9;
+      const t = el("text", { x: n.x, y: startY, "text-anchor": "middle", class: "node-label" + (n.total < maxN * 0.002 ? " muted" : "") }, gL);
+      lines.forEach((ln, k) => { const ts = el("tspan", { x: n.x, dy: k ? lh : 0 }, t); ts.textContent = ln; });
+      n.label = t;
+      const show = ev => { focus(n.edges.map(e => edges.find(x => x.bk === e.bk && x.vk === e.vk && x.dir === e.dir)).filter(Boolean), null, n);
+        const by = {}; n.edges.forEach(e => by[e.dir] = (by[e.dir] || 0) + e.value);
+        tipAt(ev, `<b>${n.id}</b><br>${fmt(n.total)} total` + Object.entries(by).sort((a, b) => b[1] - a[1]).map(([d, v]) => `<br>${DIR[d].label}: ${fmt(v)}`).join("")); };
+      shape.addEventListener("pointermove", show); shape.addEventListener("focus", show);
+      shape.addEventListener("pointerleave", clear); shape.addEventListener("blur", clear);
+    });
+  }
+  function focus(es, ns, n) {
+    svg.classList.add("dim");
+    const on = new Set();
+    es.forEach(e => { e.path.classList.add("on"); on.add(e.a); on.add(e.b); });
+    (ns || []).forEach(x => on.add(x)); if (n) on.add(n);
+    on.forEach(x => { x.shape.classList.add("on"); x.label.classList.add("on"); });
+  }
+  function clear() { svg.classList.remove("dim"); svg.querySelectorAll(".on").forEach(x => x.classList.remove("on")); tip.hidden = true; }
+  stats(); table(edges); notes();
+}
+function tipAt(ev, html) {
+  tip.innerHTML = html; tip.hidden = false;
+  const box = canvas.getBoundingClientRect();
+  let x, y;
+  if (ev.clientX) { x = ev.clientX - box.left + canvas.scrollLeft + 14; y = ev.clientY - box.top + 14; }
+  else { const r = ev.target.getBoundingClientRect(); x = r.left - box.left + canvas.scrollLeft + r.width / 2; y = r.top - box.top + r.height + 8; }
+  const maxX = canvas.scrollLeft + canvas.clientWidth - tip.offsetWidth - 8;
+  tip.style.left = Math.min(x, maxX) + "px"; tip.style.top = y + "px";
+}
+function stats() {
+  const t = TOTALS[view], coop = t.vertical_downward + t.horizontal + t.vertical_upward + t.unknown;
+  const pct = v => coop ? `${Math.round(100 * v / coop)}% of cooperative` : "";
+  const cards = [
+    ["sw-d", "Vertical piggybacking", t.vertical_downward, pct(t.vertical_downward)],
+    ["sw-h", "Horizontal pooling", t.horizontal, pct(t.horizontal)],
+    ["sw-u", "State on local co-op", t.vertical_upward, pct(t.vertical_upward)],
+    ["sw-c", "Central (not cooperative)", t.central, "state agency on own state's contract"],
+  ];
+  document.getElementById("stats").innerHTML = cards.map(([c, k, v, s]) =>
+    `<div class="stat"><div class="k"><i class="swatch ${c}"></i>${k}</div><div class="v">${fmt(v).replace(/ contracts?$/, "")}</div><div class="s">${view === "contracts" ? (v === 1 ? "contract · " : "contracts · ") : ""}${s}</div></div>`).join("");
+}
+function table(edges) {
+  document.getElementById("tbl-unit").textContent = view === "dollars" ? "Sales" : "Contracts";
+  document.querySelector("#tbl tbody").innerHTML = [...edges].sort((a, b) => b.value - a.value)
+    .map(e => `<tr><td>${e.buyer}</td><td>${e.vehicle}</td><td>${DIR[e.dir].label}</td><td class="num">${view === "dollars" ? fmt(e.value) : e.value.toLocaleString()}</td></tr>`).join("");
+}
+function notes() {
+  const fed = DATA[view].federal;
+  const fedTxt = fed.map(e => `${e.buyer} → ${e.vehicle} (${fmt(e.value)})`).join("; ");
+  const src = view === "dollars"
+    ? "<b>Sales dollars</b>: Texas DIR cooperative sales (FY2010–FY2027), Washington DES statewide-contract sales (2015–2026), Delaware statewide and external-cooperative spend (FY2023–FY2027), summed over all years. Washington contracts whose titles name NASPO, MMCAP or Sourcewell are shown under that cooperative."
+    : "<b>Contract counts</b>: contracts in the Washington, Oregon, Chicago, Cook County, Baton Rouge, West Hollywood and Austin ledgers that name a cooperative vehicle or another government's contract, from explicit procurement-method fields or contract text. Most ledger contracts name no vehicle, so counts are a floor.";
+  document.getElementById("notes").innerHTML = `<p>${src}</p><p>The federal tier is left out because it is thin in these data: ${fedTxt}.</p>`;
+  const read = view === "dollars"
+    ? [["Vertical dominates.", "Local governments and school districts buying off Texas DIR and Washington DES contracts account for most cooperative dollars."],
+       ["Horizontal is mostly NASPO and other states.", "Washington agencies use NASPO ValuePoint, and agencies in other states buy off Washington's and Texas's contracts."],
+       ["Central is large but separate.", "State agencies on their own state's contracts are centralized purchasing, not cooperation; turn it off to see the cooperative network alone."]]
+    : [["Baton Rouge piggybacks heavily.", "About 1,560 purchase orders cite a Louisiana state contract number."],
+       ["States pool horizontally.", "Washington and Oregon agencies buy through NASPO ValuePoint and MMCAP; Chicago runs joint purchases with sister agencies."],
+       ["States also reach down.", "Washington agencies use Sourcewell, OMNIA, NCPA and TIPS, cooperatives set up by local governments."]];
+  document.getElementById("read").innerHTML = read.map(([h, p]) => `<p><b>${h}</b> ${p}</p>`).join("");
+}
+document.getElementById("v-dollars").onclick = () => { view = "dollars"; sync(); };
+document.getElementById("v-contracts").onclick = () => { view = "contracts"; sync(); };
+document.getElementById("show-central").onchange = e => { showCentral = e.target.checked; render(); };
+function sync() {
+  document.getElementById("v-dollars").setAttribute("aria-pressed", view === "dollars");
+  document.getElementById("v-contracts").setAttribute("aria-pressed", view === "contracts");
+  render();
+}
+render();
+</script>

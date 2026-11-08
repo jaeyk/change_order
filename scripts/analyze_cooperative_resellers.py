@@ -72,7 +72,10 @@ def run_logit(contracts: list[dict[str, Any]], label: str, max_n: int = 40000) -
     sample = reg[::stride]
 
     certs = ["minority_or_women_owned", "disadvantaged_business", "veteran_owned", "small_business", "not_reported"]
-    names = ["Intercept", "is_tech", "is_cooperative", "is_statewide_master", "is_reseller"]
+    channels = ["cooperative_horizontal", "cooperative_vertical_downward", "cooperative_vertical_upward",
+                "cooperative_unknown", "central_state_contract"]
+    names = ["Intercept", "is_tech"] + channels + ["is_reseller", "multiple_award",
+                                                    "gsa_mas_holder", "state_vehicle_prime"]
     names += [f"cert_{c}" for c in certs]
     names += ["log10_initial_award", "log10_duration_days"] + [f"jurisdiction_{j}" for j in fe]
 
@@ -83,10 +86,12 @@ def run_logit(contracts: list[dict[str, Any]], label: str, max_n: int = 40000) -
         row = [
             1.0,
             float(c["is_tech"]),
-            1.0 if c["procurement_channel"] == "cooperative" else 0.0,
-            1.0 if c["procurement_channel"] == "statewide_master" else 0.0,
-            1.0 if c["vendor_role"] == "authorized_reseller" else 0.0,
         ]
+        row += [1.0 if c["procurement_channel"] == ch else 0.0 for ch in channels]
+        row += [1.0 if c["vendor_role"] == "authorized_reseller" else 0.0,
+                1.0 if c["n_contractors"] > 1 else 0.0,
+                float(c["gsa_mas_holder"]),
+                1.0 if c["qualification_tier"] == "state_vehicle_prime" else 0.0]
         row += [1.0 if c["vendor_certification"] == k else 0.0 for k in certs]
         row += [math.log10(max(c["initial_award_val"], 1.0)), math.log10(max(c["duration_days"], 1.0))]
         row += [1.0 if c["jurisdiction"] == j else 0.0 for j in fe]
@@ -144,30 +149,42 @@ def print_shares(title: str, table: dict[str, Any]) -> None:
 
 
 def main() -> int:
-    contracts = load_contracts(PROCESSED / "contracts_normalized.csv")
-    print(f"Loaded {len(contracts):,} contracts", file=sys.stderr)
+    all_contracts = load_contracts(PROCESSED / "contracts_normalized.csv")
+    # Amendment outcomes only where the ledger records amendment history (drops Baton Rouge's
+    # snapshot PO ledger and NYC SCA's change-order-only file).
+    contracts = [c for c in all_contracts if c["amendment_observable"] == 1]
+    print(f"Loaded {len(all_contracts):,} contracts; {len(contracts):,} with observable amendment history",
+          file=sys.stderr)
     results: dict[str, Any] = {}
 
     # ---------------- A. Coverage: states & levels of government -------------------------
     rule("A. COVERAGE: JURISDICTIONS BY STATE AND LEVEL OF GOVERNMENT")
     cov: dict[str, Any] = {}
     by_j: dict[str, list[dict[str, Any]]] = defaultdict(list)
-    for c in contracts:
+    for c in all_contracts:
         by_j[c["jurisdiction"]].append(c)
+    print("(Amend % shown as n/a where the ledger has no amendment history)")
     print(f"{'Jurisdiction':<20} | {'State':<5} | {'Level':<17} | {'Contracts':>9} | {'Amend %':>7} | {'Tech %':>6}")
     print("-" * 92)
     for j, rows in sorted(by_j.items(), key=lambda kv: -len(kv[1])):
         m = compute_metrics(rows)
         tech = sum(r["is_tech"] for r in rows) / len(rows) * 100
-        cov[j] = {"state": rows[0]["state"], "gov_level": rows[0]["gov_level"], **m, "tech_share_pct": round(tech, 2)}
+        observable = rows[0]["amendment_observable"] == 1
+        cov[j] = {"state": rows[0]["state"], "gov_level": rows[0]["gov_level"], **m,
+                  "tech_share_pct": round(tech, 2), "amendment_observable": int(observable)}
+        rate = f"{m['amendment_rate_pct']:>7.1f}" if observable else f"{'n/a':>7}"
         print(f"{j:<20} | {rows[0]['state']:<5} | {rows[0]['gov_level']:<17} | {len(rows):>9,} | "
-              f"{m['amendment_rate_pct']:>7.1f} | {tech:>6.1f}")
+              f"{rate} | {tech:>6.1f}")
     results["coverage"] = cov
     print()
     results["by_gov_level"] = metrics_table(contracts, "gov_level")
 
     # ---------------- B. Procurement channel / cooperative vehicle ------------------------
-    rule("B. AMENDMENT OUTCOMES BY PROCUREMENT CHANNEL AND COOPERATIVE VEHICLE")
+    rule("B. AMENDMENT OUTCOMES BY PROCUREMENT CHANNEL: HORIZONTAL VS. VERTICAL COOPERATION")
+    print("horizontal = peers pooling (states via NASPO; locals via Sourcewell/OMNIA/TIPS...)")
+    print("vertical_downward = lower level piggybacks on higher level's contract (locals on state")
+    print("  contracts, states/locals on GSA schedules); vertical_upward = state on a local consortium;")
+    print("central = state agency on its own state's master contract (not cooperative)\n")
     results["by_channel_all"] = metrics_table(contracts, "procurement_channel")
     tech = [c for c in contracts if c["is_tech"] == 1]
     print("\nTech contracts only:")
@@ -175,6 +192,13 @@ def main() -> int:
     print("\nBy cooperative vehicle (all contracts, n >= 20):")
     results["by_coop_vehicle"] = metrics_table(
         [c for c in contracts if c["coop_vehicle"]], "coop_vehicle", min_n=20)
+    print("\nVehicle x direction x buyer level (counts):")
+    vd = Counter((c["coop_vehicle"], c["coop_direction"], c["gov_level"]) for c in all_contracts if c["coop_vehicle"])
+    results["vehicle_direction_counts"] = [
+        {"coop_vehicle": v, "coop_direction": d, "buyer_level": b, "contracts": n} for (v, d, b), n in vd.most_common()
+    ]
+    for (v, d, b), n in vd.most_common(20):
+        print(f"  {v:<24} {d:<18} {b:<18} {n:>7,}")
     wa = [c for c in contracts if c["jurisdiction"] == "washington_state"]
     print("\nWashington State only (cooperative flags from WA IT Contracts reports):")
     results["by_channel_washington"] = metrics_table(wa, "procurement_channel")
@@ -193,9 +217,8 @@ def main() -> int:
 
     # ---------------- D. Certification grades --------------------------------------------
     rule("D. VENDOR CERTIFICATION GRADES (jurisdictions that report grades AND have amendment variation)")
-    # Baton Rouge reports DBE/minority/veteran flags, but its line-item ledger marks every
-    # multi-line purchase order as amended (100% rate), so it is excluded here.
-    varied = {j for j, m in cov.items() if 0.5 < m["amendment_rate_pct"] < 99.5}
+    # Baton Rouge reports DBE/minority/veteran flags but its ledger has no amendment history.
+    varied = {j for j, m in cov.items() if m["amendment_observable"] and 0.5 < m["amendment_rate_pct"] < 99.5}
     reported = [c for c in contracts if c["vendor_certification"] != "not_reported" and c["jurisdiction"] in varied]
     print("Jurisdictions included:", ", ".join(sorted({c["jurisdiction"] for c in reported})))
     results["by_certification"] = metrics_table(reported, "vendor_certification", order=CERT_ORDER[:-1])
@@ -221,6 +244,11 @@ def main() -> int:
         t = share_table(rows, "customer_type")
         coop[program] = {"total_sales": round(sum(float(r["sales"] or 0) for r in rows), 2), "by_customer_type": t}
         print_shares(f"[{program}] sales by customer type (total ${coop[program]['total_sales']:,.0f})", t)
+    print("\nCooperative sales by direction (buyer level vs. level that set up the vehicle):")
+    for program in sorted({r["program"] for r in sales}):
+        rows = [r for r in sales if r["program"] == program]
+        coop[program]["by_direction"] = share_table(rows, "coop_direction")
+        print_shares(f"[{program}]", coop[program]["by_direction"])
     tx = [r for r in sales if r["program"] == "texas_dir"]
     if tx:
         coop["texas_dir"]["by_sales_channel"] = share_table(tx, "sales_channel")
@@ -296,6 +324,49 @@ def main() -> int:
                   f"{n['prime_reseller_hub_fields_identical_pct']}% of rows in this source; use the sales data "
                   f"(section F) for prime-vs-reseller grade comparisons.")
     results["reseller_networks"] = net
+
+    # ---------------- H. Award structure -------------------------------------------------
+    rule("H. AWARD STRUCTURE: SINGLE VS. MULTIPLE CONTRACTORS, PRIME-DIRECT VS. RESELLER")
+    print("Contract ledgers (multiple_award = >1 distinct contractor on the same contract ID;")
+    print("suffix = role of the listed vendor):")
+    results["by_award_structure"] = metrics_table(contracts, "award_structure")
+    print("\nTech contracts only:")
+    results["by_award_structure_tech"] = metrics_table(tech, "award_structure")
+    awards = load_csv(PROCESSED / "award_structure.csv")
+    aw: dict[str, Any] = {}
+    print("\nCooperative vehicles (award_structure.csv):")
+    for src in sorted({r["source"] for r in awards}):
+        rows = [r for r in awards if r["source"] == src]
+        cnt = Counter(r["award_structure"] for r in rows)
+        sizes = [int(r["n_primes_in_solicitation"]) for r in rows if r["n_primes_in_solicitation"]]
+        res = [int(r["n_resellers"]) for r in rows if r["n_resellers"] not in ("", None)]
+        aw[src] = {
+            "contracts": len(rows),
+            "by_structure": dict(cnt),
+            "median_primes_per_solicitation": statistics.median(sizes) if sizes else None,
+            "share_contracts_with_resellers_pct": round(100 * sum(1 for x in res if x > 0) / len(res), 1) if res else None,
+            "median_resellers_when_any": statistics.median([x for x in res if x > 0]) if any(res) else None,
+        }
+        print(f"\n  [{src}] {len(rows):,} contracts; median primes/solicitation = "
+              f"{aw[src]['median_primes_per_solicitation']}; with resellers = {aw[src]['share_contracts_with_resellers_pct']}%")
+        for k, v in cnt.most_common():
+            print(f"    {k:<44} {v:>7,}  ({100 * v / len(rows):.1f}%)")
+    results["award_structure_vehicles"] = aw
+
+    # ---------------- I. Vendor qualifications (covariates) --------------------------------
+    rule("I. VENDOR QUALIFICATIONS: CONTRACT VEHICLES HELD (GSA MAS, VA FSS, STATE VEHICLES)")
+    results["by_qualification_tier"] = metrics_table(contracts, "qualification_tier")
+    print("\nTech contracts only:")
+    results["by_qualification_tier_tech"] = metrics_table(tech, "qualification_tier")
+    print("\nGSA MAS / VA FSS holders by holder role (NAICS):")
+    results["by_fss_holder_role"] = metrics_table(
+        [c for c in contracts if c["qualification_tier"] == "federal_schedule_holder"], "fss_holder_role")
+    print("\nQualification tier x vendor role:")
+    qr: dict[str, Any] = {}
+    for role in ("prime_or_direct", "authorized_reseller"):
+        print(f"  [{role}]")
+        qr[role] = metrics_table([c for c in contracts if c["vendor_role"] == role], "qualification_tier")
+    results["by_qualification_vendor_role"] = qr
 
     out = PROCESSED / "cooperative_reseller_results.json"
     with out.open("w", encoding="utf-8") as f:

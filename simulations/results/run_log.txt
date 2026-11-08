@@ -1,0 +1,19 @@
+[theory A] Chance, heterogeneous contracts: early z=-0.54, late z=0.41, accel z=0.12, accel_pre z=0.17, escal z=-0.48, lift z=-1.45, cont z=0.87, vendor z=-0.68
+[theory B] Design, no lock-in: early z=30.45, late z=-14.03, accel z=-3.17, accel_pre z=-2.93, escal z=0.66, lift z=6.42, cont z=1.48, vendor z=30.64
+[theory C] Design with lock-in spiral: early z=-19.52, late z=-2.5, accel z=1.16, accel_pre z=2.02, escal z=7.71, lift z=-4.58, cont z=-14.4, vendor z=23.4
+[theory D] Chance + routine renewals: early z=-10.53, late z=44.16, accel z=0.02, accel_pre z=-0.23, escal z=-0.1, lift z=-3.72, cont z=-1.54, vendor z=-0.65
+[theory E] Mixed: half chance, half C: early z=-17.12, late z=-8.69, accel z=-0.24, accel_pre z=-0.31, escal z=3.71, lift z=-3.41, cont z=-28.66, vendor z=1.84
+[sector] non_tech                                 n=278,380 met=['late', 'accel', 'escal', 'vendor'] against=['early', 'lift'] gap=16.2 spiral=-3.1
+[sector] all_tech                                 n= 46,166 met=['late', 'accel', 'escal', 'vendor'] against=['early', 'lift'] gap=13.1 spiral=-1.6
+[sector] subsector:tech_general                   n= 20,759 met=['late', 'accel', 'escal', 'vendor'] against=['early', 'lift'] gap=7.1 spiral=-2.1
+[sector] domain:general_enterprise_it             n= 17,646 met=['late', 'escal', 'vendor'] against=['early', 'lift'] gap=-2.1 spiral=0.8
+[sector] subsector:software_saas                  n= 17,482 met=['late', 'accel', 'escal', 'vendor'] against=['early', 'lift'] gap=9.9 spiral=1.0
+[sector] domain:public_assistance                 n=  9,483 met=['late', 'accel', 'vendor'] against=['early', 'lift'] gap=18.2 spiral=-0.9
+[sector] domain:health_care                       n=  7,710 met=['late', 'accel', 'vendor'] against=['early', 'lift'] gap=3.2 spiral=-0.3
+[sector] subsector:hardware_telecom               n=  4,942 met=['late', 'vendor'] against=['early', 'lift'] gap=-3.4 spiral=-0.2
+[sector] subsector:it_services                    n=  2,983 met=['late', 'vendor'] against=['early'] gap=-1.1 spiral=0.1
+[sector] domain:transportation                    n=  2,651 met=['late', 'vendor'] against=['early', 'lift'] gap=10.9 spiral=-0.3
+[sector] domain:administration_finance            n=  2,602 met=['late', 'escal', 'vendor'] against=['early', 'lift'] gap=-3.0 spiral=-0.2
+[sector] domain:public_safety                     n=  2,229 met=['late', 'vendor'] against=['early', 'accel', 'lift'] gap=-0.8 spiral=-1.7
+[sector] domain:environment                       n=  2,059 met=['late', 'escal', 'vendor'] against=['early'] gap=12.7 spiral=0.4
+Wrote data/processed/amendment_fingerprints.json
