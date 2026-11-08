@@ -1,0 +1,62 @@
+{
+ "contracts": {
+  "cook_county": 5316,
+  "chicago": 89265,
+  "oregon": 52330,
+  "washington_state": 183517,
+  "baton_rouge": 93264,
+  "nyc_sca": 887,
+  "vermont": 6547,
+  "austin": 341,
+  "oregon_lottery": 12806,
+  "oregon_judicial": 2591,
+  "oregon_treasury": 4991,
+  "west_hollywood": 1030,
+  "wa_doh": 1681,
+  "nyc_checkbook": 229702,
+  "dc": 10588
+ },
+ "observable": {
+  "cook_county": 5316,
+  "chicago": 89265,
+  "oregon": 52330,
+  "washington_state": 103398,
+  "oregon_lottery": 12806,
+  "oregon_judicial": 2591,
+  "oregon_treasury": 4991,
+  "west_hollywood": 1030,
+  "wa_doh": 1681,
+  "nyc_checkbook": 229611,
+  "dc": 10552
+ },
+ "timing": {
+  "cook_county": 1346,
+  "chicago": 21112,
+  "oregon": 16193,
+  "washington_state": 24161,
+  "oregon_treasury": 108,
+  "wa_doh": 733
+ },
+ "sizes": {
+  "cook_county": 494,
+  "chicago": 7296,
+  "oregon": 2899,
+  "washington_state": 5814,
+  "oregon_lottery": 417,
+  "oregon_treasury": 23,
+  "wa_doh": 317
+ },
+ "vendor": {
+  "cook_county": 5316,
+  "chicago": 89265,
+  "oregon": 52330,
+  "washington_state": 103356,
+  "oregon_lottery": 12376,
+  "oregon_treasury": 4991,
+  "wa_doh": 1680
+ },
+ "reasons": {
+  "chicago": 3363,
+  "washington_state": 39285
+ }
+}

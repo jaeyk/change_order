@@ -194,8 +194,8 @@ def lockin_figure(path: Path) -> None:
         svg.text(24, y + 4, SECTOR_LABEL.get(name, name) + (" (thin)" if thin else ""), size=12,
                  weight="bold" if (tier == 1 and not thin) else "normal", fill=INK if not thin else INK2)
         svg.text(left - 6, y + 4, f"tier {tier}", size=11, fill=INK3, anchor="end")
-    svg.text(24, H - 46, "Tier 1: vendor-level design + escalation (lock-in) + acceleration. Tier 2: design + escalation. "
-                         "Tier 3: vendor-level design only. Within tier, ordered by escalation; thin sectors last.",
+    svg.text(24, H - 46, "Tier 1: vendor-level design + escalation (lock-in). Tier 2: vendor-level design only. Tier 3: neither. "
+                         "Within tier, ordered by escalation; thin sectors last. Acceleration is supporting only.",
              size=11, fill=INK3)
     svg.text(24, H - 28, "Vendor share separates design (gap or lock-in worlds) from chance and routine renewals; "
                          "escalation separates lock-in. Acceleration appears only if dependence grows without limit.",

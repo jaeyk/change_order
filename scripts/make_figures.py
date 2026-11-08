@@ -38,7 +38,8 @@ DIR_STYLE = {
 }
 
 # Ledgers whose amendment rows carry the dollar change of each amendment
-DELTA_LEDGERS = {"chicago", "cook_county", "oregon", "oregon_treasury", "oregon_judicial"}
+DELTA_LEDGERS = {"chicago", "cook_county", "oregon", "oregon_treasury", "oregon_judicial", "washington_state",
+                 "oregon_lottery", "wa_doh", "dc"}
 
 SECTORS = [  # (key, label, color)
     ("hardware_telecom", "Hardware & telecom", ORANGE),
@@ -229,7 +230,8 @@ def load_paths() -> tuple[dict, dict]:
     contracts = {}
     with (PROCESSED / "contracts_normalized.csv").open(encoding="utf-8") as f:
         for r in csv.DictReader(f):
-            if r["jurisdiction"] in DELTA_LEDGERS and float(r["initial_award_val"] or 0) >= 1000:
+            if (r["jurisdiction"] in DELTA_LEDGERS and r["amendment_observable"] == "1"
+                    and float(r["initial_award_val"] or 0) >= 1000):
                 contracts[(r["jurisdiction"], r["contract_id"])] = r
     amends = defaultdict(list)
     with (PROCESSED / "amendments_normalized.csv").open(encoding="utf-8") as f:
@@ -259,76 +261,118 @@ def gmean(xs: list[float]) -> float:
     return math.exp(sum(math.log(x) for x in xs) / len(xs))
 
 
+def gmean_ci(xs: list[float]) -> tuple[float, float, float]:
+    """Geometric mean with a 95% interval computed on the log scale (mean of logs ± 1.96 SE)."""
+    logs = [math.log(x) for x in xs]
+    m = sum(logs) / len(logs)
+    if len(logs) < 2:
+        return math.exp(m), math.exp(m), math.exp(m)
+    sd = math.sqrt(sum((v - m) ** 2 for v in logs) / (len(logs) - 1))
+    se = sd / math.sqrt(len(logs))
+    return math.exp(m), math.exp(m - 1.96 * se), math.exp(m + 1.96 * se)
+
+
 def snowball_figure(contracts: dict, paths: dict, path: Path) -> dict:
     K = 6
     by_sector = defaultdict(list)
     for k, p in paths.items():
         by_sector[contracts[k]["tech_subsector"]].append(p)
     cohort = {s: [p for p in ps if len(p) > K] for s, ps in by_sector.items()}
-    series_a = {s: [gmean([p[i] for p in coh]) for i in range(K + 1)] for s, coh in cohort.items() if coh}
+    series_a = {s: [gmean_ci([p[i] for p in coh]) for i in range(K + 1)] for s, coh in cohort.items() if coh}
     buckets = [("0", 0, 0), ("1", 1, 1), ("2", 2, 2), ("3–5", 3, 5), ("6–10", 6, 10), ("11+", 11, 10 ** 6)]
     series_b, n_b = {}, {}
     for s, ps in by_sector.items():
         vals, ns = [], []
         for _, lo, hi in buckets:
             g = [p[-1] for p in ps if lo <= len(p) - 1 <= hi]
-            vals.append(gmean(g) if len(g) >= 10 else None)
+            vals.append(gmean_ci(g) if len(g) >= 10 else None)
             ns.append(len(g))
         series_b[s], n_b[s] = vals, ns
 
-    W, H = 1320, 600
+    def axis_max(series: dict) -> float:
+        tops = [v[2] for vals in series.values() for v in vals if v is not None]
+        top = max(tops + [2.0])
+        return next(t for t in (2, 2.5, 3, 4, 5, 7, 10, 15, 20, 25, 30, 50, 100) if t >= top)
+
+    W, H = 1580, 680
     svg = Svg(W, H, "Figure 3. Amendments snowball contract value")
     svg.text(24, 36, "Figure 3. Amendments snowball contract value", size=18, weight="bold")
-    svg.text(24, 58, "Contract value as a multiple of the original award (geometric mean), Chicago, Cook County and Oregon ledgers "
-                     "(contracts ≥ $1,000).", size=13, fill=INK2)
+    svg.text(24, 58, "Contract value as a multiple of the original award (geometric mean, with 95% confidence intervals). "
+                     "Chicago, Cook County, Oregon, Washington and DC ledgers (contracts ≥ $1,000).", size=13, fill=INK2)
 
-    def panel(x0, y0, w, h, xs, series, ymax, title, sub, xlabel, ns_label, ymin=0.8):
+    def panel(x0, y0, w, h, xs, series, ymax, title, sub, xlabel, ns_label, ymin=0.9):
         svg.text(x0, y0 - 34, title, size=14, weight="bold")
         svg.text(x0, y0 - 16, sub, size=12, fill=INK2)
-        ticks = [t for t in (1, 1.5, 2, 2.5, 3) if t <= ymax]
-        ymap = lambda v: y0 + h - (v - ymin) / (ymax - ymin) * h
-        xmap = lambda i: x0 + 40 + i * (w - 150) / (len(xs) - 1)
+        # log scale: equal distances are equal ratios, and the log-scale intervals stay symmetric
+        ticks = [t for t in (1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 7, 10, 15, 20, 25, 30, 50, 100)
+                 if t <= ymax and (ymax <= 5 or t not in (1.25, 2.5, 4, 7, 15, 25))]
+        lo_, hi_ = math.log(ymin), math.log(ymax)
+        ymap = lambda v: y0 + h - (math.log(min(max(v, ymin), ymax)) - lo_) / (hi_ - lo_) * h
+        xmap = lambda i: x0 + 40 + i * (w - 170) / (len(xs) - 1)
         for t in ticks:
-            svg.line(x0 + 40, ymap(t), x0 + w - 110, ymap(t), stroke=RULE)
+            svg.line(x0 + 40, ymap(t), x0 + w - 130, ymap(t), stroke=RULE)
             svg.text(x0 + 32, ymap(t) + 4, f"{t:g}×", size=11, fill=INK3, anchor="end")
         for i, lab in enumerate(xs):
             svg.text(xmap(i), y0 + h + 18, lab, size=11, fill=INK3, anchor="middle")
-        svg.text(x0 + 40 + (w - 150) / 2, y0 + h + 38, xlabel, size=12, fill=INK2, anchor="middle")
+        svg.text(x0 + 40 + (w - 170) / 2, y0 + h + 38, xlabel, size=12, fill=INK2, anchor="middle")
+        present = [k for k, _, _ in SECTORS if series.get(k)]
         ends = []
-        for key, label, color in SECTORS:
+        for si, (key, label, color) in enumerate(SECTORS):
             vals = series.get(key)
             if not vals:
                 continue
-            pts = [(xmap(i), ymap(v)) for i, v in enumerate(vals) if v is not None]
+            off = (present.index(key) - (len(present) - 1) / 2) * 5  # nudge bars apart
+            pts = [(xmap(i) + off, ymap(v[0])) for i, v in enumerate(vals) if v is not None]
+            # 95% interval bars
+            for i, v in enumerate(vals):
+                if v is None or i == 0 and v[1] == v[2]:
+                    continue
+                x = xmap(i) + off
+                svg.add(f'<line x1="{x:.1f}" y1="{ymap(v[1]):.1f}" x2="{x:.1f}" y2="{ymap(v[2]):.1f}" stroke="{color}" '
+                        f'stroke-width="1.5" stroke-opacity="0.55"/>')
+                for yy in (ymap(v[1]), ymap(v[2])):
+                    svg.add(f'<line x1="{x - 3:.1f}" y1="{yy:.1f}" x2="{x + 3:.1f}" y2="{yy:.1f}" stroke="{color}" '
+                            f'stroke-width="1.5" stroke-opacity="0.55"/>')
             dash = ' stroke-dasharray="5 4"' if key == "non_tech" else ""
             svg.add(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" stroke="{color}" '
                     f'stroke-width="2.5" stroke-linejoin="round"{dash}/>')
             for x, y in pts:
                 svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4" fill="{color}" stroke="{SURFACE}" stroke-width="2"/>')
             last = [v for v in vals if v is not None][-1]
-            ends.append([pts[-1][1], f"{label} {last:.2f}×{ns_label(key)}", pts[-1][0]])
+            ends.append([pts[-1][1], f"{label} {last[0]:.2f}× [{last[1]:.2f}–{last[2]:.2f}]{ns_label(key)}",
+                         xmap(len(xs) - 1)])
         ends.sort()
-        for i in range(1, len(ends)):  # de-collide end labels
-            if ends[i][0] - ends[i - 1][0] < 15:
+        for i in range(len(ends)):  # de-collide end labels and keep them inside the panel
+            ends[i][0] = max(ends[i][0], y0 + 4)
+            if i and ends[i][0] - ends[i - 1][0] < 15:
                 ends[i][0] = ends[i - 1][0] + 15
         for y, lab, x in ends:
-            svg.text(x + 10, y + 4, lab, size=11.5)
+            svg.text(x + 18, y + 4, lab, size=11)
 
-    panel(24, 120, 560, 380, [str(i) for i in range(K + 1)], series_a, 2.5,
+    panel(24, 130, 600, 420, [str(i) for i in range(K + 1)], series_a, axis_max(series_a),
           "A. Value path, amendment by amendment",
           f"Same contracts throughout: those amended at least {K} times", "Amendments so far",
-          lambda k: f"  (n={len(cohort.get(k, []))})")
-    panel(680, 120, 560, 380, [b[0] for b in buckets], series_b, 3,
+          lambda k: f" (n={len(cohort.get(k, []))})")
+    panel(800, 130, 600, 420, [b[0] for b in buckets], series_b, axis_max(series_b),
           "B. Final value by total number of amendments",
           "All contracts; points need ≥ 10 contracts", "Total amendments", lambda k: "")
-    svg.text(24, H - 46, "Reading: in panel A every line follows one fixed group of contracts, so the climb is "
+    svg.text(24, H - 64, "Reading: in panel A every line follows one fixed group of contracts, so the climb is "
                          "compounding, not a change in which contracts are counted. Geometric means damp extreme outliers.",
              size=11, fill=INK3)
-    svg.text(24, H - 28, "Washington is excluded because its amendment rows may report running totals; Baton Rouge, "
-                         "Vermont, Austin and NYC SCA have no usable amendment history.", size=11, fill=INK3)
+    svg.text(24, H - 46, "Log scale; each panel has its own axis. Bars: 95% confidence intervals for the geometric mean (mean of logs ± 1.96 SE); "
+                         "sectors are offset slightly so bars do not overlap. Wide bars at 11+ reflect few contracts.",
+             size=11, fill=INK3)
+    svg.text(24, H - 28, "Pooled across ledgers: within the same ledger, software ≈ non-technology and hardware / general technology "
+                         "compound more (robustness_checks.md, R15). DC changes are ordered by option period and version.",
+             size=11, fill=INK3)
     svg.save(path)
-    return {"cohort_min_amendments": K, "panel_a": series_a, "panel_a_n": {s: len(c) for s, c in cohort.items()},
-            "panel_b": series_b, "panel_b_n": n_b}
+    pt = lambda vals: [None if v is None else round(v[0], 4) for v in vals]
+    ci = lambda vals: [None if v is None else [round(v[1], 4), round(v[2], 4)] for v in vals]
+    return {"cohort_min_amendments": K,
+            "panel_a": {s: pt(v) for s, v in series_a.items()}, "panel_a_ci95": {s: ci(v) for s, v in series_a.items()},
+            "panel_a_n": {s: len(c) for s, c in cohort.items()},
+            "panel_b": {s: pt(v) for s, v in series_b.items()}, "panel_b_ci95": {s: ci(v) for s, v in series_b.items()},
+            "panel_b_n": n_b}
 
 
 # --------------------------------------------------------------------------------------
@@ -354,8 +398,8 @@ def domain_figure(contracts: dict, paths: dict, path: Path) -> dict:
     H = 170 + row_h * len(rows) + 70
     svg = Svg(W, H, "Figure 4. Amendment incidence and value growth by program domain")
     svg.text(24, 36, "Figure 4. How often contracts are amended, and how far they grow, by program domain", size=18, weight="bold")
-    svg.text(24, 58, "Technology contracts by program domain, with non-technology contracts as reference. Chicago, Cook County "
-                     "and Oregon ledgers.", size=13, fill=INK2)
+    svg.text(24, 58, "Technology contracts by program domain, with non-technology contracts as reference. Chicago, Cook County, "
+                     "Oregon and Washington ledgers.", size=13, fill=INK2)
     label_w, y0 = 230, 130
     cols = [("Share of contracts amended", "rate", 0, 60, lambda v: f"{v:.0f}%", [0, 20, 40, 60]),
             ("Value growth when amended (geometric mean)", "growth", 1, 1.6, lambda v: f"{v:.2f}×", [1, 1.2, 1.4, 1.6]),
@@ -404,7 +448,8 @@ SECTOR_LABEL = {
     "subsector:it_services": "IT services", "domain:health_care": "Health care (tech)",
     "domain:public_assistance": "Public assistance (tech)", "domain:transportation": "Transportation (tech)",
     "domain:administration_finance": "Administration & finance (tech)", "domain:public_safety": "Public safety (tech)",
-    "domain:environment": "Environment (tech)", "all_tech": "All technology", "non_tech": "Non-technology",
+    "domain:environment": "Environment (tech)", "domain:labor_workforce": "Labor & workforce (tech)",
+    "all_tech": "All technology", "non_tech": "Non-technology",
 }
 
 
@@ -464,7 +509,7 @@ def fingerprint_figure(path: Path) -> dict | None:
     y += 10
     svg.line(24, y, W - 24, y, stroke=RULE)
     y += 6
-    svg.text(24, y + 6, "SECTORS (Chicago, Oregon, Cook County; vendor share adds Washington)", size=10.5, fill=INK3,
+    svg.text(24, y + 6, "SECTORS (Chicago, Oregon, Cook County, Washington; sizes also Oregon Lottery & Treasury)", size=10.5, fill=INK3,
              weight="bold")
     y += 12
     for name in order:
@@ -484,7 +529,7 @@ def fingerprint_figure(path: Path) -> dict | None:
         svg.text(lx + 28, ly + 11, labels[b], size=11, fill=INK2)
         lx += 28 + 7 * len(labels[b]) + 18
     svg.text(24, H - 28, "Vendor share separates design from chance and renewals; escalation separates lock-in. Tier 1 "
-                         "(bold) = both plus acceleration. \"thin\" = fewer than 30 eligible contracts.", size=11, fill=INK3)
+                         "(bold) = both, well measured. \"thin\" = fewer than 30 eligible contracts.", size=11, fill=INK3)
     svg.save(path)
     return {"order": order}
 

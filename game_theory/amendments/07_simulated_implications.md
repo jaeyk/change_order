@@ -49,34 +49,39 @@ What the simulation teaches:
 
 ## 4. What the sectors show
 
-Sectors are tech subsectors, tech program domains and non-technology contracts. Timing and size fingerprints use Chicago, Oregon ORPIN and Cook County, which record dated amendments with dollar changes. Bulk-migration dates (more than 200 amendments on one date) are dropped. The vendor share adds Washington and is estimated within ledger × department cells, against a within-cell permutation null.
+Sectors are tech subsectors, tech program domains and non-technology contracts. Timing fingerprints use Chicago, Oregon ORPIN, Cook County, Washington (labelled FY2023+ amendments) and Oregon Treasury, the ledgers with dated amendments inside a known term. Size fingerprints also use Oregon Lottery's dated change orders. Chicago's bulk-migration dates (more than 200 revisions on one date) are dropped. The vendor share is estimated within ledger × department cells, against a within-cell permutation null.
 
-**Every sector shares one regime.** All sectors have far fewer early amendments than chance (z from −5 to −131) and far more end-of-term amendments (+10 to +116). This is the renewal signature, shared by worlds C and D. The implementation-gap world (B) is negatively correlated with every sector. **Where design is present, it does not appear as scope gaps discovered early. It appears around renewal and in how amendment sizes grow.**
+**Nearly every sector shares one regime.** Every well-measured sector has more amendments in the last tenth of the term or after it than its matched chance world (z from +15 to +141), and late amendments are less concentrated among already-amended contracts than chance predicts. This is the renewal signature, shared by worlds C and D. Early amendments are below chance in most sectors. The exceptions are Software & SaaS, about at chance, and the thin IT-services and environment samples, which are above it. **Where design is present, it does not appear mainly as scope gaps discovered early. It appears around renewal and in how amendment sizes grow.**
 
 **Evidence tiers.** Effects are observed minus matched chance ([S3](../../simulations/figures/s3_lockin_fingerprints.png)):
-- **Tier 1:** vendor-level design + escalation (lock-in) + acceleration in support.
-- **Tier 2:** design + escalation.
-- **Tier 3:** vendor-level design only.
+- **Tier 1:** vendor-level design + escalation (lock-in).
+- **Tier 2:** vendor-level design only.
+- **Tier 3:** neither.
 
-| Tier | Sector | Contracts | Next amendment larger (chance ≈ 0.50) | Vendor share (chance ≈ 0.02) | Next gap shorter (supporting) |
+Acceleration is shown as supporting evidence only.
+
+| Tier | Sector | Contracts | Next amendment larger (chance ≈ 0.50) | Vendor share (chance ≈ 0.01–0.08) | Next gap shorter (supporting) |
 | :---: | --- | ---: | ---: | ---: | ---: |
-| 1 | **Software & SaaS** | 17,482 | **0.66** (+0.16) | **0.16** (+0.14) | **0.71** |
-| 1 | **General enterprise IT** | 17,646 | **0.64** (+0.15) | **0.17** (+0.13) | **0.56** |
-| 1 | General technology | 20,759 | **0.54** (+0.04) | **0.29** (+0.27) | **0.53** |
-| 2 | Administration & finance (tech) | 2,602 | **0.66** (+0.15) | **0.21** (+0.15) | 0.43 |
-| 2 | Non-technology | 278,380 | **0.53** (+0.03) | **0.15** (+0.14) | 0.50 |
-| 3 | Hardware & telecom | 4,942 | 0.56 | **0.15** (+0.11) | **0.68** |
-| 3 | Health care (tech) | 7,710 | 0.55 | **0.19** (+0.17) | **0.69** |
-| 3 | Public assistance (tech) | 9,483 | 0.49 | **0.30** (+0.29) | **0.56** |
-| *thin* | Environment, IT services, public safety, transportation (tech) | 2,000–3,000 each | | | |
+| 1 | **Software & SaaS** | 11,849 | **0.67 (+0.16)** | **0.37 (+0.34)** | 0.51 |
+| 1 | **General enterprise IT** | 15,633 | **0.65 (+0.15)** | **0.24 (+0.20)** | 0.51 |
+| 1 | Administration & finance (tech) | 3,545 | **0.63 (+0.13)** | **0.31 (+0.23)** | 0.49 |
+| 1 | Transportation (tech) | 1,536 | **0.57 (+0.07)** | **0.17 (+0.14)** | 0.54 |
+| 1 | Non-technology | 221,947 | **0.56 (+0.06)** | **0.18 (+0.17)** | 0.50 |
+| 1 | Health care (tech) | 5,805 | **0.56 (+0.06)** | **0.23 (+0.21)** | **0.58** |
+| 1 | Hardware & telecom | 5,927 | **0.55 (+0.06)** | **0.14 (+0.11)** | 0.56 |
+| 1 | General technology | 20,825 | **0.54 (+0.04)** | **0.29 (+0.27)** | 0.52 |
+| 2 | Public assistance (tech) | 9,484 | 0.49 (-0.02) | **0.30 (+0.29)** | **0.56** |
+| *thin* | Environment, IT services, public safety, labor & workforce (tech) | 1,000–3,000 each | | | |
 
 Bold values are significantly above matched chance (z ≥ 2). "Thin" means fewer than 30 contracts with the timed or sized amendment pairs the tests need.
 
-**Software & SaaS is the sector most aligned with the lock-in theory**, with general enterprise IT a close second. Both show vendor-level concentration *and* amendments that grow from one to the next (+15–16 points above chance), with acceleration in support. General technology meets the same tests but with a small escalation effect (+4 points).
+**Software & SaaS is the sector most aligned with the lock-in theory**, with general enterprise IT close behind. Their amendments grow from one to the next 15–16 points more often than chance, about two to three times the escalation of the other sectors. Both also show vendor-level concentration. Acceleration is not significant for either once Washington's data are included, which is consistent with the simulation's lesson that acceleration is fragile. Administration & finance shows similar escalation on a smaller sample.
 
-**Non-technology contracts show the weakest lock-in signal.** Escalation is barely above chance (+3 points), and there is no acceleration. Their pattern is closest to routine renewals plus vendor-level differences.
+**Non-technology contracts and general technology show weak escalation** (+4 to +6 points). With large samples these clear significance, so they also land in tier 1, but the effect is a third the size of Software & SaaS's. Their pattern is closer to routine renewals plus vendor-level differences.
 
-**Public assistance, health care and hardware show a vendor component without escalation.** That fits vendor-level differences (who does the work, or a gap strategy) more than a margin that grows with lock-in.
+**Public assistance shows a large vendor component without escalation.** That fits vendor-level differences (who does the work, or a gap strategy) more than a margin that grows with lock-in.
+
+**With the larger sample, significance alone no longer ranks sectors: almost all clear it.** Compare effect sizes instead.
 
 ## 5. Why amendments happened: stated reasons
 

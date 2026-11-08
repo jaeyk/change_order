@@ -112,7 +112,104 @@ DATASETS["federal_supply_schedules"] = {
     ],
 }
 
-GROUPS = ("primary", "secondary", "expansion", "cooperative", "federal_schedules")
+# ---- frame expansion (2026-11-08) ---------------------------------------------------------
+# Contract datasets found by scripts/discover_sources.py that the earlier pipeline had not pulled.
+# See sampling_frame.md for how they were found and what each adds.
+DATASETS.update({
+    "oregon_orpin_expired": {"group": "frame_expansion", "domain": "data.oregon.gov", "dataset_id": "8izy-bwhd"},
+    "ny_authorities_procurement": {"group": "frame_expansion", "domain": "data.ny.gov", "dataset_id": "ehig-g5x3"},
+    "ny_mta_procurement": {"group": "frame_expansion", "domain": "data.ny.gov", "dataset_id": "twsw-2mqa"},
+    "atlanta_contracts": {"group": "frame_expansion", "domain": "atlanta.data.socrata.com", "dataset_id": "s39g-udq5"},
+    "baton_rouge_annual_contracts": {"group": "frame_expansion", "domain": "data.brla.gov", "dataset_id": "syff-bi5d"},
+    "cook_buying_plan_fy2025": {"group": "frame_expansion", "domain": "datacatalog.cookcountyil.gov", "dataset_id": "ce4m-t955"},
+    "cook_buying_plan_fy2026": {"group": "frame_expansion", "domain": "datacatalog.cookcountyil.gov", "dataset_id": "cbhc-xvrm"},
+    "wa_doh_contracts_sfy2016": {"group": "frame_expansion", "domain": "data.wa.gov", "dataset_id": "mx83-wxi5"},
+    "wa_doh_contracts_sfy2017": {"group": "frame_expansion", "domain": "data.wa.gov", "dataset_id": "5s66-2kbs"},
+    "wa_doh_contracts_sfy2018": {"group": "frame_expansion", "domain": "data.wa.gov", "dataset_id": "qhn8-3a9e"},
+    "wa_doh_contracts_sfy2019": {"group": "frame_expansion", "domain": "data.wa.gov", "dataset_id": "un75-jhzj"},
+})
+
+# ---- transparency systems (non-Socrata) -------------------------------------------------------
+# Checkbook NYC (NYC Comptroller): documented public XML API, all registered expense contracts by
+# fiscal year of registration, with original and current amounts and the latest version number.
+DATASETS["checkbook_nyc_contracts"] = {
+    "group": "transparency",
+    "source": "checkbook_nyc",
+    "endpoint": "https://www.checkbooknyc.com/api",
+    "fiscal_years": list(range(2010, datetime.now(timezone.utc).year + 2)),
+}
+
+# District of Columbia: Office of Contracting and Procurement (PASS) contracts, published as an
+# ArcGIS MapServer layer on DC GIS (also listed on opendata.dc.gov). One row per contract option period.
+DATASETS["dc_pass_contracts"] = {
+    "group": "frame_expansion",
+    "source": "arcgis",
+    "endpoint": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Government_Operations/MapServer/37",
+}
+
+GROUPS = ("primary", "secondary", "expansion", "cooperative", "federal_schedules", "frame_expansion", "transparency")
+
+
+def fetch_arcgis(config: dict[str, Any], page: int = 1000) -> list[dict[str, Any]]:
+    """Page through an ArcGIS REST layer with resultOffset (ordered by OBJECTID); dates stay epoch ms."""
+    out: list[dict[str, Any]] = []
+    offset = 0
+    while True:
+        params = {"where": "1=1", "outFields": "*", "orderByFields": "OBJECTID", "resultOffset": offset,
+                  "resultRecordCount": page, "f": "json"}
+        data = get_json(f"{config['endpoint']}/query?{urlencode(params)}")
+        feats = data.get("features", [])
+        out.extend(f["attributes"] for f in feats)
+        print(f"  fetched {len(out):,} records", file=sys.stderr)
+        time.sleep(3)
+        if len(feats) < page and not data.get("exceededTransferLimit"):
+            return out
+        offset += len(feats)
+        if not feats:
+            return out
+
+
+def fetch_checkbook_nyc(config: dict[str, Any], page: int = 20_000) -> list[dict[str, Any]]:
+    """Page through Checkbook NYC's XML API (POST), one fiscal year of registration at a time.
+
+    Keeps prime-vendor fields only (sub-vendor rows repeat the prime contract) and records the
+    fiscal year queried. Pauses 3 seconds between requests."""
+    import xml.etree.ElementTree as ET
+
+    out: list[dict[str, Any]] = []
+    for fy in config["fiscal_years"]:
+        start = 1
+        while True:
+            body = ("<request><type_of_data>Contracts</type_of_data>"
+                    f"<records_from>{start}</records_from><max_records>{page}</max_records><search_criteria>"
+                    "<criteria><name>status</name><type>value</type><value>registered</value></criteria>"
+                    "<criteria><name>category</name><type>value</type><value>expense</value></criteria>"
+                    f"<criteria><name>fiscal_year</name><type>value</type><value>{fy}</value></criteria>"
+                    "</search_criteria></request>")
+            for attempt in range(5):
+                r = subprocess.run(["curl", "-s", "--max-time", "600", "-X", "POST", "-H", "Content-Type: application/xml",
+                                    "-A", "change-order-research/1.0", "--data", body, config["endpoint"]],
+                                   capture_output=True)
+                time.sleep(3)
+                try:
+                    root = ET.fromstring(r.stdout)
+                    break
+                except ET.ParseError:
+                    if attempt == 4:
+                        raise ValueError(f"Checkbook NYC: unreadable response for FY{fy} from {start}")
+                    time.sleep(10 * (attempt + 1))
+            total = int(root.findtext(".//record_count") or 0)
+            n = 0
+            for t in root.iter("transaction"):
+                n += 1
+                rec = {c.tag: (c.text or "").strip() for c in t if not c.tag.startswith("sub_")}
+                rec["query_fiscal_year"] = fy
+                out.append(rec)
+            print(f"  FY{fy}: {min(start + n - 1, total):,} of {total:,}", file=sys.stderr)
+            start += page
+            if n == 0 or start > total:
+                break
+    return out
 
 
 def get_json(url: str, payload: dict[str, Any] | None = None) -> Any:
@@ -212,6 +309,22 @@ def write_dataset(
     config: dict[str, Any],
     page_size: int,
 ) -> None:
+    if config.get("source") == "arcgis":
+        print(f"Downloading {name} from {config['endpoint']}", file=sys.stderr)
+        records = fetch_arcgis(config)
+        _write_outputs(output_dir / name, {
+            "downloaded_at_utc": datetime.now(timezone.utc).isoformat(), "source_url": config["endpoint"],
+            "group": config["group"], "record_count": len(records),
+            "layer_metadata": get_json(f"{config['endpoint']}?f=json")}, records)
+        return
+    if config.get("source") == "checkbook_nyc":
+        print(f"Downloading {name} from {config['endpoint']}", file=sys.stderr)
+        records = fetch_checkbook_nyc(config)
+        _write_outputs(output_dir / name, {
+            "downloaded_at_utc": datetime.now(timezone.utc).isoformat(), "source_url": config["endpoint"],
+            "group": config["group"], "query": "Contracts; status=registered; category=expense; by fiscal_year",
+            "fiscal_years": config["fiscal_years"], "record_count": len(records)}, records)
+        return
     if config.get("source") == "usaspending":
         print(f"Downloading {name} from {config['endpoint']}", file=sys.stderr)
         records = fetch_usaspending(config)

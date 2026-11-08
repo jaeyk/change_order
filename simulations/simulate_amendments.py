@@ -50,8 +50,12 @@ from pathlib import Path
 
 PROCESSED = Path("data/processed")              # inputs (built by scripts/normalize_and_classify.py)
 RESULTS = Path(__file__).resolve().parent / "results"   # outputs, committed with the code
-TIMED_LEDGERS = ("chicago", "oregon", "cook_county")
-VENDOR_LEDGERS = ("chicago", "oregon", "cook_county", "washington_state")
+# Ledgers whose amendment rows carry dates and dollar changes (Washington from its labelled FY2023+
+# amendment rows; Oregon Lottery from lines added on later dates, no contract term so no timing).
+TIMED_LEDGERS = ("chicago", "oregon", "cook_county", "washington_state", "oregon_lottery", "oregon_treasury",
+                 "wa_doh")
+VENDOR_LEDGERS = TIMED_LEDGERS
+BULK_DATE_LEDGERS = ("chicago",)  # Chicago's 2002 system migration stamped thousands of revisions on one date
 
 FINGERPRINTS = {
     # key: (label, design prediction relative to matched chance)
@@ -327,21 +331,26 @@ def load_sector_contracts() -> dict[str, list[dict]]:
     for k, c in contracts.items():
         j = k[0]
         times, sizes = [], []
-        if j in TIMED_LEDGERS and c["start_date"] and c["duration_days"] and float(c["duration_days"]) >= 30:
-            start, dur = date.fromisoformat(c["start_date"]), float(c["duration_days"])
+        if j in TIMED_LEDGERS:
             seq = []
             for r in amends.get(k, []):
-                if not r["amendment_date"] or date_counts[(j, r["amendment_date"])] > 200:
-                    continue  # bulk-loaded migration dates carry no timing information
-                try:
-                    pos = (date.fromisoformat(r["amendment_date"][:10]) - start).days / dur
-                except ValueError:
+                if not r["amendment_date"]:
                     continue
-                if -0.05 <= pos <= 3:
-                    seq.append((pos, num(r["delta_amount"])))
+                if j in BULK_DATE_LEDGERS and date_counts[(j, r["amendment_date"])] > 200:
+                    continue  # bulk-loaded migration dates carry no timing information
+                seq.append((r["amendment_date"][:10], num(r["delta_amount"])))
             seq.sort()
-            times = [max(0.0, p) for p, _ in seq]
-            sizes = [d for _, d in seq if d > 0]
+            sizes = [d for _, d in seq if d > 0]  # escalation needs order, not a contract term
+            if c["start_date"] and c["duration_days"] and float(c["duration_days"]) >= 30:
+                start, dur = date.fromisoformat(c["start_date"]), float(c["duration_days"])
+                for d, _ in seq:
+                    try:
+                        pos = (date.fromisoformat(d) - start).days / dur
+                    except ValueError:
+                        continue
+                    if -0.05 <= pos <= 3:
+                        times.append(max(0.0, pos))
+                times.sort()
         n = int(c["amendment_count"] or 0)
         rec = {"vendor": c["vendor_name"].upper().strip(), "cell": f"{j}|{c['department'].upper()[:40]}",
                "n": n, "times": times if j in TIMED_LEDGERS else [], "sizes": sizes, "timed": j in TIMED_LEDGERS,
@@ -455,11 +464,10 @@ def score_similarity(result: dict) -> None:
         # routine renewals (A, D); escalation separates LOCK-IN (C) specifically.
         design = "vendor" in met
         lockin = "escal" in met
-        sec["evidence_tier"] = (1 if (design and lockin and sec["lockin_supporting_accel"]) else
-                                2 if (design and lockin) else 3 if design else 4)
-        sec["evidence_tier_label"] = {1: "design + lock-in, acceleration supports",
-                                      2: "design + lock-in", 3: "design (vendor-level) only",
-                                      4: "not distinguishable from chance/renewals"}[sec["evidence_tier"]]
+        # Tiers use only the robust fingerprints; acceleration (fragile in simulation) is a flag.
+        sec["evidence_tier"] = 1 if (design and lockin) else 2 if design else 3
+        sec["evidence_tier_label"] = {1: "design + lock-in", 2: "design (vendor-level) only",
+                                      3: "not distinguishable from chance/renewals"}[sec["evidence_tier"]]
         sec["thin"] = (sec["eligible"].get("accel_pre_pairs") or 0) < 30 or (sec["eligible"].get("escal_pairs") or 0) < 30
         sec["lockin_index"] = eff.get("escal", {}).get("effect", 0.0)  # escalation effect orders within tier
         print(f"[similarity] {name:40s} dev={n_dev} " + " ".join(f"{w}={v:+.2f}" for w, v in sims.items())

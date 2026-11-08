@@ -2,6 +2,19 @@
 
 Where each step of [next_steps.md](next_steps.md) stands: what worked, what failed, and what each result can support. Predictions for steps 4 and 5 were written before any estimates and are kept in `results/predictions.json`.
 
+## Which data feed which analysis
+
+Most analyses use several ledgers; only the document reading (step 6) is Chicago-only, because Chicago is the only ledger with amendment documents online. [Y0](figures/y0_data_coverage.png) shows every jurisdiction × analysis with counts and the reason each gap exists:
+- **Timing in term:** Chicago, Oregon ORPIN, Cook County, Washington (labelled FY2023+ amendments), WA Dept. of Health and Oregon Treasury.
+- **Amendment sizes (escalation):** the same plus Oregon Lottery's dated change orders.
+- **Vendor share of risk:** the same seven ledgers.
+- **Stated reasons:** Washington and Chicago.
+- **Amendment rates and regressions:** all eleven ledgers with amendment history, including New York City (Checkbook) and DC, which add counts and growth but no dates.
+
+The SMM results in this file (steps 1b–2) were run before Washington's amendments were rebuilt and cover Chicago, Oregon and Cook County only. Rerun them once lock-in-specific moments are added.
+
+![Y0](figures/y0_data_coverage.png)
+
 ## Summary
 
 | Step | Status | Main result |

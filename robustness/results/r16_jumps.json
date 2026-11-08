@@ -1,0 +1,68 @@
+{
+ "flagged": 57,
+ "by_ledger": {
+  "chicago": 27,
+  "dc": 4,
+  "oregon": 16,
+  "oregon_judicial": 3,
+  "washington_state": 7
+ },
+ "snowball_base": {
+  "tech_general": [
+   1.903,
+   268
+  ],
+  "hardware_telecom": [
+   2.741,
+   90
+  ],
+  "software_saas": [
+   3.194,
+   296
+  ],
+  "it_services": [
+   2.823,
+   31
+  ],
+  "non_tech": [
+   1.685,
+   3911
+  ]
+ },
+ "snowball_trim": {
+  "tech_general": [
+   1.872,
+   267
+  ],
+  "hardware_telecom": [
+   2.741,
+   90
+  ],
+  "software_saas": [
+   3.194,
+   296
+  ],
+  "it_services": [
+   2.823,
+   31
+  ],
+  "non_tech": [
+   1.661,
+   3897
+  ]
+ },
+ "gmean_growth_amended": {
+  "tech_general": 1.542,
+  "non_tech": 1.201,
+  "software_saas": 1.66,
+  "hardware_telecom": 1.258,
+  "it_services": 1.164
+ },
+ "gmean_growth_amended_trim": {
+  "tech_general": 1.538,
+  "non_tech": 1.198,
+  "software_saas": 1.652,
+  "hardware_telecom": 1.258,
+  "it_services": 1.164
+ }
+}

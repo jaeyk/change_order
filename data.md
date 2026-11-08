@@ -2,7 +2,7 @@
 
 This document describes every source dataset and every processed file in the pipeline. Raw files live in `data/raw/<dataset>/` (`metadata.json`, `records.json`, `records.csv`); processed files live in `data/processed/`. Neither directory is committed. Run `scripts/download_data.py` and `scripts/normalize_and_classify.py` to rebuild them.
 
-Counts are from the 2026-11-08 download.
+Counts are from the 2026-11-08 download. How these sources were found, which governments they cover, and the biases that follow are in [sampling_frame.md](sampling_frame.md).
 
 ---
 
@@ -10,21 +10,24 @@ Counts are from the 2026-11-08 download.
 
 **Panel A. Contract ledgers.** These give contract-level outcomes and populate `contracts_normalized.csv`.
 
-| Jurisdiction | State | Level | Dataset (Socrata ID) | Raw unit of observation | Raw records | Normalized contracts | Start years (p1–p99) | Amendment history? | Amended contracts | Fields used for amendments / procurement method |
+| Jurisdiction | State | Level | Dataset (portal ID) | Raw unit of observation | Raw records | Normalized contracts | Start years (p1–p99) | Amendment history? | Amended contracts | Fields used for amendments / procurement method |
 | :--- | :--- | :--- | :--- | :--- | ---: | ---: | :--- | :--- | ---: | :--- |
-| Washington State | WA | State | Agency Contracts FY2021–FY2025 (`buf8-6px9`, `pwse-3zea`, `mz6y-pfem`, `s8d5-pj78`, `6fx9-ncas`) | Contract or amendment row per fiscal-year report | 379,753 | 183,459 | 2005–2025 | Yes | 29,294 | `agency_contract_amendment`, `contract_modifications`, `cost_of_contract`; `procurement_type`; OMWBE / small / veteran flags |
+| Washington State | WA | State | Agency Contracts FY2021–FY2025 (`buf8-6px9`, `pwse-3zea`, `mz6y-pfem`, `s8d5-pj78`, `6fx9-ncas`) | Contract or amendment row per fiscal-year report; FY2023+ rows labelled (`K123-1` = amendment 1), amendment cost = change | 379,753 | 183,517 | 2005–2025 | Yes, FY2023+ labelled rows (103,398 contracts) | 26,101 | `agency_contract_amendment`, `contract_modifications`, `cost_of_contract`; `procurement_type`; OMWBE / small / veteran flags |
 | Chicago | IL | City | Contracts (`rsxa-ify5`) | Contract revision | 186,213 | 89,265 | 1993–2026 | Yes | 33,429 | `revision_number`, `award_amount`; `procurement_type` (reference contract, joint purchase, master agreement) |
-| Oregon (ORPIN) | OR | State | Historical ORPIN Contracts (`6e9e-sfc4`) | Contract amendment | 93,846 | 46,506 | 2005–2021 | Yes | 17,707 | `amendment_number`, `original_award_value`, `total_award_value_w_amendments`; `award_type` (price agreement, IGA) |
+| New York City | NY | City | Checkbook NYC Contracts API (NYC Comptroller; registered expense contracts, FY2010–FY2027) | Contract (latest version) per registration year; sub-vendor rows dropped | 301,500 | 229,702 | 2009–2026 | Partial: original vs. current amount and version count, no amendment dates (229,611 contracts) | 68,581 | `prime_contract_original_amount`, `prime_contract_current_amount`, `prime_contract_version`; `prime_contract_award_method`, `parent_contract_id` |
+| Oregon (ORPIN) | OR | State | ORPIN Contracts Issued (`6e9e-sfc4`) + Contracts Expired (`8izy-bwhd`, 5,824 documents not in Issued) | Contract amendment | 186,601 | 52,330 | 2004–2021 | Yes (Expired-only documents: running totals, no amendment dates) | 19,189 | `amendment_number`, `original_award_value`, `total_award_value_w_amendments`, `amendment_date`, `amendment_value`; `award_type` (price agreement, IGA) |
+| District of Columbia | DC | State-equivalent | OCP contracts from PASS (DC GIS ArcGIS layer `Government_Operations/37`) | Contract × option period × document version | 51,717 | 10,588 | 2009–2026 | Partial: option exercises and modifications with dollar changes, no dates (10,552 contracts) | 6,200 | `CURRENTOPTIONPERIOD`, `DOCUMENTVERSION`, `CONTRACTAMOUNT`; `PROCUREMENTMETHODDESCRIPTION`; `MARKETTYPE` = DCSS (DC Supply Schedule → central) |
 | Oregon Lottery | OR | State | Lottery Contracts (`rkhh-35im`) | Purchase-order line item | 24,279 | 12,806 | 2015–2026 | Yes (lines added on later dates) | 1,311 | `created`, `line_no`, `net_amount` |
 | Cook County | IL | County | Awarded Contracts & Amendments (`qh8j-6k63`) | Contract or amendment | 8,342 | 5,316 | 2010–2026 | Yes | 1,473 | `category` (New Contract / Amendment), `amount` |
 | Oregon State Treasury | OR | State | Treasury Contracts (`4iz8-xm93`) | Contract per fiscal year | 5,136 | 4,991 | 2018–2025 | Yes | 112 | `contract_nte_amount`, `supplemental_contract_amount`, `supplemental_effective_date` |
 | Oregon Judicial Dept. | OR | State | Judicial Dept. Contracts (`3wxk-gaen`) | Contract per fiscal year | 2,829 | 2,591 | 2014–2025 | Yes | 579 | `original_contract_value`, `total_contract_value`, `total_amendments` |
+| Washington Dept. of Health | WA | State | Contracts Started or Amended, SFY2016–SFY2019 (`mx83-wxi5`, `5s66-2kbs`, `qhn8-3a9e`, `un75-jhzj`) | Contract version (amendment number, period start, cumulative amount); histories back to 2000 | 8,163 | 1,681 | 2011–2019 | Yes, dated by each version's period start (186 contracts also in the statewide ledger are kept there only) | 739 | `amendment_number`, `cost_of_contract` / `maximum_amount`, `start_date` |
 | West Hollywood | CA | City | Active Contracts (`atdr-sk64`) | Contract | 1,030 | 1,030 | 1992–2025 | Partial (original vs. current total) | 290 | `original_amount`, `contract_total` |
 | Baton Rouge | LA | City-parish | Purchase Orders & Contracts (`2ung-w7t4`) | PO header (`H`) + line items (`D`) | 345,509 | 93,264 | 2017–2026 | **No** (single snapshot) | n/a | DBE / minority / veteran flags; "State Contract" in descriptions |
 | Vermont | VT | State | Executed Contracts for Service (`dz5q-8uqb`) | Contract (duplicate rows) | 6,614 | 6,547 | 2018–2022 | **No** | n/a | `max_amount` |
 | NYC School Construction Authority | NY | Authority | Change Orders (`gzvm-na49`) | Change order | 11,266 | 887 | 2007–2021 | **No** (change orders only) | n/a | `change_order_number` |
 | Austin | TX | City | Contracts (`84ih-p28j`) | Vendor line per contract version | 625 | 341 | 2010–2023 | **No** (one version per document) | n/a | `doc_vers_no`; `rpt_dscr` (procurement method) |
-| **Total** | **8 states** | **12 jurisdictions** (6 state, 1 county, 4 city, 1 authority) | **16 datasets** | | **1,065,442** | **447,003** | **1992–2026** | **345,964 contracts in 8 ledgers with amendment history** (analysis sample); 101,039 in 4 without | **84,195** (24.3% of the analysis sample) | |
+| **Total** | **9 states + DC** | **15 ledgers** (8 state-level, 1 county, 5 city, 1 authority) | **23 datasets** | | **1,519,577** | **694,856** | **1992–2026** | **513,571 contracts with amendment history** (11 ledgers; dated amendments in 7); 181,285 without | **158,004** (30.8% of the analysis sample) | |
 
 **Panel B. Cooperative purchasing, resellers, and vendor qualifications.** These populate `cooperative_sales.csv`, `award_structure.csv`, `vendor_qualifications.csv`, `reseller_relationships.csv`, and `reseller_registry.csv`.
 
@@ -40,20 +43,36 @@ Counts are from the 2026-11-08 download.
 | Federal Supply Schedules (GSA MAS + VA FSS) | US | USASpending `spending_by_award`, award type `IDV_C` | Schedule contract (IDV) | 54,106 (47,928 GSA, 6,178 VA) | 2007–present | (1) Extra reseller evidence: holders under wholesale/retail NAICS (42, 44–45) are dealers; (2) qualification covariate: which firms hold a GSA MAS / VA FSS contract |
 | **Total** | **4 states + federal** | **14 datasets** | | **13,442,188 raw rows → 216,942 analysis rows** | **FY2010–FY2027** | |
 
+**Panel C. Downloaded, not in the contract table.** Found by the catalog sweep (`scripts/discover_sources.py`) and downloaded with `--group frame_expansion`, but they cannot give an amendment history. They are kept for covariates and future linkage. Reviews of each are in `sources/ledger_review.csv`.
+
+| Source | State | Dataset | Raw unit of observation | Records | Why not in Panel A | Useful for |
+| :--- | :--- | :--- | :--- | ---: | :--- | :--- |
+| NY state authorities procurement reports | NY | Authorities Budget Office (`ehig-g5x3`) | Procurement × fiscal-year report | 275,763 | The same contract cannot be linked across annual reports (`transaction_number` is not a contract key) | Number of bids, competitive vs. non-competitive award, purchases under state contract, technology categories |
+| MTA procurements | NY | `twsw-2mqa` | Procurement × fiscal-year report | 107,503 | Same structure as the ABO reports | As above |
+| Atlanta contracts | GA | `s39g-udq5` | Contract | 619 | Current amount and number of renewals only | Renewal counts |
+| Baton Rouge annual contracts | LA | `syff-bi5d` | Annual contract | 71 | Too few rows | Extension dates |
+| Cook County buying plans FY2025–26 | IL | `ce4m-t955`, `cbhc-xvrm` | Planned procurement | 345 | Plans, not awards | Pre-award estimated value linked to the current contract number (a future test of buy-in) |
+| **Total** | **3 states** | **6 datasets** | | **384,301** | | |
+
 ---
 
 ## Table 2. Processed files
 
 | File | Unit of observation | Rows | Key | Built from | Purpose |
 | :--- | :--- | ---: | :--- | :--- | :--- |
-| `contracts_normalized.csv` | Contract | 447,003 | `jurisdiction` + `contract_id` | Panel A ledgers (+ Panel B for vendor flags) | Amendment outcomes with tech, channel, direction, award-structure, vendor-role, qualification, and certification tags |
-| `amendments_normalized.csv` | Amendment / revision | 231,178 | `jurisdiction` + `contract_id` + `amendment_seq` | Panel A ledgers | Amendment timing and dollar deltas |
+| `contracts_normalized.csv` | Contract | 694,856 | `jurisdiction` + `contract_id` | Panel A ledgers (+ Panel B for vendor flags) | Amendment outcomes with tech, channel, direction, award-structure, vendor-role, qualification, and certification tags |
+| `amendments_normalized.csv` | Amendment / revision | 258,150 | `jurisdiction` + `contract_id` + `amendment_seq` | Panel A ledgers | Amendment timing and dollar deltas |
 | `cooperative_sales.csv` | Program × FY × buyer type × contract × prime × reseller | 119,906 | (all dimension columns) | Texas DIR, WA DES, Delaware | Who buys through cooperative / statewide contracts, in which direction, through primes or resellers |
 | `award_structure.csv` | Cooperative or federal-schedule contract | 63,977 | `source` + `contract_id` | Texas DIR, NY OGS, WA DES, Delaware, GSA MAS, VA FSS | Single vs. multiple award; prime-direct vs. resellers; holder role |
 | `vendor_qualifications.csv` | Vendor (normalized name) | 45,449 | `vendor_key` | All Panel B sources | Contract vehicles each firm holds (covariates) |
 | `reseller_relationships.csv` | Prime vendor × reseller × contract | 9,775 | `source` + `contract_id` + `prime_vendor` + `reseller` | Texas DIR active contracts, NY OGS VAR | Reseller networks |
 | `reseller_registry.csv` | Firm considered as a reseller | 3,891 | `reseller_key` | Texas DIR, NY OGS, federal schedules, curated list | Evidence behind the `vendor_role` classification |
-| `amendment_reasons.csv` | Amendment with reason text (Washington, Chicago) | 169,248 | `jurisdiction` + `contract_id` + `amendment_seq` | `amendments_normalized.csv` | Stated reason coded as chance / design / ambiguous / neutral / uninformative |
+| `amendment_reasons.csv` | Amendment with reason text (Washington, Chicago) | 160,290 | `jurisdiction` + `contract_id` + `amendment_seq` | `amendments_normalized.csv` | Stated reason coded as chance / design / ambiguous / neutral / uninformative |
+| `sources/frame.csv` *(committed)* | Frame government | 173 (166 in frame) | `unit_id` | Census Vintage 2024 population estimates | Sampling frame: states + DC, cities ≥ 300k, counties ≥ 1M ([sampling_frame.md](sampling_frame.md)) |
+| `sources/coverage.csv` *(committed)* | Frame government | 166 | `unit_id` | frame + catalog hits + transparency systems + sample | Best available source and coverage status of each government |
+| `sources/catalog_hits.csv` *(committed)* | Catalog dataset | 8,310 | `platform` + `dataset_id` | Socrata, data.gov, ArcGIS Hub, OpenDataSoft searches | Every contract-related dataset found, auto-classified A / B / C |
+| `sources/ledger_review.csv`, `transparency_systems.csv`, `portal_map.csv` *(committed)* | — | — | — | Manual review | Reviewed class of candidate ledgers; state / city transparency systems and their access; portal → government map |
+| `robustness/results/*` *(committed)* | — | — | — | Processed tables | Robustness checks R0–R16 ([robustness_checks.md](robustness_checks.md)) |
 | `amendment_dynamics.json` | — | — | — | Contract and amendment tables | Continuation probabilities, timing of first amendments, vendor dispersion |
 | `simulations/results/*` *(committed, outside `data/processed/`)* | — | — | — | Contract and amendment tables + simulation | Theory-world signatures, sector fingerprints vs. matched chance, lock-in ranking (see [simulations/README.md](simulations/README.md)) |
 | `tech_analysis_results.json` | — | — | — | `contracts_normalized.csv` | Tech vs. non-tech metrics and regression |
@@ -78,7 +97,7 @@ Counts are from the 2026-11-08 download.
 | `initial_award_val`, `final_award_val`, `delta_val` | float | Original value, current value, difference (USD) |
 | `pct_growth` | float | `delta_val / initial_award_val × 100` |
 | `amendment_count`, `is_amended` | int, 0/1 | Number of amendments; any amendment or value change |
-| `amendment_observable` | 0/1 | 0 = ledger has no amendment history (Baton Rouge, NYC SCA, Vermont, Austin). Exclude these from amendment analyses |
+| `amendment_observable` | 0/1 | 0 = ledger has no amendment history (Baton Rouge, NYC SCA, Vermont, Austin), Washington contracts seen only in FY2021–22, and NYC / DC contracts with a non-positive original amount. Exclude these from amendment analyses |
 | `n_line_items` | int | PO line items (Baton Rouge, Oregon Lottery) |
 | `start_date`, `end_date`, `duration_days` | date, date, int | Term of the original award |
 | `coop_vehicle` | str | Cooperative / master vehicle used (see README §4C), blank if none |
@@ -98,10 +117,10 @@ Counts are from the 2026-11-08 download.
 | Variable | Type | Description |
 | :--- | :--- | :--- |
 | `jurisdiction`, `contract_id` | str | Links to `contracts_normalized.csv` |
-| `amendment_seq` | str | Revision / amendment number (or fiscal year for Oregon Judicial snapshots) |
+| `amendment_seq` | str | Revision / amendment number (fiscal year for Oregon Judicial snapshots; `<option period> v<document version>` for DC) |
 | `amendment_date` | date | Effective or approval date, where reported |
 | `delta_amount` | float | Dollar change (Washington: reported contract cost on that row) |
-| `category` | str | Source label (Revision, Amendment, Supplemental, Change Order, …) |
+| `category` | str | Source label (Revision, Amendment, Supplemental, Change Order, …); DC: `Option exercised` or `Modification`; WA Dept. of Health: `Amendment (version period start)` |
 | `description` | str | Amendment text |
 
 ## Table 5. `cooperative_sales.csv` variables
@@ -167,6 +186,10 @@ Counts are from the 2026-11-08 download.
 ---
 
 ### Notes
+- **New York City (Checkbook)** has no amendment rows: each contract carries its original and current amount and its latest version number (`amendment_count` = version − 1). Versions include non-monetary changes, so 83% of amended NYC contracts show no change in value. NYC contracts are used for counts and growth, not timing or escalation.
+- **District of Columbia (PASS)** amendments are option-period exercises and document-version modifications, in that order, each with its dollar change but no date. Option exercises are planned at award, so DC amendment counts run high.
+- **Washington Dept. of Health** amendment dates are the start of each contract version's period of performance, a close proxy for the effective date. The 186 contracts that also appear in the statewide ledger are kept only there.
+- **Washington amendments** are the labelled rows of the FY2023–25 reports, each with its own date and a dollar *change* (not a running total). Contracts seen only in FY2021–22 have `amendment_observable = 0`.
 - **Washington** contracts are keyed by agency number plus contract number, because contract numbers such as `K1234` are reused across agencies. Rows repeated across fiscal-year reports are de-duplicated.
 - **Co-awardees vs. amendments:** additional contractors on a contract's original award count toward `n_contractors` and are not treated as amendments. This applies to Washington, Austin, and the other ledgers.
 - **Server-side aggregation:** Texas DIR and Washington DES sales are aggregated by the data portal (SoQL `$group`). Sales totals are exact, but invoice-level detail is not kept.

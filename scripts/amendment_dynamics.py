@@ -29,8 +29,9 @@ from datetime import date
 from pathlib import Path
 
 PROCESSED = Path("data/processed")
-COUNT_LEDGERS = ("chicago", "cook_county", "oregon", "washington_state")
-DATED_LEDGERS = ("chicago", "oregon", "cook_county")
+COUNT_LEDGERS = ("chicago", "cook_county", "oregon", "washington_state", "oregon_lottery", "oregon_treasury",
+                 "wa_doh", "nyc_checkbook", "dc")
+DATED_LEDGERS = ("chicago", "oregon", "cook_county", "washington_state", "oregon_treasury", "wa_doh")
 
 TYPE_PATTERNS = [
     ("administrative", re.compile(r"correct|clerical|administrative|name change|assign|novation|address|contact|"

@@ -37,7 +37,9 @@ BUYER = {"washington_state": ("Washington state agencies", "state_buyer"),
          "vermont": ("Vermont state agencies", "state_buyer"), "chicago": ("Chicago", "local_buyer"),
          "cook_county": ("Cook County", "local_buyer"), "baton_rouge": ("Baton Rouge", "local_buyer"),
          "west_hollywood": ("West Hollywood", "local_buyer"), "austin": ("Austin", "local_buyer"),
-         "nyc_sca": ("NYC School Constr. Auth.", "local_buyer")}
+         "nyc_sca": ("NYC School Constr. Auth.", "local_buyer"),
+         "wa_doh": ("Washington state agencies", "state_buyer"), "nyc_checkbook": ("New York City", "local_buyer"),
+         "dc": ("District of Columbia agencies", "state_buyer")}
 CUSTOMER = {"state_agency": ("state agencies", "state_buyer"), "higher_ed": ("public universities", "state_buyer"),
             "local_government": ("local governments", "local_buyer"), "k12": ("school districts", "local_buyer"),
             "out_of_state": ("other states", "state_buyer"), "federal": ("federal agencies", "federal"),

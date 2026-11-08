@@ -2,7 +2,7 @@
 <title>Figure 4. Amendment incidence and value growth by program domain</title>
 <rect width="1180" height="546" fill="#ffffff"/>
 <text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Figure 4. How often contracts are amended, and how far they grow, by program domain</text>
-<text x="24.0" y="58.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Technology contracts by program domain, with non-technology contracts as reference. Chicago, Cook County and Oregon ledgers.</text>
+<text x="24.0" y="58.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Technology contracts by program domain, with non-technology contracts as reference. Chicago, Cook County, Oregon and Washington ledgers.</text>
 <text x="260.0" y="90.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">Share of contracts amended</text>
 <line x1="260.0" y1="116.0" x2="260.0" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="260.0" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">0%</text>
@@ -12,34 +12,34 @@
 <text x="411.1" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">40%</text>
 <line x1="486.7" y1="116.0" x2="486.7" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="486.7" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">60%</text>
-<line x1="395.9" y1="116.0" x2="395.9" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
-<line x1="260.0" y1="138.0" x2="419.2" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="419.2" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="430.2" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">42%</text>
-<line x1="260.0" y1="172.0" x2="401.5" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="401.5" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="412.5" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">37%</text>
-<line x1="260.0" y1="206.0" x2="378.5" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="378.5" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="389.5" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">31%</text>
-<line x1="260.0" y1="240.0" x2="443.8" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="443.8" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="454.8" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">49%</text>
-<line x1="260.0" y1="274.0" x2="377.3" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="377.3" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="388.3" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">31%</text>
-<line x1="260.0" y1="308.0" x2="425.3" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="425.3" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="436.3" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">44%</text>
-<line x1="260.0" y1="342.0" x2="356.0" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="356.0" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="367.0" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">25%</text>
-<line x1="260.0" y1="376.0" x2="415.0" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="415.0" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="426.0" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">41%</text>
-<line x1="260.0" y1="410.0" x2="395.9" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
-<circle cx="395.9" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
-<text x="406.9" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">36%</text>
+<line x1="382.8" y1="116.0" x2="382.8" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="260.0" y1="138.0" x2="488.9" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="488.9" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="499.9" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">61%</text>
+<line x1="260.0" y1="172.0" x2="363.0" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="363.0" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="374.0" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">27%</text>
+<line x1="260.0" y1="206.0" x2="381.8" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="381.8" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="392.8" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">32%</text>
+<line x1="260.0" y1="240.0" x2="357.4" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="357.4" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="368.4" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">26%</text>
+<line x1="260.0" y1="274.0" x2="430.1" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="430.1" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="441.1" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">45%</text>
+<line x1="260.0" y1="308.0" x2="436.0" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="436.0" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="447.0" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">47%</text>
+<line x1="260.0" y1="342.0" x2="404.4" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="404.4" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="415.4" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">38%</text>
+<line x1="260.0" y1="376.0" x2="386.7" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="386.7" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="397.7" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">34%</text>
+<line x1="260.0" y1="410.0" x2="382.8" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
+<circle cx="382.8" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<text x="393.8" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">32%</text>
 <text x="556.7" y="90.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">Value growth when amended (geometric mean)</text>
 <line x1="556.7" y1="116.0" x2="556.7" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="556.7" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">1.00×</text>
@@ -49,34 +49,34 @@
 <text x="707.8" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">1.40×</text>
 <line x1="783.3" y1="116.0" x2="783.3" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="783.3" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">1.60×</text>
-<line x1="599.1" y1="116.0" x2="599.1" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
-<line x1="556.7" y1="138.0" x2="765.9" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="765.9" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="776.9" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.55×</text>
-<line x1="556.7" y1="172.0" x2="741.5" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="741.5" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="752.5" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.49×</text>
-<line x1="556.7" y1="206.0" x2="729.9" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="729.9" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="740.9" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.46×</text>
-<line x1="556.7" y1="240.0" x2="714.6" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="714.6" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="725.6" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.42×</text>
-<line x1="556.7" y1="274.0" x2="708.6" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="708.6" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="719.6" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.40×</text>
-<line x1="556.7" y1="308.0" x2="690.5" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="690.5" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="701.5" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.35×</text>
-<line x1="556.7" y1="342.0" x2="669.4" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="669.4" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="680.4" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.30×</text>
-<line x1="556.7" y1="376.0" x2="655.9" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="655.9" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="666.9" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.26×</text>
-<line x1="556.7" y1="410.0" x2="599.1" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
-<circle cx="599.1" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
-<text x="610.1" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.11×</text>
+<line x1="658.9" y1="116.0" x2="658.9" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="556.7" y1="138.0" x2="1068.1" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1068.1" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1079.1" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">2.35×</text>
+<line x1="556.7" y1="172.0" x2="892.8" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="892.8" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="903.8" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.89×</text>
+<line x1="556.7" y1="206.0" x2="848.1" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="848.1" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="859.1" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.77×</text>
+<line x1="556.7" y1="240.0" x2="813.2" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="813.2" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="824.2" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.68×</text>
+<line x1="556.7" y1="274.0" x2="794.3" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="794.3" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="805.3" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.63×</text>
+<line x1="556.7" y1="308.0" x2="770.4" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="770.4" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="781.4" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.57×</text>
+<line x1="556.7" y1="342.0" x2="766.1" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="766.1" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="777.1" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.55×</text>
+<line x1="556.7" y1="376.0" x2="732.3" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="732.3" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="743.3" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.47×</text>
+<line x1="556.7" y1="410.0" x2="658.9" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
+<circle cx="658.9" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<text x="669.9" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">1.27×</text>
 <text x="853.3" y="90.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">Amended contracts that at least doubled</text>
 <line x1="853.3" y1="116.0" x2="853.3" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="853.3" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">0%</text>
@@ -88,52 +88,52 @@
 <text x="1023.3" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">30%</text>
 <line x1="1080.0" y1="116.0" x2="1080.0" y2="426.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="1080.0" y="110.0" font-size="10.5" fill="#7c8387" text-anchor="middle" font-weight="normal">40%</text>
-<line x1="970.4" y1="116.0" x2="970.4" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
-<line x1="853.3" y1="138.0" x2="1034.2" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="1034.2" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="1045.2" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">32%</text>
-<line x1="853.3" y1="172.0" x2="978.1" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="978.1" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="989.1" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">22%</text>
-<line x1="853.3" y1="206.0" x2="1008.9" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="1008.9" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="1019.9" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">27%</text>
-<line x1="853.3" y1="240.0" x2="1020.1" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="1020.1" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="1031.1" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">29%</text>
-<line x1="853.3" y1="274.0" x2="1008.1" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="1008.1" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="1019.1" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">27%</text>
-<line x1="853.3" y1="308.0" x2="982.9" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="982.9" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="993.9" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">23%</text>
-<line x1="853.3" y1="342.0" x2="970.9" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="970.9" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="981.9" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">21%</text>
-<line x1="853.3" y1="376.0" x2="930.5" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
-<circle cx="930.5" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
-<text x="941.5" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">14%</text>
-<line x1="853.3" y1="410.0" x2="970.4" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
-<circle cx="970.4" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
-<text x="981.4" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">21%</text>
-<text x="24.0" y="142.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Public assistance</text>
-<text x="234.0" y="142.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=7,270</text>
+<line x1="1006.9" y1="116.0" x2="1006.9" y2="426.0" stroke="#9aa1a4" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="853.3" y1="138.0" x2="1161.4" y2="138.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1161.4" cy="138.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1172.4" y="142.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">54%</text>
+<line x1="853.3" y1="172.0" x2="1066.1" y2="172.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1066.1" cy="172.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1077.1" y="176.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">38%</text>
+<line x1="853.3" y1="206.0" x2="1072.3" y2="206.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1072.3" cy="206.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1083.3" y="210.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">39%</text>
+<line x1="853.3" y1="240.0" x2="1061.8" y2="240.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1061.8" cy="240.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1072.8" y="244.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">37%</text>
+<line x1="853.3" y1="274.0" x2="1007.2" y2="274.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1007.2" cy="274.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1018.2" y="278.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">27%</text>
+<line x1="853.3" y1="308.0" x2="1055.4" y2="308.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1055.4" cy="308.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1066.4" y="312.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">36%</text>
+<line x1="853.3" y1="342.0" x2="1034.3" y2="342.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1034.3" cy="342.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1045.3" y="346.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">32%</text>
+<line x1="853.3" y1="376.0" x2="1024.8" y2="376.0" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="1024.8" cy="376.0" r="6" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/>
+<text x="1035.8" y="380.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">30%</text>
+<line x1="853.3" y1="410.0" x2="1006.9" y2="410.0" stroke="#9aa1a4" stroke-width="2"/>
+<circle cx="1006.9" cy="410.0" r="6" fill="#9aa1a4" stroke="#ffffff" stroke-width="2"/>
+<text x="1017.9" y="414.0" font-size="11" fill="#15191c" text-anchor="start" font-weight="normal">27%</text>
+<text x="24.0" y="142.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Labor &amp; workforce</text>
+<text x="234.0" y="142.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=850</text>
 <text x="24.0" y="176.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Environment</text>
-<text x="234.0" y="176.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=291</text>
-<text x="24.0" y="210.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">General enterprise IT</text>
-<text x="234.0" y="210.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=6,004</text>
-<text x="24.0" y="244.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Health care</text>
-<text x="234.0" y="244.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=2,633</text>
-<text x="24.0" y="278.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Public safety &amp; justice</text>
-<text x="234.0" y="278.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=1,569</text>
-<text x="24.0" y="312.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Labor &amp; workforce</text>
-<text x="234.0" y="312.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=240</text>
-<text x="24.0" y="346.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Administration &amp; finance</text>
-<text x="234.0" y="346.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=1,594</text>
-<text x="24.0" y="380.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Transportation</text>
-<text x="234.0" y="380.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=1,038</text>
+<text x="234.0" y="176.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=928</text>
+<text x="24.0" y="210.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Administration &amp; finance</text>
+<text x="234.0" y="210.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=2,007</text>
+<text x="24.0" y="244.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">General enterprise IT</text>
+<text x="234.0" y="244.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=13,674</text>
+<text x="24.0" y="278.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Transportation</text>
+<text x="234.0" y="278.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=1,390</text>
+<text x="24.0" y="312.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Health care</text>
+<text x="234.0" y="312.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=3,930</text>
+<text x="24.0" y="346.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Public assistance</text>
+<text x="234.0" y="346.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=8,338</text>
+<text x="24.0" y="380.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="normal">Public safety &amp; justice</text>
+<text x="234.0" y="380.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=1,911</text>
 <line x1="24.0" y1="393.0" x2="1156.0" y2="393.0" stroke="#dfe3e1" stroke-width="1"/>
 <text x="24.0" y="414.0" font-size="12.5" fill="#15191c" text-anchor="start" font-weight="bold">Non-technology contracts</text>
-<text x="234.0" y="414.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=107,249</text>
+<text x="234.0" y="414.0" font-size="10.5" fill="#7c8387" text-anchor="end" font-weight="normal">n=163,944</text>
 <text x="24.0" y="516.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Dashed vertical line = non-technology reference. Growth = final value ÷ original award among amended contracts (≥ $1,000 original award).</text>
 </svg>

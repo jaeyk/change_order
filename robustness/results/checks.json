@@ -1,0 +1,2701 @@
+{
+ "checks": {
+  "R0_baseline": {
+   "note": "As in simulations/ and strategies.md",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22644,
+     "timed": 22644,
+     "escal_excess": 0.0422,
+     "escal_n": 1363,
+     "vendor": 0.2762,
+     "early": {
+      "observed": 0.1875,
+      "chance": 0.4426,
+      "z": -47.02
+     },
+     "late": {
+      "observed": 0.6178,
+      "chance": 0.2143,
+      "z": 65.81
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 6033,
+     "timed": 6033,
+     "escal_excess": 0.0574,
+     "escal_n": 357,
+     "vendor": 0.1432,
+     "early": {
+      "observed": 0.2837,
+      "chance": 0.503,
+      "z": -17.35
+     },
+     "late": {
+      "observed": 0.688,
+      "chance": 0.2663,
+      "z": 28.96
+     }
+    },
+    "software_saas": {
+     "contracts": 11986,
+     "timed": 11986,
+     "escal_excess": 0.1652,
+     "escal_n": 896,
+     "vendor": 0.3602,
+     "early": {
+      "observed": 0.4832,
+      "chance": 0.5089,
+      "z": -3.46
+     },
+     "late": {
+      "observed": 0.5517,
+      "chance": 0.2709,
+      "z": 26.14
+     }
+    },
+    "it_services": {
+     "contracts": 1771,
+     "timed": 1771,
+     "escal_excess": 0.0774,
+     "escal_n": 168,
+     "vendor": 0.2631,
+     "early": {
+      "observed": 0.6941,
+      "chance": 0.4892,
+      "z": 10.36
+     },
+     "late": {
+      "observed": 0.3994,
+      "chance": 0.245,
+      "z": 6.3
+     }
+    },
+    "non_tech": {
+     "contracts": 227353,
+     "timed": 227353,
+     "escal_excess": 0.062,
+     "escal_n": 11999,
+     "vendor": 0.1805,
+     "early": {
+      "observed": 0.3755,
+      "chance": 0.5211,
+      "z": -46.05
+     },
+     "late": {
+      "observed": 0.5397,
+      "chance": 0.2851,
+      "z": 154.3
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.903,
+     268
+    ],
+    "hardware_telecom": [
+     2.741,
+     90
+    ],
+    "software_saas": [
+     3.194,
+     296
+    ],
+    "it_services": [
+     2.823,
+     31
+    ],
+    "non_tech": [
+     1.685,
+     3911
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R1_drop_chicago": {
+   "note": "Drop the chicago ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 21975,
+     "timed": 21975,
+     "escal_excess": 0.0406,
+     "escal_n": 1319,
+     "vendor": 0.2751,
+     "early": {
+      "observed": 0.1898,
+      "chance": 0.443,
+      "z": -36.78
+     },
+     "late": {
+      "observed": 0.6132,
+      "chance": 0.2147,
+      "z": 64.15
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 4524,
+     "timed": 4524,
+     "escal_excess": 0.0844,
+     "escal_n": 243,
+     "vendor": 0.1936,
+     "early": {
+      "observed": 0.3553,
+      "chance": 0.4716,
+      "z": -6.72
+     },
+     "late": {
+      "observed": 0.639,
+      "chance": 0.2372,
+      "z": 30.68
+     }
+    },
+    "software_saas": {
+     "contracts": 10872,
+     "timed": 10872,
+     "escal_excess": 0.1805,
+     "escal_n": 842,
+     "vendor": 0.354,
+     "early": {
+      "observed": 0.5113,
+      "chance": 0.5141,
+      "z": -0.35
+     },
+     "late": {
+      "observed": 0.5342,
+      "chance": 0.2754,
+      "z": 26.68
+     }
+    },
+    "it_services": {
+     "contracts": 1667,
+     "timed": 1667,
+     "escal_excess": 0.0714,
+     "escal_n": 147,
+     "vendor": 0.2374,
+     "early": {
+      "observed": 0.7352,
+      "chance": 0.4801,
+      "z": 10.06
+     },
+     "late": {
+      "observed": 0.3761,
+      "chance": 0.2432,
+      "z": 6.59
+     }
+    },
+    "non_tech": {
+     "contracts": 141484,
+     "timed": 141484,
+     "escal_excess": 0.1102,
+     "escal_n": 5769,
+     "vendor": 0.2003,
+     "early": {
+      "observed": 0.5411,
+      "chance": 0.5193,
+      "z": 5.54
+     },
+     "late": {
+      "observed": 0.3954,
+      "chance": 0.2817,
+      "z": 33.58
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.897,
+     258
+    ],
+    "hardware_telecom": [
+     2.961,
+     57
+    ],
+    "software_saas": [
+     3.204,
+     278
+    ],
+    "it_services": [
+     2.784,
+     25
+    ],
+    "non_tech": [
+     1.969,
+     1518
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": true
+   }
+  },
+  "R1_drop_cook_county": {
+   "note": "Drop the cook_county ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22297,
+     "timed": 22297,
+     "escal_excess": 0.0443,
+     "escal_n": 1310,
+     "vendor": 0.2779,
+     "early": {
+      "observed": 0.1906,
+      "chance": 0.4442,
+      "z": -41.56
+     },
+     "late": {
+      "observed": 0.6142,
+      "chance": 0.2161,
+      "z": 71.71
+     }
+    },
+    "software_saas": {
+     "contracts": 11757,
+     "timed": 11757,
+     "escal_excess": 0.1621,
+     "escal_n": 870,
+     "vendor": 0.3629,
+     "early": {
+      "observed": 0.4934,
+      "chance": 0.5075,
+      "z": -1.29
+     },
+     "late": {
+      "observed": 0.5447,
+      "chance": 0.2752,
+      "z": 27.22
+     }
+    },
+    "it_services": {
+     "contracts": 1739,
+     "timed": 1739,
+     "escal_excess": 0.0741,
+     "escal_n": 162,
+     "vendor": 0.2631,
+     "early": {
+      "observed": 0.7071,
+      "chance": 0.4862,
+      "z": 8.5
+     },
+     "late": {
+      "observed": 0.3932,
+      "chance": 0.2501,
+      "z": 6.09
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 5667,
+     "timed": 5667,
+     "escal_excess": 0.0525,
+     "escal_n": 295,
+     "vendor": 0.1471,
+     "early": {
+      "observed": 0.3173,
+      "chance": 0.5178,
+      "z": -12.46
+     },
+     "late": {
+      "observed": 0.6521,
+      "chance": 0.2687,
+      "z": 20.82
+     }
+    },
+    "non_tech": {
+     "contracts": 223011,
+     "timed": 223011,
+     "escal_excess": 0.062,
+     "escal_n": 11737,
+     "vendor": 0.1801,
+     "early": {
+      "observed": 0.3815,
+      "chance": 0.5229,
+      "z": -49.25
+     },
+     "late": {
+      "observed": 0.534,
+      "chance": 0.2855,
+      "z": 104.33
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.903,
+     268
+    ],
+    "software_saas": [
+     3.198,
+     295
+    ],
+    "it_services": [
+     2.823,
+     31
+    ],
+    "hardware_telecom": [
+     2.787,
+     87
+    ],
+    "non_tech": [
+     1.683,
+     3901
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R1_drop_oregon": {
+   "note": "Drop the oregon ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 3070,
+     "timed": 3070,
+     "escal_excess": 0.0723,
+     "escal_n": 173,
+     "vendor": 0.2368,
+     "early": {
+      "observed": 0.2826,
+      "chance": 0.5103,
+      "z": -9.9
+     },
+     "late": {
+      "observed": 0.6545,
+      "chance": 0.2694,
+      "z": 16.6
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 5346,
+     "timed": 5346,
+     "escal_excess": 0.0515,
+     "escal_n": 301,
+     "vendor": 0.1336,
+     "early": {
+      "observed": 0.3057,
+      "chance": 0.5122,
+      "z": -8.07
+     },
+     "late": {
+      "observed": 0.6904,
+      "chance": 0.2753,
+      "z": 23.52
+     }
+    },
+    "software_saas": {
+     "contracts": 10757,
+     "timed": 10757,
+     "escal_excess": 0.1563,
+     "escal_n": 835,
+     "vendor": 0.3715,
+     "early": {
+      "observed": 0.5047,
+      "chance": 0.5116,
+      "z": -0.63
+     },
+     "late": {
+      "observed": 0.5519,
+      "chance": 0.2747,
+      "z": 28.34
+     }
+    },
+    "it_services": {
+     "contracts": 1576,
+     "timed": 1576,
+     "escal_excess": 0.0935,
+     "escal_n": 155,
+     "vendor": 0.2433,
+     "early": {
+      "observed": 0.766,
+      "chance": 0.4796,
+      "z": 11.17
+     },
+     "late": {
+      "observed": 0.3455,
+      "chance": 0.2515,
+      "z": 4.75
+     }
+    },
+    "non_tech": {
+     "contracts": 196708,
+     "timed": 196708,
+     "escal_excess": 0.0647,
+     "escal_n": 10625,
+     "vendor": 0.1846,
+     "early": {
+      "observed": 0.398,
+      "chance": 0.5102,
+      "z": -35.44
+     },
+     "late": {
+      "observed": 0.5376,
+      "chance": 0.2748,
+      "z": 109.1
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     2.753,
+     38
+    ],
+    "hardware_telecom": [
+     2.913,
+     66
+    ],
+    "software_saas": [
+     3.665,
+     256
+    ],
+    "it_services": [
+     4.937,
+     22
+    ],
+    "non_tech": [
+     1.837,
+     2999
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": false,
+    "C5": false
+   }
+  },
+  "R1_drop_oregon_lottery": {
+   "note": "Drop the oregon_lottery ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 21790,
+     "timed": 21790,
+     "escal_excess": 0.0428,
+     "escal_n": 1343,
+     "vendor": 0.2782,
+     "early": {
+      "observed": 0.1875,
+      "chance": 0.4456,
+      "z": -37.5
+     },
+     "late": {
+      "observed": 0.6178,
+      "chance": 0.2191,
+      "z": 93.28
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 4781,
+     "timed": 4781,
+     "escal_excess": 0.0559,
+     "escal_n": 340,
+     "vendor": 0.1382,
+     "early": {
+      "observed": 0.2837,
+      "chance": 0.5114,
+      "z": -13.38
+     },
+     "late": {
+      "observed": 0.688,
+      "chance": 0.2727,
+      "z": 32.47
+     }
+    },
+    "software_saas": {
+     "contracts": 11357,
+     "timed": 11357,
+     "escal_excess": 0.1722,
+     "escal_n": 851,
+     "vendor": 0.3838,
+     "early": {
+      "observed": 0.4832,
+      "chance": 0.5142,
+      "z": -2.18
+     },
+     "late": {
+      "observed": 0.5517,
+      "chance": 0.2723,
+      "z": 26.69
+     }
+    },
+    "it_services": {
+     "contracts": 1713,
+     "timed": 1713,
+     "escal_excess": 0.0793,
+     "escal_n": 164,
+     "vendor": 0.307,
+     "early": {
+      "observed": 0.6941,
+      "chance": 0.4869,
+      "z": 9.67
+     },
+     "late": {
+      "observed": 0.3994,
+      "chance": 0.2504,
+      "z": 7.59
+     }
+    },
+    "non_tech": {
+     "contracts": 217340,
+     "timed": 217340,
+     "escal_excess": 0.0626,
+     "escal_n": 11764,
+     "vendor": 0.181,
+     "early": {
+      "observed": 0.3755,
+      "chance": 0.5245,
+      "z": -61.07
+     },
+     "late": {
+      "observed": 0.5397,
+      "chance": 0.2875,
+      "z": 109.75
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.841,
+     262
+    ],
+    "hardware_telecom": [
+     2.542,
+     86
+    ],
+    "software_saas": [
+     3.153,
+     284
+    ],
+    "it_services": [
+     2.735,
+     30
+    ],
+    "non_tech": [
+     1.644,
+     3849
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R1_drop_oregon_treasury": {
+   "note": "Drop the oregon_treasury ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22540,
+     "timed": 22540,
+     "escal_excess": 0.0422,
+     "escal_n": 1363,
+     "vendor": 0.2763,
+     "early": {
+      "observed": 0.1876,
+      "chance": 0.4389,
+      "z": -46.95
+     },
+     "late": {
+      "observed": 0.6179,
+      "chance": 0.2154,
+      "z": 68.02
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 5145,
+     "timed": 5145,
+     "escal_excess": 0.0574,
+     "escal_n": 357,
+     "vendor": 0.1432,
+     "early": {
+      "observed": 0.284,
+      "chance": 0.5084,
+      "z": -15.29
+     },
+     "late": {
+      "observed": 0.6887,
+      "chance": 0.2755,
+      "z": 30.73
+     }
+    },
+    "software_saas": {
+     "contracts": 11435,
+     "timed": 11435,
+     "escal_excess": 0.1633,
+     "escal_n": 891,
+     "vendor": 0.3618,
+     "early": {
+      "observed": 0.4835,
+      "chance": 0.5093,
+      "z": -2.66
+     },
+     "late": {
+      "observed": 0.5535,
+      "chance": 0.2745,
+      "z": 32.02
+     }
+    },
+    "it_services": {
+     "contracts": 1754,
+     "timed": 1754,
+     "escal_excess": 0.0774,
+     "escal_n": 168,
+     "vendor": 0.2546,
+     "early": {
+      "observed": 0.697,
+      "chance": 0.4824,
+      "z": 10.62
+     },
+     "late": {
+      "observed": 0.4003,
+      "chance": 0.2454,
+      "z": 11.73
+     }
+    },
+    "non_tech": {
+     "contracts": 223922,
+     "timed": 223922,
+     "escal_excess": 0.062,
+     "escal_n": 11984,
+     "vendor": 0.1799,
+     "early": {
+      "observed": 0.3759,
+      "chance": 0.5218,
+      "z": -58.4
+     },
+     "late": {
+      "observed": 0.5404,
+      "chance": 0.2843,
+      "z": 112.13
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.903,
+     268
+    ],
+    "hardware_telecom": [
+     2.741,
+     90
+    ],
+    "software_saas": [
+     3.194,
+     296
+    ],
+    "it_services": [
+     2.823,
+     31
+    ],
+    "non_tech": [
+     1.684,
+     3908
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R1_drop_wa_doh": {
+   "note": "Drop the wa_doh ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22636,
+     "timed": 22636,
+     "escal_excess": 0.0426,
+     "escal_n": 1362,
+     "vendor": 0.2762,
+     "early": {
+      "observed": 0.1871,
+      "chance": 0.4417,
+      "z": -44.8
+     },
+     "late": {
+      "observed": 0.618,
+      "chance": 0.2135,
+      "z": 86.03
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 6005,
+     "timed": 6005,
+     "escal_excess": 0.0549,
+     "escal_n": 346,
+     "vendor": 0.1443,
+     "early": {
+      "observed": 0.2797,
+      "chance": 0.4999,
+      "z": -15.01
+     },
+     "late": {
+      "observed": 0.6944,
+      "chance": 0.2719,
+      "z": 24.56
+     }
+    },
+    "software_saas": {
+     "contracts": 11968,
+     "timed": 11968,
+     "escal_excess": 0.1659,
+     "escal_n": 892,
+     "vendor": 0.3611,
+     "early": {
+      "observed": 0.4846,
+      "chance": 0.5095,
+      "z": -3.27
+     },
+     "late": {
+      "observed": 0.5527,
+      "chance": 0.2714,
+      "z": 32.77
+     }
+    },
+    "it_services": {
+     "contracts": 1754,
+     "timed": 1754,
+     "escal_excess": 0.0749,
+     "escal_n": 167,
+     "vendor": 0.2742,
+     "early": {
+      "observed": 0.6935,
+      "chance": 0.4893,
+      "z": 7.49
+     },
+     "late": {
+      "observed": 0.4032,
+      "chance": 0.2507,
+      "z": 7.27
+     }
+    },
+    "non_tech": {
+     "contracts": 225743,
+     "timed": 225743,
+     "escal_excess": 0.0631,
+     "escal_n": 11746,
+     "vendor": 0.1796,
+     "early": {
+      "observed": 0.3755,
+      "chance": 0.5217,
+      "z": -61.02
+     },
+     "late": {
+      "observed": 0.5457,
+      "chance": 0.2852,
+      "z": 125.34
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.895,
+     267
+    ],
+    "hardware_telecom": [
+     2.742,
+     89
+    ],
+    "software_saas": [
+     3.19,
+     294
+    ],
+    "it_services": [
+     2.823,
+     31
+    ],
+    "non_tech": [
+     1.674,
+     3859
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R1_drop_washington_state": {
+   "note": "Drop the washington_state ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 21556,
+     "timed": 21556,
+     "escal_excess": 0.0367,
+     "escal_n": 1308,
+     "vendor": 0.2764,
+     "early": {
+      "observed": 0.1739,
+      "chance": 0.4252,
+      "z": -35.54
+     },
+     "late": {
+      "observed": 0.6222,
+      "chance": 0.2038,
+      "z": 97.98
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 4730,
+     "timed": 4730,
+     "escal_excess": 0.05,
+     "escal_n": 260,
+     "vendor": 0.1271,
+     "early": {
+      "observed": 0.1626,
+      "chance": 0.5082,
+      "z": -17.27
+     },
+     "late": {
+      "observed": 0.7624,
+      "chance": 0.2604,
+      "z": 24.42
+     }
+    },
+    "software_saas": {
+     "contracts": 3770,
+     "timed": 3770,
+     "escal_excess": 0.1256,
+     "escal_n": 195,
+     "vendor": 0.2331,
+     "early": {
+      "observed": 0.2313,
+      "chance": 0.4331,
+      "z": -9.09
+     },
+     "late": {
+      "observed": 0.6413,
+      "chance": 0.2134,
+      "z": 27.93
+     }
+    },
+    "it_services": {
+     "contracts": 423,
+     "timed": 423,
+     "escal_excess": 0.0556,
+     "escal_n": 45,
+     "vendor": 0.269,
+     "early": {
+      "observed": 0.2067,
+      "chance": 0.4497,
+      "z": -8.35
+     },
+     "late": {
+      "observed": 0.6933,
+      "chance": 0.2207,
+      "z": 13.02
+     }
+    },
+    "non_tech": {
+     "contracts": 135910,
+     "timed": 135910,
+     "escal_excess": 0.0234,
+     "escal_n": 8369,
+     "vendor": 0.1663,
+     "early": {
+      "observed": 0.1654,
+      "chance": 0.5262,
+      "z": -110.19
+     },
+     "late": {
+      "observed": 0.688,
+      "chance": 0.2895,
+      "z": 96.5
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.879,
+     247
+    ],
+    "hardware_telecom": [
+     2.603,
+     65
+    ],
+    "software_saas": [
+     2.041,
+     73
+    ],
+    "non_tech": [
+     1.51,
+     3432
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": true,
+    "C5": false
+   }
+  },
+  "R2_only_chicago": {
+   "note": "Only the chicago ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 669,
+     "timed": 669,
+     "escal_excess": 0.0909,
+     "escal_n": 44,
+     "vendor": 0.3317,
+     "early": {
+      "observed": 0.1281,
+      "chance": 0.4506,
+      "z": -10.59
+     },
+     "late": {
+      "observed": 0.7397,
+      "chance": 0.2091,
+      "z": 20.17
+     }
+    },
+    "software_saas": {
+     "contracts": 1114,
+     "timed": 1114,
+     "escal_excess": -0.0741,
+     "escal_n": 54,
+     "vendor": 0.4281,
+     "early": {
+      "observed": 0.0891,
+      "chance": 0.4394,
+      "z": -10.49
+     },
+     "late": {
+      "observed": 0.797,
+      "chance": 0.2145,
+      "z": 18.9
+     }
+    },
+    "it_services": {
+     "contracts": 104,
+     "timed": 104,
+     "escal_excess": 0.119,
+     "escal_n": 21,
+     "vendor": 1.0
+    },
+    "hardware_telecom": {
+     "contracts": 1509,
+     "timed": 1509,
+     "escal_excess": 0.0,
+     "escal_n": 114,
+     "vendor": 0.1038,
+     "early": {
+      "observed": 0.1375,
+      "chance": 0.5399,
+      "z": -9.74
+     },
+     "late": {
+      "observed": 0.788,
+      "chance": 0.3003,
+      "z": 18.73
+     }
+    },
+    "non_tech": {
+     "contracts": 85869,
+     "timed": 85869,
+     "escal_excess": 0.0175,
+     "escal_n": 6230,
+     "vendor": 0.1652,
+     "early": {
+      "observed": 0.1148,
+      "chance": 0.5132,
+      "z": -89.52
+     },
+     "late": {
+      "observed": 0.7668,
+      "chance": 0.2754,
+      "z": 140.1
+     }
+    }
+   },
+   "snowball": {
+    "hardware_telecom": [
+     2.4,
+     33
+    ],
+    "non_tech": [
+     1.526,
+     2393
+    ]
+   },
+   "claims": {
+    "C1": false,
+    "C2": true,
+    "C3": null,
+    "C4": true,
+    "C5": null
+   }
+  },
+  "R2_only_cook_county": {
+   "note": "Only the cook_county ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 347,
+     "timed": 347,
+     "escal_excess": -0.0094,
+     "escal_n": 53,
+     "vendor": 0.0609,
+     "early": {
+      "observed": 0.0533,
+      "chance": 0.3752,
+      "z": -9.55
+     },
+     "late": {
+      "observed": 0.7733,
+      "chance": 0.1564,
+      "z": 18.07
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 366,
+     "timed": 366,
+     "escal_excess": 0.0806,
+     "escal_n": 62,
+     "vendor": 0.0326,
+     "early": {
+      "observed": 0.0694,
+      "chance": 0.3959,
+      "z": -7.38
+     },
+     "late": {
+      "observed": 0.9167,
+      "chance": 0.1808,
+      "z": 20.57
+     }
+    },
+    "software_saas": {
+     "contracts": 229,
+     "timed": 229,
+     "escal_excess": 0.2692,
+     "escal_n": 26,
+     "vendor": 0.1097
+    },
+    "it_services": {
+     "contracts": 32,
+     "timed": 32,
+     "escal_excess": 0.1667,
+     "escal_n": 6,
+     "vendor": null
+    },
+    "non_tech": {
+     "contracts": 4342,
+     "timed": 4342,
+     "escal_excess": 0.0649,
+     "escal_n": 262,
+     "vendor": 0.209,
+     "early": {
+      "observed": 0.0558,
+      "chance": 0.362,
+      "z": -18.78
+     },
+     "late": {
+      "observed": 0.844,
+      "chance": 0.1595,
+      "z": 63.07
+     }
+    }
+   },
+   "snowball": {},
+   "claims": {
+    "C1": null,
+    "C2": null,
+    "C3": null,
+    "C4": true,
+    "C5": null
+   }
+  },
+  "R2_only_oregon": {
+   "note": "Only the oregon ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 19574,
+     "timed": 19574,
+     "escal_excess": 0.0378,
+     "escal_n": 1190,
+     "vendor": 0.2792,
+     "early": {
+      "observed": 0.1781,
+      "chance": 0.4316,
+      "z": -44.68
+     },
+     "late": {
+      "observed": 0.6142,
+      "chance": 0.2041,
+      "z": 99.06
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 687,
+     "timed": 687,
+     "escal_excess": 0.0893,
+     "escal_n": 56,
+     "vendor": 0.2118,
+     "early": {
+      "observed": 0.221,
+      "chance": 0.4822,
+      "z": -7.22
+     },
+     "late": {
+      "observed": 0.6812,
+      "chance": 0.253,
+      "z": 21.47
+     }
+    },
+    "it_services": {
+     "contracts": 195,
+     "timed": 195,
+     "escal_excess": -0.1154,
+     "escal_n": 13,
+     "vendor": 0.413
+    },
+    "software_saas": {
+     "contracts": 1229,
+     "timed": 1229,
+     "escal_excess": 0.2869,
+     "escal_n": 61,
+     "vendor": 0.1641,
+     "early": {
+      "observed": 0.3368,
+      "chance": 0.4752,
+      "z": -4.8
+     },
+     "late": {
+      "observed": 0.5501,
+      "chance": 0.2366,
+      "z": 11.38
+     }
+    },
+    "non_tech": {
+     "contracts": 30645,
+     "timed": 30645,
+     "escal_excess": 0.0415,
+     "escal_n": 1374,
+     "vendor": 0.1564,
+     "early": {
+      "observed": 0.2718,
+      "chance": 0.5677,
+      "z": -46.23
+     },
+     "late": {
+      "observed": 0.5496,
+      "chance": 0.3323,
+      "z": 45.46
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.791,
+     230
+    ],
+    "hardware_telecom": [
+     2.32,
+     24
+    ],
+    "software_saas": [
+     1.322,
+     40
+    ],
+    "non_tech": [
+     1.266,
+     912
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": false,
+    "C3": null,
+    "C4": true,
+    "C5": false
+   }
+  },
+  "R2_only_oregon_lottery": {
+   "note": "Only the oregon_lottery ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 854,
+     "timed": 854,
+     "escal_excess": 0.0,
+     "escal_n": 20,
+     "vendor": 0.2012
+    },
+    "hardware_telecom": {
+     "contracts": 1252,
+     "timed": 1252,
+     "escal_excess": 0.0882,
+     "escal_n": 17,
+     "vendor": 0.1726
+    },
+    "software_saas": {
+     "contracts": 629,
+     "timed": 629,
+     "escal_excess": 0.0333,
+     "escal_n": 45,
+     "vendor": 0.1137
+    },
+    "it_services": {
+     "contracts": 58,
+     "timed": 58,
+     "escal_excess": 0.0,
+     "escal_n": 4,
+     "vendor": 0.0
+    },
+    "non_tech": {
+     "contracts": 10013,
+     "timed": 10013,
+     "escal_excess": 0.0319,
+     "escal_n": 235,
+     "vendor": 0.1646
+    }
+   },
+   "snowball": {
+    "non_tech": [
+     7.638,
+     62
+    ]
+   },
+   "claims": {
+    "C1": null,
+    "C2": false,
+    "C3": null,
+    "C4": null,
+    "C5": null
+   }
+  },
+  "R2_only_oregon_treasury": {
+   "note": "Only the oregon_treasury ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 104,
+     "timed": 104,
+     "escal_excess": null,
+     "escal_n": 0,
+     "vendor": 0.1374
+    },
+    "software_saas": {
+     "contracts": 551,
+     "timed": 551,
+     "escal_excess": 0.5,
+     "escal_n": 5,
+     "vendor": 0.1746,
+     "early": {
+      "observed": 0.4,
+      "chance": 0.4352,
+      "z": -0.25
+     },
+     "late": {
+      "observed": 0.0,
+      "chance": 0.1475,
+      "z": -1.44
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 888,
+     "timed": 888,
+     "escal_excess": null,
+     "escal_n": 0,
+     "vendor": null,
+     "early": {
+      "observed": 0.0,
+      "chance": 0.3181,
+      "z": -0.91
+     },
+     "late": {
+      "observed": 0.0,
+      "chance": 0.0167,
+      "z": -0.3
+     }
+    },
+    "it_services": {
+     "contracts": 17,
+     "timed": 17,
+     "escal_excess": null,
+     "escal_n": 0,
+     "vendor": 0.4462
+    },
+    "non_tech": {
+     "contracts": 3431,
+     "timed": 3431,
+     "escal_excess": 0.1,
+     "escal_n": 15,
+     "vendor": 0.4581,
+     "early": {
+      "observed": 0.1522,
+      "chance": 0.3735,
+      "z": -4.78
+     },
+     "late": {
+      "observed": 0.1304,
+      "chance": 0.1761,
+      "z": -1.57
+     }
+    }
+   },
+   "snowball": {},
+   "claims": {
+    "C1": null,
+    "C2": null,
+    "C3": null,
+    "C4": false,
+    "C5": null
+   }
+  },
+  "R2_only_washington_state": {
+   "note": "Only the washington_state ledger",
+   "metrics": {
+    "tech_general": {
+     "contracts": 1088,
+     "timed": 1088,
+     "escal_excess": 0.1727,
+     "escal_n": 55,
+     "vendor": 0.2634,
+     "early": {
+      "observed": 0.6154,
+      "chance": 0.559,
+      "z": 1.53
+     },
+     "late": {
+      "observed": 0.4808,
+      "chance": 0.3229,
+      "z": 3.68
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 1303,
+     "timed": 1303,
+     "escal_excess": 0.0773,
+     "escal_n": 97,
+     "vendor": 0.2546,
+     "early": {
+      "observed": 0.6314,
+      "chance": 0.5076,
+      "z": 4.49
+     },
+     "late": {
+      "observed": 0.4745,
+      "chance": 0.2692,
+      "z": 5.74
+     }
+    },
+    "software_saas": {
+     "contracts": 8216,
+     "timed": 8216,
+     "escal_excess": 0.1762,
+     "escal_n": 701,
+     "vendor": 0.4019,
+     "early": {
+      "observed": 0.5563,
+      "chance": 0.5244,
+      "z": 1.98
+     },
+     "late": {
+      "observed": 0.5257,
+      "chance": 0.2853,
+      "z": 22.12
+     }
+    },
+    "it_services": {
+     "contracts": 1348,
+     "timed": 1348,
+     "escal_excess": 0.0854,
+     "escal_n": 123,
+     "vendor": 0.2595,
+     "early": {
+      "observed": 0.8462,
+      "chance": 0.4982,
+      "z": 15.91
+     },
+     "late": {
+      "observed": 0.3077,
+      "chance": 0.2637,
+      "z": 1.52
+     }
+    },
+    "non_tech": {
+     "contracts": 91443,
+     "timed": 91443,
+     "escal_excess": 0.1512,
+     "escal_n": 3630,
+     "vendor": 0.2259,
+     "early": {
+      "observed": 0.6915,
+      "chance": 0.4936,
+      "z": 41.98
+     },
+     "late": {
+      "observed": 0.3167,
+      "chance": 0.2576,
+      "z": 13.15
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     2.214,
+     21
+    ],
+    "hardware_telecom": [
+     3.135,
+     25
+    ],
+    "software_saas": [
+     3.698,
+     223
+    ],
+    "non_tech": [
+     3.681,
+     479
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": true
+   }
+  },
+  "R3_min_25000": {
+   "note": "Original award >= $25,000",
+   "metrics": {
+    "tech_general": {
+     "contracts": 10965,
+     "timed": 10965,
+     "escal_excess": 0.028,
+     "escal_n": 1108,
+     "vendor": 0.1236,
+     "early": {
+      "observed": 0.1893,
+      "chance": 0.457,
+      "z": -30.2
+     },
+     "late": {
+      "observed": 0.6168,
+      "chance": 0.2233,
+      "z": 73.93
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 2267,
+     "timed": 2267,
+     "escal_excess": 0.0556,
+     "escal_n": 279,
+     "vendor": 0.1087,
+     "early": {
+      "observed": 0.2156,
+      "chance": 0.4672,
+      "z": -14.38
+     },
+     "late": {
+      "observed": 0.7328,
+      "chance": 0.2349,
+      "z": 31.39
+     }
+    },
+    "software_saas": {
+     "contracts": 3413,
+     "timed": 3413,
+     "escal_excess": 0.0966,
+     "escal_n": 476,
+     "vendor": 0.2254,
+     "early": {
+      "observed": 0.3118,
+      "chance": 0.5169,
+      "z": -12.37
+     },
+     "late": {
+      "observed": 0.6637,
+      "chance": 0.2736,
+      "z": 29.82
+     }
+    },
+    "it_services": {
+     "contracts": 652,
+     "timed": 652,
+     "escal_excess": 0.1579,
+     "escal_n": 76,
+     "vendor": 0.2743,
+     "early": {
+      "observed": 0.3817,
+      "chance": 0.5026,
+      "z": -3.8
+     },
+     "late": {
+      "observed": 0.5602,
+      "chance": 0.2778,
+      "z": 9.01
+     }
+    },
+    "non_tech": {
+     "contracts": 95599,
+     "timed": 95599,
+     "escal_excess": 0.056,
+     "escal_n": 9028,
+     "vendor": 0.1434,
+     "early": {
+      "observed": 0.2317,
+      "chance": 0.525,
+      "z": -82.68
+     },
+     "late": {
+      "observed": 0.6367,
+      "chance": 0.2859,
+      "z": 150.78
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.709,
+     236
+    ],
+    "hardware_telecom": [
+     2.388,
+     82
+    ],
+    "software_saas": [
+     2.418,
+     194
+    ],
+    "it_services": [
+     2.713,
+     29
+    ],
+    "non_tech": [
+     1.585,
+     3715
+    ]
+   },
+   "claims": {
+    "C1": false,
+    "C2": false,
+    "C3": false,
+    "C4": true,
+    "C5": false
+   }
+  },
+  "R3_min_100000": {
+   "note": "Original award >= $100,000",
+   "metrics": {
+    "tech_general": {
+     "contracts": 6988,
+     "timed": 6988,
+     "escal_excess": 0.0285,
+     "escal_n": 789,
+     "vendor": 0.118,
+     "early": {
+      "observed": 0.2051,
+      "chance": 0.4804,
+      "z": -25.77
+     },
+     "late": {
+      "observed": 0.6024,
+      "chance": 0.241,
+      "z": 50.11
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 1403,
+     "timed": 1403,
+     "escal_excess": 0.0367,
+     "escal_n": 218,
+     "vendor": 0.0893,
+     "early": {
+      "observed": 0.2192,
+      "chance": 0.486,
+      "z": -11.81
+     },
+     "late": {
+      "observed": 0.7654,
+      "chance": 0.244,
+      "z": 39.39
+     }
+    },
+    "software_saas": {
+     "contracts": 1852,
+     "timed": 1852,
+     "escal_excess": 0.0966,
+     "escal_n": 290,
+     "vendor": 0.2694,
+     "early": {
+      "observed": 0.3097,
+      "chance": 0.5332,
+      "z": -14.41
+     },
+     "late": {
+      "observed": 0.6465,
+      "chance": 0.2953,
+      "z": 23.33
+     }
+    },
+    "it_services": {
+     "contracts": 426,
+     "timed": 426,
+     "escal_excess": 0.1571,
+     "escal_n": 70,
+     "vendor": 0.3533,
+     "early": {
+      "observed": 0.3672,
+      "chance": 0.5087,
+      "z": -3.69
+     },
+     "late": {
+      "observed": 0.5932,
+      "chance": 0.269,
+      "z": 8.52
+     }
+    },
+    "non_tech": {
+     "contracts": 56294,
+     "timed": 56294,
+     "escal_excess": 0.0476,
+     "escal_n": 7429,
+     "vendor": 0.1557,
+     "early": {
+      "observed": 0.2345,
+      "chance": 0.5465,
+      "z": -68.92
+     },
+     "late": {
+      "observed": 0.6541,
+      "chance": 0.3066,
+      "z": 101.4
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.464,
+     192
+    ],
+    "hardware_telecom": [
+     2.219,
+     72
+    ],
+    "software_saas": [
+     2.077,
+     131
+    ],
+    "it_services": [
+     2.396,
+     24
+    ],
+    "non_tech": [
+     1.471,
+     3378
+    ]
+   },
+   "claims": {
+    "C1": false,
+    "C2": false,
+    "C3": false,
+    "C4": true,
+    "C5": false
+   }
+  },
+  "R4_start_2005_2019": {
+   "note": "Contracts starting 2005-2019 (older ones lack histories; newer ones are right-censored)",
+   "metrics": {
+    "tech_general": {
+     "contracts": 18947,
+     "timed": 18947,
+     "escal_excess": 0.0388,
+     "escal_n": 1262,
+     "vendor": 0.3077,
+     "early": {
+      "observed": 0.1749,
+      "chance": 0.4487,
+      "z": -33.63
+     },
+     "late": {
+      "observed": 0.6305,
+      "chance": 0.2185,
+      "z": 71.39
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 2110,
+     "timed": 2110,
+     "escal_excess": 0.0792,
+     "escal_n": 221,
+     "vendor": 0.2702,
+     "early": {
+      "observed": 0.2077,
+      "chance": 0.4859,
+      "z": -17.4
+     },
+     "late": {
+      "observed": 0.7437,
+      "chance": 0.2463,
+      "z": 33.23
+     }
+    },
+    "software_saas": {
+     "contracts": 3495,
+     "timed": 3495,
+     "escal_excess": 0.1653,
+     "escal_n": 472,
+     "vendor": 0.1908,
+     "early": {
+      "observed": 0.3649,
+      "chance": 0.5434,
+      "z": -11.0
+     },
+     "late": {
+      "observed": 0.651,
+      "chance": 0.3066,
+      "z": 30.56
+     }
+    },
+    "it_services": {
+     "contracts": 376,
+     "timed": 376,
+     "escal_excess": 0.0,
+     "escal_n": 48,
+     "vendor": 0.46,
+     "early": {
+      "observed": 0.4171,
+      "chance": 0.5512,
+      "z": -2.76
+     },
+     "late": {
+      "observed": 0.6364,
+      "chance": 0.3032,
+      "z": 6.9
+     }
+    },
+    "non_tech": {
+     "contracts": 67300,
+     "timed": 67300,
+     "escal_excess": 0.068,
+     "escal_n": 4820,
+     "vendor": 0.1827,
+     "early": {
+      "observed": 0.2781,
+      "chance": 0.5402,
+      "z": -50.56
+     },
+     "late": {
+      "observed": 0.6223,
+      "chance": 0.3023,
+      "z": 96.51
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.905,
+     260
+    ],
+    "hardware_telecom": [
+     2.923,
+     65
+    ],
+    "software_saas": [
+     3.135,
+     242
+    ],
+    "it_services": [
+     2.235,
+     23
+    ],
+    "non_tech": [
+     1.927,
+     1840
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R5_trim": {
+   "note": "Drop contracts with > 30 amendments or final value > 20x original",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22566,
+     "timed": 22566,
+     "escal_excess": 0.0398,
+     "escal_n": 1332,
+     "vendor": 0.275,
+     "early": {
+      "observed": 0.1878,
+      "chance": 0.4277,
+      "z": -50.56
+     },
+     "late": {
+      "observed": 0.6158,
+      "chance": 0.2045,
+      "z": 113.93
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 6001,
+     "timed": 6001,
+     "escal_excess": 0.0526,
+     "escal_n": 342,
+     "vendor": 0.1437,
+     "early": {
+      "observed": 0.2802,
+      "chance": 0.4257,
+      "z": -10.07
+     },
+     "late": {
+      "observed": 0.687,
+      "chance": 0.2058,
+      "z": 34.85
+     }
+    },
+    "software_saas": {
+     "contracts": 11891,
+     "timed": 11891,
+     "escal_excess": 0.1602,
+     "escal_n": 824,
+     "vendor": 0.3555,
+     "early": {
+      "observed": 0.4833,
+      "chance": 0.4505,
+      "z": 3.95
+     },
+     "late": {
+      "observed": 0.5441,
+      "chance": 0.2239,
+      "z": 42.57
+     }
+    },
+    "it_services": {
+     "contracts": 1759,
+     "timed": 1759,
+     "escal_excess": 0.0644,
+     "escal_n": 163,
+     "vendor": 0.2519,
+     "early": {
+      "observed": 0.6908,
+      "chance": 0.4579,
+      "z": 11.53
+     },
+     "late": {
+      "observed": 0.3945,
+      "chance": 0.2239,
+      "z": 8.6
+     }
+    },
+    "non_tech": {
+     "contracts": 226635,
+     "timed": 226635,
+     "escal_excess": 0.0597,
+     "escal_n": 11519,
+     "vendor": 0.1792,
+     "early": {
+      "observed": 0.3743,
+      "chance": 0.4309,
+      "z": -20.78
+     },
+     "late": {
+      "observed": 0.5386,
+      "chance": 0.2077,
+      "z": 194.6
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.74,
+     254
+    ],
+    "hardware_telecom": [
+     2.345,
+     81
+    ],
+    "software_saas": [
+     2.711,
+     255
+    ],
+    "it_services": [
+     2.189,
+     26
+    ],
+    "non_tech": [
+     1.58,
+     3566
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R6_strict_software": {
+   "note": "Software & SaaS restricted to titles naming software, licences, SaaS, cloud, ERP/CRM",
+   "metrics": {
+    "tech_general": {
+     "contracts": 22644,
+     "timed": 22644,
+     "escal_excess": 0.0422,
+     "escal_n": 1363,
+     "vendor": 0.2762,
+     "early": {
+      "observed": 0.1875,
+      "chance": 0.4415,
+      "z": -31.92
+     },
+     "late": {
+      "observed": 0.6178,
+      "chance": 0.2143,
+      "z": 84.63
+     }
+    },
+    "hardware_telecom": {
+     "contracts": 6033,
+     "timed": 6033,
+     "escal_excess": 0.0574,
+     "escal_n": 357,
+     "vendor": 0.1432,
+     "early": {
+      "observed": 0.2837,
+      "chance": 0.5122,
+      "z": -16.4
+     },
+     "late": {
+      "observed": 0.688,
+      "chance": 0.2686,
+      "z": 33.69
+     }
+    },
+    "software_saas": {
+     "contracts": 7381,
+     "timed": 7381,
+     "escal_excess": 0.1867,
+     "escal_n": 731,
+     "vendor": 0.201,
+     "early": {
+      "observed": 0.4309,
+      "chance": 0.5254,
+      "z": -5.99
+     },
+     "late": {
+      "observed": 0.6057,
+      "chance": 0.2864,
+      "z": 23.94
+     }
+    },
+    "it_services": {
+     "contracts": 1771,
+     "timed": 1771,
+     "escal_excess": 0.0774,
+     "escal_n": 168,
+     "vendor": 0.2631,
+     "early": {
+      "observed": 0.6941,
+      "chance": 0.4793,
+      "z": 10.88
+     },
+     "late": {
+      "observed": 0.3994,
+      "chance": 0.2483,
+      "z": 10.92
+     }
+    },
+    "non_tech": {
+     "contracts": 227353,
+     "timed": 227353,
+     "escal_excess": 0.062,
+     "escal_n": 11999,
+     "vendor": 0.1805,
+     "early": {
+      "observed": 0.3755,
+      "chance": 0.5223,
+      "z": -61.61
+     },
+     "late": {
+      "observed": 0.5397,
+      "chance": 0.285,
+      "z": 86.42
+     }
+    }
+   },
+   "snowball": {
+    "tech_general": [
+     1.903,
+     268
+    ],
+    "hardware_telecom": [
+     2.741,
+     90
+    ],
+    "software_saas": [
+     3.536,
+     225
+    ],
+    "it_services": [
+     2.823,
+     31
+    ],
+    "non_tech": [
+     1.685,
+     3911
+    ]
+   },
+   "claims": {
+    "C1": true,
+    "C2": false,
+    "C3": true,
+    "C4": true,
+    "C5": true
+   }
+  },
+  "R7_last_vs_first": {
+   "note": "P(last positive amendment > first)",
+   "by_sector": {
+    "tech_general": {
+     "p_last_gt_first": 0.526,
+     "excess": 0.026,
+     "pairs": 1403
+    },
+    "hardware_telecom": {
+     "p_last_gt_first": 0.5464,
+     "excess": 0.0464,
+     "pairs": 377
+    },
+    "software_saas": {
+     "p_last_gt_first": 0.6767,
+     "excess": 0.1767,
+     "pairs": 962
+    },
+    "it_services": {
+     "p_last_gt_first": 0.4302,
+     "excess": -0.0698,
+     "pairs": 179
+    },
+    "non_tech": {
+     "p_last_gt_first": 0.5513,
+     "excess": 0.0513,
+     "pairs": 12448
+    }
+   },
+   "claims": {
+    "C1": true
+   }
+  },
+  "R8_snowball_variants": {
+   "note": "Value after K amendments: K = 4, 6, 8; geometric mean or median",
+   "K4_gmean": {
+    "values": {
+     "tech_general": [
+      1.917,
+      613
+     ],
+     "hardware_telecom": [
+      2.202,
+      172
+     ],
+     "software_saas": [
+      2.564,
+      490
+     ],
+     "it_services": [
+      2.006,
+      51
+     ],
+     "non_tech": [
+      1.599,
+      6557
+     ]
+    },
+    "C5": true
+   },
+   "K4_median": {
+    "values": {
+     "tech_general": [
+      1.632,
+      613
+     ],
+     "hardware_telecom": [
+      2.005,
+      172
+     ],
+     "software_saas": [
+      2.41,
+      490
+     ],
+     "it_services": [
+      1.887,
+      51
+     ],
+     "non_tech": [
+      1.141,
+      6557
+     ]
+    },
+    "C5": true
+   },
+   "K6_gmean": {
+    "values": {
+     "tech_general": [
+      1.903,
+      268
+     ],
+     "hardware_telecom": [
+      2.741,
+      90
+     ],
+     "software_saas": [
+      3.194,
+      296
+     ],
+     "it_services": [
+      2.823,
+      31
+     ],
+     "non_tech": [
+      1.685,
+      3911
+     ]
+    },
+    "C5": true
+   },
+   "K6_median": {
+    "values": {
+     "tech_general": [
+      1.262,
+      268
+     ],
+     "hardware_telecom": [
+      2.174,
+      90
+     ],
+     "software_saas": [
+      2.965,
+      296
+     ],
+     "it_services": [
+      3.049,
+      31
+     ],
+     "non_tech": [
+      1.115,
+      3911
+     ]
+    },
+    "C5": false
+   },
+   "K8_gmean": {
+    "values": {
+     "tech_general": [
+      1.986,
+      159
+     ],
+     "hardware_telecom": [
+      3.249,
+      55
+     ],
+     "software_saas": [
+      3.869,
+      171
+     ],
+     "it_services": [
+      2.786,
+      22
+     ],
+     "non_tech": [
+      1.681,
+      2621
+     ]
+    },
+    "C5": true
+   },
+   "K8_median": {
+    "values": {
+     "tech_general": [
+      1.233,
+      159
+     ],
+     "hardware_telecom": [
+      2.153,
+      55
+     ],
+     "software_saas": [
+      3.604,
+      171
+     ],
+     "it_services": [
+      3.588,
+      22
+     ],
+     "non_tech": [
+      1.084,
+      2621
+     ]
+    },
+    "C5": true
+   }
+  },
+  "R9_permutation": {
+   "note": "Shuffle software / non-tech labels within ledger, 1,000 draws",
+   "observed_diff": 0.1031,
+   "null_p95": 0.0959,
+   "p_value": 0.016,
+   "pairs": 12895,
+   "claims": {
+    "C1": true
+   }
+  },
+  "R10_seeds": {
+   "note": "Matched-chance z-scores for early / late with three other seeds",
+   "seed_1": {
+    "tech_general": {
+     "early": -43.84,
+     "late": 79.72
+    },
+    "hardware_telecom": {
+     "early": -12.49,
+     "late": 27.8
+    },
+    "software_saas": {
+     "early": -2.68,
+     "late": 30.17
+    },
+    "it_services": {
+     "early": 7.81,
+     "late": 8.35
+    },
+    "non_tech": {
+     "early": -44.0,
+     "late": 148.41
+    },
+    "claims": {
+     "C3": true,
+     "C4": true
+    }
+   },
+   "seed_2": {
+    "tech_general": {
+     "early": -35.79,
+     "late": 76.96
+    },
+    "hardware_telecom": {
+     "early": -13.29,
+     "late": 24.04
+    },
+    "software_saas": {
+     "early": -2.6,
+     "late": 18.98
+    },
+    "it_services": {
+     "early": 8.44,
+     "late": 6.98
+    },
+    "non_tech": {
+     "early": -49.8,
+     "late": 130.55
+    },
+    "claims": {
+     "C3": true,
+     "C4": true
+    }
+   },
+   "seed_3": {
+    "tech_general": {
+     "early": -38.1,
+     "late": 68.86
+    },
+    "hardware_telecom": {
+     "early": -10.17,
+     "late": 29.46
+    },
+    "software_saas": {
+     "early": -2.27,
+     "late": 24.78
+    },
+    "it_services": {
+     "early": 8.7,
+     "late": 7.99
+    },
+    "non_tech": {
+     "early": -48.79,
+     "late": 92.0
+    },
+    "claims": {
+     "C3": true,
+     "C4": true
+    }
+   }
+  },
+  "R11_follow_on": {
+   "note": "Collapse repeat awards to the same vendor within: nothing / month / quarter / year",
+   "none": {
+    "software_saas": {
+     "observed": 0.1466,
+     "shuffled": 0.0438,
+     "excess_pts": 10.29,
+     "pairs": 29356
+    },
+    "hardware_telecom": {
+     "observed": 0.2372,
+     "shuffled": 0.1265,
+     "excess_pts": 11.07,
+     "pairs": 19766
+    },
+    "it_services": {
+     "observed": 0.1927,
+     "shuffled": 0.0689,
+     "excess_pts": 12.39,
+     "pairs": 6418
+    },
+    "tech_general": {
+     "observed": 0.1544,
+     "shuffled": 0.0648,
+     "excess_pts": 8.96,
+     "pairs": 28053
+    },
+    "non_tech": {
+     "observed": 0.1841,
+     "shuffled": 0.0204,
+     "excess_pts": 16.36,
+     "pairs": 577609
+    }
+   },
+   "month": {
+    "software_saas": {
+     "observed": 0.0268,
+     "shuffled": 0.028,
+     "excess_pts": -0.13,
+     "pairs": 25003
+    },
+    "hardware_telecom": {
+     "observed": 0.0556,
+     "shuffled": 0.0583,
+     "excess_pts": -0.26,
+     "pairs": 14865
+    },
+    "it_services": {
+     "observed": 0.0706,
+     "shuffled": 0.0537,
+     "excess_pts": 1.69,
+     "pairs": 5381
+    },
+    "tech_general": {
+     "observed": 0.0385,
+     "shuffled": 0.036,
+     "excess_pts": 0.26,
+     "pairs": 22758
+    },
+    "non_tech": {
+     "observed": 0.0029,
+     "shuffled": 0.0053,
+     "excess_pts": -0.25,
+     "pairs": 420642
+    }
+   },
+   "quarter": {
+    "software_saas": {
+     "observed": 0.0163,
+     "shuffled": 0.0224,
+     "excess_pts": -0.6,
+     "pairs": 23616
+    },
+    "hardware_telecom": {
+     "observed": 0.0341,
+     "shuffled": 0.0472,
+     "excess_pts": -1.3,
+     "pairs": 13222
+    },
+    "it_services": {
+     "observed": 0.0498,
+     "shuffled": 0.0449,
+     "excess_pts": 0.49,
+     "pairs": 5037
+    },
+    "tech_general": {
+     "observed": 0.0236,
+     "shuffled": 0.026,
+     "excess_pts": -0.24,
+     "pairs": 21133
+    },
+    "non_tech": {
+     "observed": 0.0016,
+     "shuffled": 0.0037,
+     "excess_pts": -0.22,
+     "pairs": 382913
+    }
+   },
+   "year": {
+    "software_saas": {
+     "observed": 0.0088,
+     "shuffled": 0.0166,
+     "excess_pts": -0.78,
+     "pairs": 21272
+    },
+    "hardware_telecom": {
+     "observed": 0.0167,
+     "shuffled": 0.0343,
+     "excess_pts": -1.77,
+     "pairs": 10866
+    },
+    "it_services": {
+     "observed": 0.0275,
+     "shuffled": 0.0341,
+     "excess_pts": -0.66,
+     "pairs": 4407
+    },
+    "tech_general": {
+     "observed": 0.0101,
+     "shuffled": 0.0165,
+     "excess_pts": -0.64,
+     "pairs": 18847
+    },
+    "non_tech": {
+     "observed": 0.0008,
+     "shuffled": 0.0027,
+     "excess_pts": -0.18,
+     "pairs": 324012
+    }
+   }
+  },
+  "R12_resellers_within_ledger": {
+   "note": "Hardware & telecom amendment rate, resellers vs others, by ledger",
+   "by_ledger": {
+    "nyc_checkbook": {
+     "resellers": 2359,
+     "reseller_rate": 0.1539,
+     "others": 6589,
+     "other_rate": 0.262,
+     "lower": true
+    },
+    "oregon_judicial": {
+     "resellers": 390,
+     "reseller_rate": 0.0333,
+     "others": 646,
+     "other_rate": 0.3297,
+     "lower": true
+    },
+    "oregon_lottery": {
+     "resellers": 564,
+     "reseller_rate": 0.0461,
+     "others": 688,
+     "other_rate": 0.0741,
+     "lower": true
+    },
+    "oregon_treasury": {
+     "resellers": 839,
+     "reseller_rate": 0.0,
+     "others": 49,
+     "other_rate": 0.0204,
+     "lower": true
+    },
+    "washington_state": {
+     "resellers": 69,
+     "reseller_rate": 0.087,
+     "others": 1234,
+     "other_rate": 0.248,
+     "lower": true
+    }
+   },
+   "claims": {
+    "C7": true
+   }
+  },
+  "R13_holdover_exact": {
+   "note": "Fisher exact test (one-sided): holdover share, software + general tech vs non-tech",
+   "software_general": [
+    32,
+    94
+   ],
+   "non_tech": [
+    2,
+    45
+   ],
+   "p_value": 4.7e-05,
+   "claims": {
+    "C8": true
+   }
+  },
+  "R14_out_of_sample": {
+   "note": "New ledgers (DC, NYC Checkbook, WA Dept. of Health)",
+   "dc": {
+    "software_saas": {
+     "contracts": 1387,
+     "amended_share": 0.6532,
+     "mean_amendments": 3.329,
+     "median_growth_when_amended": 2.0,
+     "escal_excess": 0.0839,
+     "escal_pairs": 161
+    },
+    "hardware_telecom": {
+     "contracts": 474,
+     "amended_share": 0.5,
+     "mean_amendments": 2.063,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": 0.0333,
+     "escal_pairs": 30
+    },
+    "it_services": {
+     "contracts": 96,
+     "amended_share": 0.5938,
+     "mean_amendments": 2.948,
+     "median_growth_when_amended": 1.64,
+     "escal_excess": null,
+     "escal_pairs": 10
+    },
+    "tech_general": {
+     "contracts": 376,
+     "amended_share": 0.6489,
+     "mean_amendments": 2.891,
+     "median_growth_when_amended": 1.285,
+     "escal_excess": null,
+     "escal_pairs": 19
+    },
+    "non_tech": {
+     "contracts": 8219,
+     "amended_share": 0.5787,
+     "mean_amendments": 2.675,
+     "median_growth_when_amended": 2.0,
+     "escal_excess": 0.1033,
+     "escal_pairs": 547
+    }
+   },
+   "nyc_checkbook": {
+    "software_saas": {
+     "contracts": 8289,
+     "amended_share": 0.2283,
+     "mean_amendments": 0.371,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": null,
+     "escal_pairs": 0
+    },
+    "hardware_telecom": {
+     "contracts": 8948,
+     "amended_share": 0.2335,
+     "mean_amendments": 0.478,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": null,
+     "escal_pairs": 0
+    },
+    "it_services": {
+     "contracts": 3492,
+     "amended_share": 0.4227,
+     "mean_amendments": 0.801,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": null,
+     "escal_pairs": 0
+    },
+    "tech_general": {
+     "contracts": 3639,
+     "amended_share": 0.2503,
+     "mean_amendments": 0.451,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": null,
+     "escal_pairs": 0
+    },
+    "non_tech": {
+     "contracts": 205243,
+     "amended_share": 0.3031,
+     "mean_amendments": 0.706,
+     "median_growth_when_amended": 1.0,
+     "escal_excess": null,
+     "escal_pairs": 0
+    }
+   },
+   "wa_doh": {
+    "software_saas": {
+     "contracts": 18,
+     "amended_share": 0.6111,
+     "mean_amendments": 1.944,
+     "median_growth_when_amended": null,
+     "escal_excess": null,
+     "escal_pairs": 4
+    },
+    "hardware_telecom": {
+     "contracts": 28,
+     "amended_share": 0.6071,
+     "mean_amendments": 1.75,
+     "median_growth_when_amended": null,
+     "escal_excess": null,
+     "escal_pairs": 11
+    },
+    "it_services": {
+     "contracts": 17,
+     "amended_share": 0.6471,
+     "mean_amendments": 1.059,
+     "median_growth_when_amended": null,
+     "escal_excess": null,
+     "escal_pairs": 1
+    },
+    "tech_general": {
+     "contracts": 8,
+     "amended_share": 0.5,
+     "mean_amendments": 2.75,
+     "median_growth_when_amended": null,
+     "escal_excess": null,
+     "escal_pairs": 1
+    },
+    "non_tech": {
+     "contracts": 1610,
+     "amended_share": 0.4323,
+     "mean_amendments": 1.176,
+     "median_growth_when_amended": 1.327,
+     "escal_excess": -0.0437,
+     "escal_pairs": 252
+    }
+   }
+  }
+ },
+ "survival": {
+  "C1": {
+   "held": 15,
+   "failed": 3,
+   "n/a": 3
+  },
+  "C2": {
+   "held": 10,
+   "failed": 7,
+   "n/a": 2
+  },
+  "C3": {
+   "held": 7,
+   "failed": 7,
+   "n/a": 5
+  },
+  "C4": {
+   "held": 14,
+   "failed": 4,
+   "n/a": 1
+  },
+  "C5": {
+   "held": 10,
+   "failed": 5,
+   "n/a": 4
+  },
+  "C7": {
+   "held": 1
+  },
+  "C8": {
+   "held": 1
+  }
+ }
+}

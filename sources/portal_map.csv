@@ -1,0 +1,38 @@
+domain,unit_id,note
+data.wa.gov,state:WA,
+data.oregon.gov,state:OR,
+data.vermont.gov,state:VT,
+data.ny.gov,state:NY,includes state authorities (ABO reports) and MTA
+data.nj.gov,state:NJ,
+data.texas.gov,state:TX,
+data.delaware.gov,state:DE,
+bythenumbers.sco.ca.gov,state:CA,
+Office of Management and Enterprise Services,state:OK,publisher on data.gov
+OKStateStat,state:OK,publisher on data.gov
+data.cityofchicago.org,city:IL:chicago,
+data.cityofnewyork.us,city:NY:new_york,
+datacatalog.cookcountyil.gov,county:IL:cook,
+atlanta.data.socrata.com,city:GA:atlanta,
+data.kcmo.org,city:MO:kansas_city,
+data.kingcounty.gov,county:WA:king,
+data.oaklandca.gov,city:CA:oakland,
+datahub.austintexas.gov,city:TX:austin,
+data.austintexas.gov,city:TX:austin,
+data.sf.gov,city:CA:san_francisco,
+data.lacity.org,city:CA:los_angeles,
+data.cincinnati-oh.gov,city:OH:cincinnati,
+performance.seattle.gov,city:WA:seattle,
+data.seattle.gov,city:WA:seattle,
+sharefulton.fultoncountyga.gov,county:GA:fulton,
+citydata.mesaaz.gov,city:AZ:mesa,
+internal-sandiegocounty.data.socrata.com,county:CA:san_diego,
+data.sandiegocounty.gov,county:CA:san_diego,
+City of Denver Procurement Transactions,city:CO:denver,dataset hosted on data.colorado.gov
+opendata.dc.gov,state:DC,DC is both a state-equivalent and a city; coverage counted for both units
+maps2.dcgis.dc.gov,state:DC,
+data.montgomerycountymd.gov,county:MD:montgomery,
+data.lakecountyil.gov,outside_frame,
+"Miami-Dade County, Florida",county:FL:miami_dade,ArcGIS publisher
+Baltimore City,city:MD:baltimore,ArcGIS publisher
+City of Detroit,city:MI:detroit,ArcGIS publisher
+Office of Contracting and Procurement,state:DC,ArcGIS publisher (DC OCP)

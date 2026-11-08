@@ -8,7 +8,7 @@ import json
 import re
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -49,6 +49,9 @@ JURISDICTION_META: dict[str, tuple[str, str]] = {
     "oregon_judicial": ("OR", "state"),
     "oregon_treasury": ("OR", "state"),
     "washington_state": ("WA", "state"),
+    "wa_doh": ("WA", "state"),
+    "dc": ("DC", "state"),
+    "nyc_checkbook": ("NY", "city"),
     "vermont": ("VT", "state"),
     "baton_rouge": ("LA", "city"),  # consolidated city-parish
     "austin": ("TX", "city"),
@@ -355,6 +358,9 @@ def process_chicago(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str,
 
 
 def process_oregon(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """ORPIN contracts: the 'Contracts Issued' report, plus documents that appear only in the
+    'Contracts Expired' report (same fields, but no per-amendment date or value; amendment
+    deltas there are taken from the change in the running total)."""
     path = raw_dir / "oregon_orpin" / "records.json"
     if not path.exists():
         return [], []
@@ -366,6 +372,15 @@ def process_oregon(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
         doc = r.get("document_number")
         if doc:
             groups[doc].append(r)
+    expired = raw_dir / "oregon_orpin_expired" / "records.json"
+    if expired.exists():
+        extra = defaultdict(list)
+        for r in json.load(expired.open(encoding="utf-8")):
+            doc = r.get("document_number")
+            if doc and doc not in groups:
+                r["_expired_only"] = True
+                extra[doc].append(r)
+        groups.update(extra)
 
     contract_rows = []
     amendment_rows = []
@@ -379,7 +394,7 @@ def process_oregon(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
         base = rows[0]
         final = rows[-1]
         
-        dept = base.get("agency_name") or ""
+        dept = base.get("agency_name") or base.get("issued_for_agency_name") or ""
         vendor = base.get("contractor_information") or ""
         title = base.get("award_title") or ""
         atype = base.get("award_type") or ""
@@ -421,9 +436,14 @@ def process_oregon(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, 
             "procurement_method": atype,
         })
 
+        prev_total = orig_val
         for r in rows[1:]:
             a_dt = parse_iso_date(r.get("amendment_date"))
-            a_amt = clean_currency(r.get("amendment_value"))
+            if r.get("_expired_only"):
+                total = clean_currency(r.get("total_award_value_w_amendments")) or prev_total
+                a_amt, prev_total = total - prev_total, total
+            else:
+                a_amt = clean_currency(r.get("amendment_value"))
             amendment_rows.append({
                 "jurisdiction": "oregon",
                 "contract_id": doc,
@@ -447,16 +467,25 @@ WA_FISCAL_YEAR_DATASETS = [
 
 
 def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Pool WA agency-contract reports FY2021-FY2025.
+    """Washington agency-contract reports, FY2021-FY2025.
 
-    Contracts are keyed by (agency number, contract number) -- contract numbers such as
-    "K1234" are reused across agencies. Rows repeated across fiscal-year reports are
-    de-duplicated on (agency, contract, cost, start date). Cooperative vehicles come from the
-    WA IT Contracts reports (explicit NASPO/Sourcewell/... field) and from a
-    "Statewide Contract" procurement type.
+    Keys: (agency number, contract number); contract numbers such as "K1234" are reused across
+    agencies.
+
+    Row semantics (checked against the data, 2026-11-08):
+      * FY2023+ reports label every row with `agency_contract_amendment`. The row whose label equals
+        the contract number is the base contract; other labels (e.g. K341-1) are amendments.
+      * An amendment row's `contract_effective_start` is that amendment's own effective date, and its
+        `cost_of_contract` is the CHANGE made by that amendment (3,239 are negative, 42,063 zero),
+        not a running total.
+      * FY2021-22 reports carry no amendment labels, so amendments cannot be told apart from
+        co-awardee or duplicate rows. Contracts seen only in those years keep their contract-level
+        fields but are flagged amendment_observable = 0.
+    Original value = base contract cost; final value = original + sum of amendment changes.
     """
-    groups: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
-    seen: set[tuple[str, str, float, str]] = set()
+    base_rows: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    amend_rows: dict[tuple[str, str], dict[str, dict[str, Any]]] = defaultdict(dict)
+    labelled: set[tuple[str, str]] = set()
     for name, fy in WA_FISCAL_YEAR_DATASETS:
         path = raw_dir / name / "records.json"
         if not path.exists():
@@ -468,52 +497,44 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
             if not cno:
                 continue
             agency = r.get("agency_number_agency_name") or r.get("agency_name") or ""
-            akey = agency_key(agency)
-            cost = clean_currency(r.get("cost_of_contract") or r.get("state_amount"))
-            start = str(r.get("contract_effective_start") or r.get("period_of_performance_start") or "")[:10]
-            dedupe = (akey, cno.upper(), cost, start)
-            if dedupe in seen:
-                continue
-            seen.add(dedupe)
-            r["_fy"] = fy
-            r["_agency"] = agency
-            groups[(akey, cno)].append(r)
+            key = (agency_key(agency), cno)
+            r["_fy"], r["_agency"] = fy, agency
+            label = (r.get("agency_contract_amendment") or "").strip()
+            if label:
+                labelled.add(key)
+            if label and label.upper() != cno.upper():
+                # the same amendment appears in several fiscal-year reports; keep the first seen
+                amend_rows[key].setdefault(label.upper(), r)
+            else:
+                base_rows[key].append(r)
+
+    def seq(label: str) -> tuple[int, str]:
+        m = re.search(r"(\d+)\s*$", label)
+        return (int(m.group(1)) if m else 0, label)
 
     coop_flags = load_wa_it_coop_flags(raw_dir)
-    contract_rows = []
-    amendment_rows = []
-
-    for (akey, cno), rows in groups.items():
-        rows.sort(key=lambda x: (
-            str(x.get("contract_effective_start") or x.get("period_of_performance_start") or ""),
-            x["_fy"],
-            str(x.get("agency_contract_amendment") or ""),
-        ))
-        primary = rows[0]
+    contract_rows, amendment_rows = [], []
+    for key in set(base_rows) | set(amend_rows):
+        akey, cno = key
+        bases = sorted(base_rows.get(key, []), key=lambda x: (x["_fy"], str(x.get("contract_effective_start") or "")))
+        ams = [amend_rows[key][k] for k in sorted(amend_rows.get(key, {}), key=seq)]
+        primary = bases[0] if bases else ams[0]
         dept = primary["_agency"]
         vendor = primary.get("contractor_name_search_for") or primary.get("contractor_name") or ""
         desc = f"{primary.get('purpose_of_the_contract') or ''} {primary.get('purpose_of_the_contract_1') or ''}".strip()
         proc_type = primary.get("procurement_type") or primary.get("procurement_type_competitive") or ""
+        observable = key in labelled
 
-        start_key = lambda x: str(x.get("contract_effective_start") or x.get("period_of_performance_start") or "")
-        pvendor = normalize_vendor_name(primary.get("contractor_name_search_for") or primary.get("contractor_name") or "")
-        # Rows on the original start date from *other* contractors are co-awardees (multiple
-        # award), not amendments.
-        co_awardees = [r for r in rows[1:] if start_key(r) == start_key(primary) and normalize_vendor_name(
-            r.get("contractor_name_search_for") or r.get("contractor_name") or "") != pvendor]
-        rows = [r for r in rows if not any(r is c for c in co_awardees)]
-        costs = [clean_currency(r.get("cost_of_contract") or r.get("state_amount")) for r in rows]
-        orig_val = costs[0] if costs else 0.0
-        final_val = max(costs) if costs else orig_val
-        delta_val = final_val - orig_val
-
+        orig_val = clean_currency(primary.get("cost_of_contract") or primary.get("state_amount")) if bases else 0.0
+        deltas = [clean_currency(r.get("cost_of_contract")) for r in ams]
+        delta_val = sum(deltas)
+        final_val = orig_val + delta_val
         start_dt = parse_iso_date(primary.get("contract_effective_start") or primary.get("period_of_performance_start"))
-        end_dt = parse_iso_date(rows[-1].get("contract_effective_end_date") or rows[-1].get("period_of_performance_end"))
+        end_dt = parse_iso_date(primary.get("contract_effective_end_date") or primary.get("period_of_performance_end"))
         duration_days = (end_dt - start_dt).days if (start_dt and end_dt and end_dt >= start_dt) else None
 
         is_tech, subsector, domain = classify_contract(desc, dept, proc_type, vendor)
-        amend_count = len(rows) - 1
-        is_amended = 1 if amend_count > 0 or delta_val != 0 else 0
+        amend_count = len(ams)
         pct_growth = (delta_val / orig_val * 100.0) if orig_val > 0 else 0.0
 
         vehicle = coop_flags.get((akey, contract_key(cno)), "")
@@ -521,12 +542,17 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
             vehicle = detect_coop_vehicle(desc, primary.get("explanation_of_costs_optional") or "")
         if not vehicle and "statewide contract" in proc_type.lower():
             vehicle = STATE_MASTER
-
         cert = harmonize_wa_cert(
             primary.get("minority_woman_owned") or "",
             primary.get("small_business") or primary.get("small_business_status_optional") or "",
             primary.get("veteran") or "",
         )
+        # other contractors on base rows of the same contract (same start) are co-awardees
+        pv = normalize_vendor_name(vendor)
+        co = {normalize_vendor_name(r.get("contractor_name_search_for") or r.get("contractor_name") or "")
+              for r in bases if str(r.get("contract_effective_start") or "") == str(primary.get("contract_effective_start") or "")}
+        co.discard(pv)
+        co.discard("")
 
         contract_rows.append({
             "jurisdiction": "washington_state",
@@ -543,30 +569,26 @@ def process_washington(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[s
             "delta_val": delta_val,
             "pct_growth": round(pct_growth, 2),
             "amendment_count": amend_count,
-            "is_amended": is_amended,
+            "is_amended": 1 if amend_count > 0 or delta_val != 0 else 0,
             "start_date": format_date(start_dt),
             "end_date": format_date(end_dt),
             "duration_days": duration_days if duration_days is not None else "",
             "coop_vehicle": vehicle,
             "procurement_method": proc_type,
             "vendor_certification": cert,
-            "n_contractors": 1 + len({normalize_vendor_name(
-                r.get("contractor_name_search_for") or r.get("contractor_name") or "") for r in co_awardees}),
+            "n_contractors": 1 + len(co),
+            "amendment_observable": 1 if observable else 0,
         })
-
-        for r in rows[1:]:
-            a_dt = parse_iso_date(r.get("contract_effective_start"))
-            a_amt = clean_currency(r.get("cost_of_contract"))
+        for r, d in zip(ams, deltas):
             amendment_rows.append({
                 "jurisdiction": "washington_state",
                 "contract_id": f"{akey}:{cno}",
                 "amendment_seq": r.get("agency_contract_amendment") or "",
-                "amendment_date": format_date(a_dt),
-                "delta_amount": a_amt,
+                "amendment_date": format_date(parse_iso_date(r.get("contract_effective_start"))),
+                "delta_amount": d,
                 "category": r.get("contract_modifications") or "Amendment",
                 "description": r.get("purpose_of_the_contract") or "",
             })
-
     return contract_rows, amendment_rows
 
 
@@ -883,6 +905,18 @@ def process_oregon_lottery(raw_dir: Path) -> tuple[list[dict[str, Any]], list[di
             "end_date": "",
             "duration_days": "",
         })
+        # each later creation date is a change order: the lines added that day, dated that day
+        for i, dt in enumerate(dates[1:], 1):
+            amendment_rows.append({
+                "jurisdiction": "oregon_lottery",
+                "contract_id": po,
+                "amendment_seq": i,
+                "amendment_date": dt,
+                "delta_amount": sum(clean_currency(r.get("net_amount")) for r in rows
+                                    if str(r.get("created") or "")[:10] == dt),
+                "category": "Lines added",
+                "description": desc,
+            })
 
     return contract_rows, amendment_rows
 
@@ -1023,6 +1057,166 @@ def process_oregon_treasury(raw_dir: Path) -> tuple[list[dict[str, Any]], list[d
     return contract_rows, amendment_rows
 
 
+def process_wa_doh(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Washington Dept. of Health, 'contracts started or amended' reports for SFY2016-SFY2019.
+
+    Each report lists every version of each contract it covers: amendment number, the period
+    start/end of that version, and the cumulative contract amount (cost_of_contract, or
+    maximum_amount in SFY2018). Histories reach back to 2000. The latest report wins for each
+    version. Contracts with negative amounts (revenue agreements) are dropped."""
+    versions: dict[str, dict[int, dict[str, Any]]] = defaultdict(dict)
+    for sfy in (2016, 2017, 2018, 2019):
+        path = raw_dir / f"wa_doh_contracts_sfy{sfy}" / "records.json"
+        if not path.exists():
+            continue
+        for r in json.load(path.open(encoding="utf-8")):
+            cn = str(r.get("contract_number") or "").strip()
+            an = r.get("amendment_number")
+            if an is None:  # SFY2016 embeds it: N17374-0
+                m = re.match(r"^[A-Za-z]*(\d+)-(\d+)$", cn)
+                if not m:
+                    continue
+                cn, an = m.group(1), m.group(2)
+            cn = re.sub(r"^[A-Za-z]+", "", cn)
+            try:
+                an = int(float(an))
+            except ValueError:
+                continue
+            r["_sfy"] = sfy
+            versions[cn][an] = r  # later reports overwrite earlier ones
+    contract_rows, amendment_rows = [], []
+    for cn, vs in versions.items():
+        if 0 not in vs:
+            continue
+        seq = [vs[k] for k in sorted(vs)]
+        amt = [clean_currency(v.get("cost_of_contract") or v.get("maximum_amount")) for v in seq]
+        if amt[0] <= 0 or any(a < 0 for a in amt):
+            continue
+        first, last = seq[0], seq[-1]
+        desc = first.get("contract_purpose") or first.get("purpose") or first.get("purpose_of_the_contract_key") or ""
+        vendor = first.get("contractor_name") or ""
+        sane = lambda d: d if d and 1990 <= d.year <= 2035 else None  # drop typos such as year 3019
+        ends = [sane(parse_iso_date(v.get("end_date"))) for v in seq]
+        ends = [e for e in ends if e]
+        n_am = len(seq) - 1
+        contract_rows.append(_base_contract_row(
+            "wa_doh", cn, desc, "Department of Health", vendor, first.get("entity_type") or "",
+            amt[0], amt[-1], n_am, 1 if n_am > 0 else 0,
+            sane(parse_iso_date(first.get("start_date"))), max(ends) if ends else None))
+        for k, v, prev, cur in zip(sorted(vs)[1:], seq[1:], amt, amt[1:]):
+            amendment_rows.append({
+                "jurisdiction": "wa_doh", "contract_id": cn, "amendment_seq": k,
+                "amendment_date": format_date(sane(parse_iso_date(v.get("start_date")))),
+                "delta_amount": cur - prev, "category": "Amendment (version period start)", "description": desc,
+            })
+    return contract_rows, amendment_rows
+
+
+def process_nyc_checkbook(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Checkbook NYC registered expense contracts (NYC Comptroller API).
+
+    One row per contract: original and current amounts and the latest version number
+    (version 1 = original registration, so amendments = version - 1). Sub-vendor rows repeat the
+    prime contract and are dropped; when a contract appears under several registration years the
+    highest version wins. No dates for individual amendments, so this ledger informs counts and
+    size, not timing. Contracts with a non-positive original amount are kept but flagged
+    not observable (e.g. $0 master agreements whose value sits in their orders)."""
+    path = raw_dir / "checkbook_nyc_contracts" / "records.json"
+    if not path.exists():
+        return [], []
+    best: dict[str, dict[str, Any]] = {}
+    for r in json.load(path.open(encoding="utf-8")):
+        if (r.get("vendor_record_type") or "Prime Vendor") != "Prime Vendor":
+            continue
+        cid = r.get("prime_contract_id") or ""
+        if not cid:
+            continue
+        ver = _int(r.get("prime_contract_version"))
+        if cid not in best or ver > _int(best[cid].get("prime_contract_version")):
+            best[cid] = r
+    contract_rows = []
+    for cid, r in best.items():
+        orig = clean_currency(r.get("prime_contract_original_amount"))
+        cur = clean_currency(r.get("prime_contract_current_amount")) or orig
+        n_am = max(_int(r.get("prime_contract_version")) - 1, 0)
+        row = _base_contract_row(
+            "nyc_checkbook", cid, r.get("prime_contract_purpose") or "", r.get("prime_contracting_agency") or "",
+            r.get("prime_vendor") or "",
+            f"{r.get('prime_contract_type') or ''} | {r.get('prime_contract_industry') or ''}".strip(" |"),
+            orig, cur, n_am, 1 if n_am > 0 or abs(cur - orig) > 0.5 else 0,
+            parse_iso_date(r.get("prime_contract_start_date")), parse_iso_date(r.get("prime_contract_end_date")))
+        row["procurement_method"] = r.get("prime_contract_award_method") or ""
+        row["amendment_observable"] = 1 if orig > 0 else 0
+        parent = (r.get("parent_contract_id") or "").strip()
+        if parent and parent != "-":
+            row["procurement_method"] = (row["procurement_method"] + " | order under master agreement").strip(" |")
+        contract_rows.append(row)
+    return contract_rows, []
+
+
+def process_dc_pass(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """District of Columbia OCP contracts (PASS), one row per contract x option period x document version.
+
+    Original value = the base period's amount in its earliest version. Contract value at any point =
+    the latest amount of each period seen so far, summed over the base and exercised option periods.
+    Each later (period, version) record is one change event: an option exercise or a modification.
+    Versions carry no reliable dates, so this ledger informs counts and size, not timing.
+    Contracts bought off the DC Supply Schedule (market type DCSS) are central-schedule purchases."""
+    path = raw_dir / "dc_pass_contracts" / "records.json"
+    if not path.exists():
+        return [], []
+    groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for r in json.load(path.open(encoding="utf-8")):
+        if r.get("CONTRACTNUMBER"):
+            groups[r["CONTRACTNUMBER"]].append(r)
+    ms = lambda x: datetime.fromtimestamp(x / 1000, timezone.utc).replace(tzinfo=None) if isinstance(x, (int, float)) and x > 0 else None
+    contract_rows, amendment_rows = [], []
+    for cid, rows in groups.items():
+        seen, events = set(), []
+        for r in rows:
+            per = (r.get("CURRENTOPTIONPERIOD") or "Base Period").strip()
+            per = "Base Period" if per.lower().startswith("base") else per
+            ver = r.get("DOCUMENTVERSION") or 1
+            key = (per, ver, r.get("CONTRACTAMOUNT"))
+            if key in seen:
+                continue
+            seen.add(key)
+            events.append((r.get("STARTDATE") or 0, 0 if per == "Base Period" else 1, ver, per, r))
+        events.sort(key=lambda e: (e[1], e[0], e[2]))
+        if events[0][3] != "Base Period":
+            continue  # no base period on record: original value unknown
+        current: dict[str, float] = {}
+        totals = []
+        for _, _, ver, per, r in events:
+            current[per] = clean_currency(r.get("CONTRACTAMOUNT"))
+            totals.append(sum(current.values()))
+        orig, final = totals[0], totals[-1]
+        base = events[0][4]
+        n_am = len(events) - 1
+        ends = [ms(e[4].get("ENDDATE")) for e in events]
+        ends = [e for e in ends if e]
+        desc = base.get("TITLE") or base.get("DESCRIPTION") or ""
+        row = _base_contract_row(
+            "dc", cid, desc, base.get("AGENCY_NAME") or base.get("AGENCY") or "", base.get("SUPPLIER") or "",
+            f"{base.get('COMMODITYDESCRIPTION') or ''} | {base.get('CONTRACTTYPEDESCRIPTION') or ''}".strip(" |"),
+            orig, final, n_am, 1 if n_am > 0 or abs(final - orig) > 0.5 else 0,
+            ms(base.get("STARTDATE")) or ms(base.get("AWARDDATE")), max(ends) if ends else None)
+        row["procurement_method"] = base.get("PROCUREMENTMETHODDESCRIPTION") or ""
+        row["amendment_observable"] = 1 if orig > 0 else 0
+        if (base.get("MARKETTYPE") or "").upper() == "DCSS":
+            row["coop_vehicle"] = STATE_MASTER
+        contract_rows.append(row)
+        periods_seen = {"Base Period"}
+        for (_, _, ver, per, r), prev, cur in zip(events[1:], totals, totals[1:]):
+            kind = "Option exercised" if per not in periods_seen else "Modification"
+            periods_seen.add(per)
+            amendment_rows.append({
+                "jurisdiction": "dc", "contract_id": cid, "amendment_seq": f"{per} v{ver}", "amendment_date": "",
+                "delta_amount": cur - prev, "category": kind, "description": desc,
+            })
+    return contract_rows, amendment_rows
+
+
 def process_west_hollywood(raw_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """City of West Hollywood active contracts: original amount vs. current contract total."""
     path = raw_dir / "west_hollywood" / "records.json"
@@ -1135,6 +1329,9 @@ def main() -> int:
         ("Oregon Judicial", process_oregon_judicial),
         ("Oregon Treasury", process_oregon_treasury),
         ("West Hollywood", process_west_hollywood),
+        ("WA Dept. of Health (SFY2016-19 reports)", process_wa_doh),
+        ("NYC Checkbook", process_nyc_checkbook),
+        ("District of Columbia (PASS)", process_dc_pass),
     ]
     for label, fn in processors:
         print(f"Processing {label}...", file=sys.stderr)
@@ -1142,6 +1339,15 @@ def main() -> int:
         all_contracts.extend(c_rows)
         all_amendments.extend(a_rows)
         print(f"  {label}: {len(c_rows):,} contracts, {len(a_rows):,} amendments", file=sys.stderr)
+
+    # WA Dept. of Health histories overlap the statewide agency ledger for contracts still active in
+    # FY2021+; keep those in washington_state only so no contract is counted twice.
+    wa_doh_ids = {re.sub(r"^[A-Za-z]+", "", c["contract_id"][4:].split("-")[0]).lstrip("0")
+                  for c in all_contracts if c["jurisdiction"] == "washington_state" and c["contract_id"].startswith("303:")}
+    dup = {c["contract_id"] for c in all_contracts if c["jurisdiction"] == "wa_doh" and c["contract_id"].lstrip("0") in wa_doh_ids}
+    all_contracts = [c for c in all_contracts if not (c["jurisdiction"] == "wa_doh" and c["contract_id"] in dup)]
+    all_amendments = [a for a in all_amendments if not (a["jurisdiction"] == "wa_doh" and a["contract_id"] in dup)]
+    print(f"  WA Dept. of Health: dropped {len(dup):,} contracts already in the statewide ledger", file=sys.stderr)
 
     print(f"Total normalized: {len(all_contracts):,} contracts, {len(all_amendments):,} amendments", file=sys.stderr)
 
@@ -1167,7 +1373,10 @@ def main() -> int:
         c["vendor_role"] = registry.role(c["vendor_name"])
         c["vendor_certification"] = c.get("vendor_certification") or "not_reported"
         c["award_structure"] = award_structure(c["n_contractors"], c["vendor_role"])
-        c["amendment_observable"] = 0 if c["jurisdiction"] in NO_AMENDMENT_HISTORY else 1
+        if c["jurisdiction"] in NO_AMENDMENT_HISTORY:
+            c["amendment_observable"] = 0
+        else:
+            c.setdefault("amendment_observable", 1)  # processors may flag individual contracts
         c.setdefault("n_line_items", "")
         c.setdefault("procurement_method", "")
         c.update(vendor_qualification(quals, c["vendor_name"]))

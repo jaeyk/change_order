@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1584" height="970" viewBox="0 0 1584 970" font-family="Helvetica, Arial, sans-serif" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="1776" height="970" viewBox="0 0 1776 970" font-family="Helvetica, Arial, sans-serif" role="img">
 <title>Figure 2. Who buys off whose contract (contract counts)</title>
-<rect width="1584" height="970" fill="#ffffff"/>
+<rect width="1776" height="970" fill="#ffffff"/>
 <text x="24.0" y="36.0" font-size="18" fill="#15191c" text-anchor="start" font-weight="bold">Figure 2. Who buys off whose contract (contract counts)</text>
-<text x="24.0" y="60.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical piggybacking 1,621 (62% of cooperative contracts); horizontal pooling 731 (28%); central purchasing 4,441 shown dotted.</text>
+<text x="24.0" y="60.0" font-size="13" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical piggybacking 1,651 (57% of cooperative contracts); horizontal pooling 775 (27%); central purchasing 4,516 shown dotted.</text>
 <line x1="24.0" y1="88.0" x2="50.0" y2="88.0" stroke="#eb6834" stroke-width="4"/>
 <text x="56.0" y="92.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">Vertical down: locals on state/multi-state contracts</text>
 <line x1="405.6" y1="88.0" x2="431.6" y2="88.0" stroke="#2a78d6" stroke-width="4"/>
@@ -17,8 +17,8 @@
 <text x="40.0" y="116.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">buyer</text>
 <rect x="90" y="107" width="10" height="10" rx="2" fill="#15191c"/>
 <text x="106.0" y="116.0" font-size="12" fill="#4d5458" text-anchor="start" font-weight="normal">contract vehicle (node size = total volume; line width = volume of each link)</text>
-<rect x="12" y="170" width="1560" height="290" rx="10" fill="#f1f3f2"/>
-<rect x="12" y="510" width="1560" height="300" rx="10" fill="#f1f3f2"/>
+<rect x="12" y="170" width="1752" height="290" rx="10" fill="#f1f3f2"/>
+<rect x="12" y="510" width="1752" height="300" rx="10" fill="#f1f3f2"/>
 <text x="26.0" y="227.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">STATE BUYERS</text>
 <text x="26.0" y="242.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">agencies, universities, other states</text>
 <text x="26.0" y="397.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">STATE &amp; MULTI-STATE CONTRACTS</text>
@@ -27,122 +27,144 @@
 <text x="26.0" y="582.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Sourcewell, OMNIA, TIPS</text>
 <text x="26.0" y="737.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="bold">LOCAL BUYERS</text>
 <text x="26.0" y="752.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">cities, counties, schools</text>
-<path d="M1208.0,230.0 C1208.0,315.0 1016.0,315.0 1016.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="16.20" stroke-linecap="round" stroke-dasharray="1 5"/>
-<path d="M334.4,740.0 C334.4,570.0 248.0,570.0 248.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="11.34" stroke-linecap="round"/>
-<path d="M536.0,230.0 C536.0,315.0 344.0,315.0 344.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="9.40" stroke-linecap="round" stroke-dasharray="1 5"/>
-<path d="M1208.0,230.0 C1208.0,315.0 824.0,315.0 824.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="5.22" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,655.0 401.6,655.0 401.6,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="5.16" stroke-linecap="round"/>
-<path d="M536.0,230.0 C536.0,315.0 824.0,315.0 824.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="4.21" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,655.0 536.0,655.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="3.22" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M1208.0,230.0 C1208.0,400.0 536.0,400.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.98" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M536.0,230.0 C536.0,315.0 632.0,315.0 632.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.96" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 804.8,400.0 804.8,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.63" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,570.0 632.0,570.0 632.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.41" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 670.4,400.0 670.4,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.41" stroke-linecap="round"/>
-<path d="M536.0,230.0 C536.0,400.0 536.0,400.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.32" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M1208.0,230.0 C1208.0,400.0 1073.6,400.0 1073.6,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.32" stroke-linecap="round"/>
-<path d="M334.4,740.0 C334.4,570.0 824.0,570.0 824.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.29" stroke-linecap="round"/>
-<path d="M1140.8,740.0 C1140.8,655.0 536.0,655.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.26" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M1409.6,740.0 C1409.6,655.0 804.8,655.0 804.8,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.20" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 1342.4,400.0 1342.4,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.05" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 1476.8,400.0 1476.8,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.01" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,315.0 1400.0,315.0 1400.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="2.01" stroke-linecap="round" stroke-dasharray="1 5"/>
-<path d="M1409.6,740.0 C1409.6,655.0 670.4,655.0 670.4,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.01" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,315.0 1112.0,315.0 1112.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.97" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,570.0 536.0,570.0 536.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.93" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 939.2,400.0 939.2,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.93" stroke-linecap="round"/>
-<path d="M536.0,230.0 C536.0,400.0 670.4,400.0 670.4,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.93" stroke-linecap="round"/>
-<path d="M536.0,230.0 C536.0,315.0 440.0,315.0 440.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="1.88" stroke-linecap="round" stroke-dasharray="1 5"/>
-<path d="M1208.0,230.0 C1208.0,315.0 1208.0,315.0 1208.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.88" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,655.0 670.4,655.0 670.4,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.83" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,315.0 632.0,315.0 632.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.83" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,400.0 1208.0,400.0 1208.0,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.83" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,315.0 920.0,315.0 920.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.83" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,570.0 728.0,570.0 728.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.77" stroke-linecap="round"/>
-<path d="M334.4,740.0 C334.4,655.0 536.0,655.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.77" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M536.0,230.0 C536.0,400.0 804.8,400.0 804.8,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.71" stroke-linecap="round"/>
-<path d="M1140.8,740.0 C1140.8,570.0 728.0,570.0 728.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.65" stroke-linecap="round"/>
-<path d="M1409.6,740.0 C1409.6,570.0 1496.0,570.0 1496.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.65" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,655.0 804.8,655.0 804.8,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.56" stroke-linecap="round"/>
-<path d="M1208.0,230.0 C1208.0,315.0 1304.0,315.0 1304.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.56" stroke-linecap="round"/>
-<path d="M334.4,740.0 C334.4,570.0 632.0,570.0 632.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.56" stroke-linecap="round"/>
-<path d="M1409.6,740.0 C1409.6,655.0 536.0,655.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.56" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M1140.8,740.0 C1140.8,570.0 824.0,570.0 824.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
-<path d="M603.2,740.0 C603.2,570.0 920.0,570.0 920.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
-<path d="M334.4,740.0 C334.4,655.0 267.2,655.0 267.2,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
-<path d="M872.0,740.0 C872.0,655.0 536.0,655.0 536.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round" stroke-dasharray="6 5"/>
-<path d="M1409.6,740.0 C1409.6,570.0 824.0,570.0 824.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
-<circle cx="536.0" cy="230.0" r="11.4" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="536.0" y="197.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon state</text>
-<text x="536.0" y="210.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
-<circle cx="1208.0" cy="230.0" r="17.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="1208.0" y="192.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington state</text>
-<text x="1208.0" y="205.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
-<rect x="235.7" y="387.7" width="24.5" height="24.5" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="248.0" y="366.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Louisiana state</text>
-<text x="248.0" y="379.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
-<rect x="333.3" y="389.3" width="21.4" height="21.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="344.0" y="427.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon DAS price</text>
-<text x="344.0" y="440.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agreements</text>
-<rect x="435.4" y="395.4" width="9.1" height="9.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="440.0" y="374.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon state</text>
+<path d="M1480.0,230.0 C1480.0,315.0 1400.0,315.0 1400.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="16.20" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M328.0,740.0 C328.0,570.0 248.0,570.0 248.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="11.50" stroke-linecap="round"/>
+<path d="M968.0,230.0 C968.0,315.0 824.0,315.0 824.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="10.03" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M1480.0,230.0 C1480.0,315.0 1016.0,315.0 1016.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="5.28" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,655.0 430.4,655.0 430.4,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="5.23" stroke-linecap="round"/>
+<path d="M968.0,230.0 C968.0,400.0 584.0,400.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="4.82" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M968.0,230.0 C968.0,315.0 1016.0,315.0 1016.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="4.29" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="3.26" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M456.0,230.0 C456.0,315.0 344.0,315.0 344.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="3.10" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M968.0,230.0 C968.0,315.0 728.0,315.0 728.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="3.01" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 584.0,400.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="3.01" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M1480.0,230.0 C1480.0,400.0 891.2,400.0 891.2,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.65" stroke-linecap="round"/>
+<path d="M1608.0,740.0 C1608.0,570.0 1688.0,570.0 1688.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.63" stroke-linecap="round"/>
+<path d="M456.0,230.0 C456.0,315.0 536.0,315.0 536.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.45" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,570.0 728.0,570.0 728.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.42" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 737.6,400.0 737.6,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.42" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 1198.4,400.0 1198.4,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.34" stroke-linecap="round"/>
+<path d="M328.0,740.0 C328.0,570.0 1016.0,570.0 1016.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="2.31" stroke-linecap="round"/>
+<path d="M1096.0,740.0 C1096.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="2.28" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M1352.0,740.0 C1352.0,655.0 891.2,655.0 891.2,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.21" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 1352.0,400.0 1352.0,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.07" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,315.0 1496.0,315.0 1496.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="2.03" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M1480.0,230.0 C1480.0,400.0 1505.6,400.0 1505.6,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="2.03" stroke-linecap="round"/>
+<path d="M1352.0,740.0 C1352.0,655.0 737.6,655.0 737.6,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="2.03" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,315.0 1304.0,315.0 1304.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.98" stroke-linecap="round"/>
+<path d="M1608.0,740.0 C1608.0,655.0 891.2,655.0 891.2,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.98" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,570.0 440.0,570.0 440.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.94" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 1044.8,400.0 1044.8,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.94" stroke-linecap="round"/>
+<path d="M968.0,230.0 C968.0,400.0 737.6,400.0 737.6,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.94" stroke-linecap="round"/>
+<path d="M968.0,230.0 C968.0,315.0 920.0,315.0 920.0,400.0" fill="none" stroke="#9aa1a4" stroke-opacity="0.72" stroke-width="1.89" stroke-linecap="round" stroke-dasharray="1 5"/>
+<path d="M1480.0,230.0 C1480.0,315.0 1592.0,315.0 1592.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.89" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,655.0 737.6,655.0 737.6,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.84" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,315.0 1112.0,315.0 1112.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.84" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,315.0 728.0,315.0 728.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.84" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,400.0 1659.2,400.0 1659.2,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.84" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,570.0 632.0,570.0 632.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.78" stroke-linecap="round"/>
+<path d="M328.0,740.0 C328.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.78" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M968.0,230.0 C968.0,400.0 891.2,400.0 891.2,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.72" stroke-linecap="round"/>
+<path d="M1608.0,740.0 C1608.0,655.0 737.6,655.0 737.6,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.72" stroke-linecap="round"/>
+<path d="M456.0,230.0 C456.0,315.0 1016.0,315.0 1016.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.72" stroke-linecap="round"/>
+<path d="M1096.0,740.0 C1096.0,570.0 632.0,570.0 632.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.65" stroke-linecap="round"/>
+<path d="M1352.0,740.0 C1352.0,570.0 1208.0,570.0 1208.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.65" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,655.0 891.2,655.0 891.2,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.57" stroke-linecap="round"/>
+<path d="M1480.0,230.0 C1480.0,315.0 536.0,315.0 536.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.57" stroke-linecap="round"/>
+<path d="M328.0,740.0 C328.0,570.0 728.0,570.0 728.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.57" stroke-linecap="round"/>
+<path d="M1352.0,740.0 C1352.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.57" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M1096.0,740.0 C1096.0,570.0 1016.0,570.0 1016.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M584.0,740.0 C584.0,570.0 1112.0,570.0 1112.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M328.0,740.0 C328.0,655.0 276.8,655.0 276.8,570.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M840.0,740.0 C840.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M1352.0,740.0 C1352.0,570.0 1016.0,570.0 1016.0,400.0" fill="none" stroke="#eb6834" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M1608.0,740.0 C1608.0,655.0 584.0,655.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M456.0,230.0 C456.0,400.0 584.0,400.0 584.0,570.0" fill="none" stroke="#b9bfc1" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round" stroke-dasharray="6 5"/>
+<path d="M456.0,230.0 C456.0,400.0 276.8,400.0 276.8,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M456.0,230.0 C456.0,400.0 737.6,400.0 737.6,570.0" fill="none" stroke="#1baf7a" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<path d="M456.0,230.0 C456.0,315.0 728.0,315.0 728.0,400.0" fill="none" stroke="#2a78d6" stroke-opacity="0.72" stroke-width="1.46" stroke-linecap="round"/>
+<circle cx="456.0" cy="230.0" r="5.9" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="456.0" y="190.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">District of</text>
+<text x="456.0" y="203.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Columbia</text>
+<text x="456.0" y="216.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
+<circle cx="968.0" cy="230.0" r="12.4" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="968.0" y="196.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon state</text>
+<text x="968.0" y="209.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
+<circle cx="1480.0" cy="230.0" r="17.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="1480.0" y="192.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington state</text>
+<text x="1480.0" y="205.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agencies</text>
+<rect x="235.6" y="387.6" width="24.8" height="24.8" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="248.0" y="366.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Louisiana state</text>
+<text x="248.0" y="379.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
+<rect x="338.5" y="394.5" width="11.1" height="11.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="344.0" y="422.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">DC statewide</text>
+<rect x="435.4" y="395.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="440.0" y="374.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Other states&#x27;</text>
 <text x="440.0" y="387.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
-<rect x="531.4" y="395.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="536.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Other states&#x27;</text>
-<text x="536.0" y="434.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
-<rect x="626.2" y="394.2" width="11.7" height="11.7" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="632.0" y="386.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">MMCAP</text>
-<rect x="723.4" y="395.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="728.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Illinois state</text>
-<text x="728.0" y="434.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
-<rect x="815.8" y="391.8" width="16.4" height="16.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="824.0" y="383.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">NASPO ValuePoint</text>
+<rect x="530.9" y="394.9" width="10.1" height="10.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="536.0" y="422.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas DIR</text>
+<rect x="627.4" y="395.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="632.0" y="374.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Illinois state</text>
+<text x="632.0" y="387.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
+<rect x="722.1" y="394.1" width="11.8" height="11.8" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="728.0" y="422.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">MMCAP</text>
+<rect x="812.8" y="388.8" width="22.4" height="22.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="824.0" y="367.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon DAS price</text>
+<text x="824.0" y="380.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">agreements</text>
 <rect x="915.4" y="395.4" width="9.1" height="9.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="920.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">MHEC</text>
-<rect x="999.8" y="383.8" width="32.5" height="32.5" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1016.0" y="375.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">WA DES statewide</text>
-<rect x="1107.4" y="395.4" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1112.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">E&amp;I Cooperative</text>
-<rect x="1203.4" y="395.4" width="9.1" height="9.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1208.0" y="387.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Internet2</text>
-<rect x="1299.7" y="395.7" width="8.6" height="8.6" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1304.0" y="421.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Texas DIR</text>
-<rect x="1395.3" y="395.3" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1400.0" y="374.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington state</text>
-<text x="1400.0" y="387.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
-<rect x="1491.6" y="395.6" width="8.7" height="8.7" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1496.0" y="421.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">California CMAS</text>
-<rect x="263.0" y="565.8" width="8.4" height="8.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="267.2" y="557.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">HGACBuy</text>
-<rect x="394.4" y="562.8" width="14.5" height="14.5" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="401.6" y="594.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Joint purchases</text>
-<rect x="529.4" y="563.4" width="13.2" height="13.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="536.0" y="542.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Unnamed</text>
-<text x="536.0" y="555.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">cooperative</text>
-<rect x="665.0" y="564.6" width="10.8" height="10.8" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="670.4" y="592.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">OMNIA Partners</text>
-<rect x="799.3" y="564.5" width="11.0" height="11.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="804.8" y="556.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Sourcewell</text>
-<rect x="934.6" y="565.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="939.2" y="591.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">KCDA</text>
-<rect x="1068.7" y="565.1" width="9.8" height="9.8" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1073.6" y="557.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">NCPA</text>
-<rect x="1203.5" y="565.5" width="9.0" height="9.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1208.0" y="591.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">OETC</text>
-<rect x="1337.7" y="565.3" width="9.4" height="9.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1342.4" y="557.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">TIPS/TAPS</text>
-<rect x="1472.1" y="565.3" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
-<text x="1476.8" y="591.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">WSIPC</text>
-<circle cx="334.4" cy="740.0" r="12.3" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="334.4" y="769.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Baton Rouge</text>
-<circle cx="603.2" cy="740.0" r="7.9" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="603.2" y="764.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Chicago</text>
-<circle cx="872.0" cy="740.0" r="4.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="872.0" y="761.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Austin</text>
-<circle cx="1140.8" cy="740.0" r="5.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="1140.8" y="762.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Cook County</text>
-<circle cx="1409.6" cy="740.0" r="5.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
-<text x="1409.6" y="762.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">West Hollywood</text>
+<text x="920.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Oregon state</text>
+<text x="920.0" y="434.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
+<rect x="1007.7" y="391.7" width="16.6" height="16.6" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1016.0" y="383.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">NASPO ValuePoint</text>
+<rect x="1107.4" y="395.4" width="9.1" height="9.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1112.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">MHEC</text>
+<rect x="1203.6" y="395.6" width="8.7" height="8.7" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1208.0" y="387.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">California CMAS</text>
+<rect x="1299.4" y="395.4" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1304.0" y="421.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">E&amp;I Cooperative</text>
+<rect x="1383.8" y="383.8" width="32.4" height="32.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1400.0" y="375.8" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">WA DES statewide</text>
+<rect x="1491.3" y="395.3" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1496.0" y="421.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Washington state</text>
+<text x="1496.0" y="434.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
+<rect x="1587.4" y="395.4" width="9.1" height="9.1" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1592.0" y="387.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Internet2</text>
+<rect x="1682.8" y="394.8" width="10.3" height="10.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1688.0" y="422.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">New York state</text>
+<text x="1688.0" y="435.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">contracts</text>
+<rect x="272.5" y="565.7" width="8.6" height="8.6" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="276.8" y="557.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">HGACBuy</text>
+<rect x="423.1" y="562.7" width="14.6" height="14.6" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="430.4" y="594.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Joint purchases</text>
+<rect x="576.1" y="562.1" width="15.7" height="15.7" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="584.0" y="541.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Unnamed</text>
+<text x="584.0" y="554.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">cooperative</text>
+<rect x="732.1" y="564.5" width="11.0" height="11.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="737.6" y="592.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">OMNIA Partners</text>
+<rect x="885.5" y="564.3" width="11.3" height="11.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="891.2" y="556.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Sourcewell</text>
+<rect x="1040.2" y="565.4" width="9.2" height="9.2" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1044.8" y="591.6" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">KCDA</text>
+<rect x="1193.5" y="565.1" width="9.9" height="9.9" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1198.4" y="557.1" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">NCPA</text>
+<rect x="1347.3" y="565.3" width="9.4" height="9.4" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1352.0" y="591.7" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">TIPS/TAPS</text>
+<rect x="1500.9" y="565.3" width="9.3" height="9.3" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1505.6" y="557.3" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">WSIPC</text>
+<rect x="1654.7" y="565.5" width="9.0" height="9.0" rx="3" fill="#15191c" stroke="#ffffff" stroke-width="2"/>
+<text x="1659.2" y="591.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">OETC</text>
+<circle cx="328.0" cy="740.0" r="12.5" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="328.0" y="769.5" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Baton Rouge</text>
+<circle cx="584.0" cy="740.0" r="7.9" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="584.0" y="764.9" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Chicago</text>
+<circle cx="840.0" cy="740.0" r="4.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="840.0" y="761.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Austin</text>
+<circle cx="1096.0" cy="740.0" r="5.0" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="1096.0" y="762.0" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">Cook County</text>
+<circle cx="1352.0" cy="740.0" r="5.2" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="1352.0" y="762.2" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">West Hollywood</text>
+<circle cx="1608.0" cy="740.0" r="5.4" fill="#ffffff" stroke="#15191c" stroke-width="2"/>
+<text x="1608.0" y="762.4" font-size="11.5" fill="#15191c" text-anchor="middle" font-weight="normal">New York City</text>
 <text x="24.0" y="924.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Sources: WA, OR, Chicago, Cook County, Baton Rouge, West Hollywood and Austin contract ledgers; contracts naming a cooperative vehicle or another government&#x27;s contract (a lower bound).</text>
-<text x="24.0" y="942.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Federal links omitted (thin in these data): Washington state agencies → GSA schedules 6; Oregon state agencies → GSA schedules 3; Baton Rouge → GSA schedules 2.</text>
+<text x="24.0" y="942.0" font-size="11" fill="#7c8387" text-anchor="start" font-weight="normal">Federal links omitted (thin in these data): New York City → GSA schedules 17; Washington state agencies → GSA schedules 6; Oregon state agencies → GSA schedules 4; District of Columbia agencies → GSA schedules 4; Baton Rouge → GSA schedules 2.</text>
 </svg>

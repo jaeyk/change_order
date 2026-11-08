@@ -65,9 +65,11 @@ Figure 5 ([figures/fig5_amendment_fingerprints.png](../figures/fig5_amendment_fi
 
 ## Main results
 
-- **Every sector shows the end-of-term renewal regime.** No sector shows the early scope-gap pattern.
-- **Software & SaaS and general enterprise IT are most aligned with lock-in.** They show vendor-level concentration and amendments that grow from one to the next (+15–16 points above chance), with acceleration in support.
-- **Non-technology contracts show the weakest lock-in signal.**
+From the 2026-11-08 run (seven ledgers with dated amendments, 269,787 contracts):
+
+- **Pooled, nearly every sector shows the end-of-term renewal regime.** This describes Chicago, Oregon and Cook County. Washington's labelled amendments come early in every sector.
+- **Pooled, Software & SaaS and general enterprise IT are most aligned with lock-in.** Their second amendment exceeds the first 15–17 points more often than chance, alongside vendor-level concentration. IT services drops to tier 2 (vendor concentration only).
+- **Within ledgers, the software lead shrinks to about +4 points** over non-tech ([robustness_checks.md](../robustness_checks.md), R15). Most of the pooled gap reflects Washington, where escalation is high in every sector.
 - **Stated reasons in the ledgers rarely say why** an amendment happened (`scripts/amendment_reasons.py`). The fingerprints carry the inference.
 
 ## Limits

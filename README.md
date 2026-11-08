@@ -10,17 +10,24 @@ An empirical research toolkit and reproducible data pipeline for analyzing how p
 >
 > **Theory:** [game_theory/](game_theory/README.md) models amendments as a vendor strategy and asks why they happen: by chance, or by design (Model 10). Descriptive amendment dynamics come from `scripts/amendment_dynamics.py`.
 >
+> **Vendor strategies:** [strategies.md](strategies.md) summarizes which post-award strategies the data are consistent with (buy-in, lock-in escalation, holdover, vendor playbooks, follow-on awards, channel choice) and how they differ by sector.
+
+> **Sampling frame & robustness:** [sampling_frame.md](sampling_frame.md) defines the governments the study aims to describe, how sources were found (catalog sweep of Socrata, data.gov, ArcGIS Hub and OpenDataSoft, plus state transparency systems), coverage, and potential biases. [robustness_checks.md](robustness_checks.md) tests every strategy finding; within-ledger comparisons revise several of them.
+
 > See **[data.md](data.md)** for the full data structure: source datasets (Table 1), processed files (Table 2), and variable dictionaries (Tables 3–9).
 
 The project targets contract ledgers that capture amendment histories and change orders rather than procurement portals that only list open solicitations:
 
-### A. Contract Ledgers with Amendment Histories (12 jurisdictions in 8 states: state, county, city and authority ledgers)
+### A. Contract Ledgers with Amendment Histories (15 ledgers from 9 states and DC: state, county, city and authority ledgers)
 
 | Jurisdiction | Level | Dataset | Raw Records | Coverage & Amendment Tracking |
 | :--- | :--- | :--- | :--- | :--- |
 | **Chicago, IL** | City | [Contracts](https://data.cityofchicago.org/d/rsxa-ify5) | 186,213 | Contract revisions, revised award amounts, de-obligations, and departments. |
 | **Baton Rouge, LA** | City-Parish | [Purchase Orders & Contracts](https://data.brla.gov/d/2ung-w7t4) | 345,509 | Municipal & parish purchase orders, adjustments, DBE / minority / veteran flags. |
-| **Oregon** | State | [Historical ORPIN Contracts](https://data.oregon.gov/d/6e9e-sfc4) | 93,846 | Amendment sequences, original awards, amendment deltas, and total amended values. |
+| **New York City** | City | [Checkbook NYC Contracts API](https://www.checkbooknyc.com/api-page) (NYC Comptroller) | 301,500 | All registered expense contracts FY2010–FY2027: original vs. current amount, latest version number, award method, master agreements. |
+| **Oregon** | State | ORPIN Contracts [Issued](https://data.oregon.gov/d/6e9e-sfc4) + [Expired](https://data.oregon.gov/d/8izy-bwhd) | 186,601 | Amendment sequences, original awards, amendment deltas, and total amended values. |
+| **District of Columbia** | State-equivalent | [OCP contracts from PASS](https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Government_Operations/MapServer/37) (DC GIS / opendata.dc.gov) | 51,717 | Contract × option period × document version: option exercises and modifications with amounts; DC Supply Schedule purchases. |
+| **Washington Dept. of Health** | State | Contracts Started or Amended SFY[2016](https://data.wa.gov/d/mx83-wxi5) · [2017](https://data.wa.gov/d/5s66-2kbs) · [2018](https://data.wa.gov/d/qhn8-3a9e) · [2019](https://data.wa.gov/d/un75-jhzj) | 8,163 | Every version of each contract with its period and cumulative amount; histories back to 2000. |
 | **Washington State** | State | Agency Contracts FY[2021](https://data.wa.gov/d/buf8-6px9) · [2022](https://data.wa.gov/d/pwse-3zea) · [2023](https://data.wa.gov/d/mz6y-pfem) · [2024](https://data.wa.gov/d/s8d5-pj78) · [2025](https://data.wa.gov/d/6fx9-ncas) | 379,753 | Amendment identifiers, cost modifications, procurement type (incl. *Statewide Contract*), minority/women-owned, small business, and veteran certification. |
 | **Cook County, IL** | County | [Awarded Contracts & Amendments](https://datacatalog.cookcountyil.gov/d/qh8j-6k63) | 8,342 | Extensions, renewals, dollar increases, scope changes. |
 | **Oregon Lottery** | State | [Lottery Contracts](https://data.oregon.gov/d/rkhh-35im) | 24,279 | Purchase orders, line-item amendments, and vendor service agreements. |
@@ -74,6 +81,8 @@ python3 scripts/download_data.py --group secondary    # Baton Rouge, Austin, Ver
 python3 scripts/download_data.py --group expansion    # Washington FY2021-23/FY2025, Oregon Judicial & Treasury, West Hollywood
 python3 scripts/download_data.py --group cooperative  # WA IT/master-contract, Texas DIR, NY VAR, Delaware cooperative data
 python3 scripts/download_data.py --group federal_schedules  # GSA MAS + VA schedule holders (USASpending): extra reseller evidence + qualification covariates
+python3 scripts/download_data.py --group frame_expansion    # ORPIN Expired, WA Dept. of Health, DC PASS, NY authorities / MTA, Atlanta, Cook buying plans
+python3 scripts/download_data.py --group transparency       # Checkbook NYC contracts API
 # or everything at once:
 python3 scripts/download_data.py --group all
 ```
@@ -88,8 +97,8 @@ python3 scripts/normalize_and_classify.py
 ```
 
 Outputs generated under `data/processed/`:
-- `contracts_normalized.csv`: Contract grain (**447,003 records**) with state, level of government, values, growth %, amendment count, duration, tech tags, and: `procurement_method` (the source's own field), `coop_vehicle`, `coop_direction`, `procurement_channel`, `n_contractors`, `award_structure`, `vendor_role`, `qualification_tier`, `gsa_mas_holder`, `n_vehicles_held`, `fss_holder_role`, `vendor_certification`, `amendment_observable`, `n_line_items`.
-- `amendments_normalized.csv`: Amendment grain (**231,178 records**).
+- `contracts_normalized.csv`: Contract grain (**694,856 records**) with state, level of government, values, growth %, amendment count, duration, tech tags, and: `procurement_method` (the source's own field), `coop_vehicle`, `coop_direction`, `procurement_channel`, `n_contractors`, `award_structure`, `vendor_role`, `qualification_tier`, `gsa_mas_holder`, `n_vehicles_held`, `fss_holder_role`, `vendor_certification`, `amendment_observable`, `n_line_items`.
+- `amendments_normalized.csv`: Amendment grain (**258,150 records**).
 - `cooperative_sales.csv`: Cooperative / master-contract spend (**119,906 rows**) by program, vehicle, buyer level, `coop_direction`, prime vendor, reseller, and the certification grade of each.
 - `award_structure.csv`: One row per cooperative or federal-schedule contract (Texas DIR, NY OGS, WA DES, Delaware, GSA MAS, VA FSS) with solicitation, number of primes awarded under it, number of resellers, and (schedules) holder NAICS role.
 - `vendor_qualifications.csv`: One row per vendor with the contract vehicles it holds (GSA MAS, VA FSS, Texas DIR prime/reseller, NY OGS master/VAR, WA DES master, Delaware) and a qualification tier — used as covariates.
@@ -131,6 +140,16 @@ python3 scripts/amendment_reasons.py           # why amendments happened: stated
 python3 scripts/amendment_dynamics.py          # descriptive amendment dynamics
 python3 simulations/simulate_amendments.py     # theory worlds + sector fingerprints (~15 min) → simulations/results/
 python3 scripts/make_figures.py                # figures/fig1–fig5 *.svg + figure_data.json
+python3 scripts/vendor_strategies.py           # strategies.md tables
+```
+
+### Step 6: Sampling Frame and Robustness Checks
+
+```bash
+python3 scripts/discover_sources.py   # sweep Socrata, data.gov, ArcGIS Hub, OpenDataSoft -> sources/catalog_hits.csv
+python3 scripts/build_frame.py        # Census-based frame + coverage -> sources/frame.csv, sources/coverage.csv
+python3 robustness/run_checks.py      # R0–R14 -> robustness/results/checks.json
+python3 robustness/stratified.py      # R15 within-ledger sector gaps -> robustness/results/stratified.json
 ```
 
 ---
@@ -207,39 +226,42 @@ HUB (Texas), OMWBE (Washington), DBE / minority / veteran flags (Baton Rouge) an
 
 ## 5. Key Empirical Findings
 
-> Figures below are from the 12-jurisdiction run (447,003 contracts). Washington State now pools FY2021–FY2025 and keys contracts by **agency + contract number** (contract numbers such as `K1234` are reused across agencies, which previously merged unrelated contracts), so Washington figures differ from earlier versions.
+> Figures below are from the 15-ledger run of 2026-11-08 (694,856 contracts; 513,571 with observable amendment history). Adding New York City (Checkbook) and DC changed several pooled numbers; the tech odds ratio fell from 1.30 to 1.09–1.17. Sector contrasts should be read within ledgers ([robustness_checks.md](robustness_checks.md), R15).
 
 ### A. Tech Amendment Risk
-- **Higher modification rate in most ledgers** (tech vs. non-tech): Washington State **23.5%** vs. **15.6%** (+51% relative risk); Cook County **41.5%** vs. **24.6%** (+69%); West Hollywood **35.7%** vs. **26.8%** (+33%); Oregon Lottery **34.3%** vs. **31.8%**. Chicago, Oregon ORPIN, Oregon Judicial and Oregon Treasury show no tech premium in raw rates.
-- Pooled raw rates are not comparable across ledgers (Baton Rouge and NYC SCA are 100% "amended" by construction; see Limitations), which is why the regression below uses jurisdiction fixed effects.
+- **Tech is amended more often in some ledgers, not others** (tech vs. non-tech):
+  - **Higher in:** Washington State **30.0%** vs. **24.6%**; Cook County **41.5%** vs. **24.6%**; West Hollywood **35.7%** vs. **26.8%**; DC **61.9%** vs. **57.9%**; WA Dept. of Health 60.6% vs. 43.2% (71 tech contracts); Oregon Lottery 11.0% vs. 10.0%.
+  - **Lower in:** New York City (**26.1%** vs. **30.3%**), Chicago (35.4% vs. 37.5%), Oregon Judicial and Oregon Treasury.
+  - **No difference in:** Oregon ORPIN (36.7% each).
+- Pooled raw rates are not comparable across ledgers (Baton Rouge, Vermont, Austin and NYC SCA have no usable amendment history; see Limitations), which is why the regression below uses jurisdiction fixed effects.
 
 ### B. Econometric Model Results (Logistic Regression)
-Estimating amendment probability controlling for initial contract scale, contract duration, and jurisdiction fixed effects (reference: Washington State) across **43,405 sampled contracts** from the 10 jurisdictions with outcome variation:
+Estimating amendment probability controlling for initial contract scale, contract duration, and jurisdiction fixed effects (reference: Chicago) across **40,861 sampled contracts** from the jurisdictions with outcome variation:
 
 $$\operatorname{logit}\bigl(\mathbb{P}(\text{is\_amended} = 1)\bigr) = \beta_0 + \beta_1 \mathbb{I}_{\text{Tech}} + \beta_2 \log_{10}(\text{Award}) + \beta_3 \log_{10}(\text{Duration}) + \sum_{k} \gamma_k \mathbb{I}_{\text{Jurisdiction}_k}$$
 
 | Variable | Coef ($\beta$) | SE | z-stat | p-value | Odds Ratio | 95% Confidence Interval |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`is_tech`** | **+0.2841** | **0.0329** | **+8.64** | **< 0.001** | **1.3286** | **[1.25, 1.42]** |
-| $\log_{10}(\text{Award})$ | +0.5831 | 0.0118 | +49.54 | < 0.001 | 1.7916 | [1.75, 1.83] |
-| $\log_{10}(\text{Duration})$ | +0.1832 | 0.0127 | +14.43 | < 0.001 | 1.2010 | [1.17, 1.23] |
+| **`is_tech`** | **+0.0906** | **0.0348** | **+2.61** | **0.009** | **1.0948** | **[1.02, 1.17]** |
+| $\log_{10}(\text{Award})$ | +0.6513 | 0.0126 | +51.74 | < 0.001 | 1.9181 | [1.87, 1.97] |
+| $\log_{10}(\text{Duration})$ | +0.1665 | 0.0168 | +9.93 | < 0.001 | 1.1811 | [1.14, 1.22] |
 
-> Holding award value, duration, and jurisdiction constant, **technology contracts have 32.9% higher odds of amendment** ($\text{OR} = 1.33, z = 8.64, p < 0.001$) — consistent with the earlier 4-jurisdiction estimate (OR = 1.31).
+> Holding award value, duration, and jurisdiction constant, **technology contracts have 9.5% higher odds of amendment** ($\text{OR} = 1.09, z = 2.61, p = 0.009$). The 12-ledger run gave OR = 1.30; adding DC and the WA Dept. of Health histories shrank the premium. New York City enters the regression sample only through its ledger effect. The extended model with channel and vendor terms (§5E) gives OR = 1.17.
 
 ### C. Programmatic Domain Variations (Tech Contracts)
 
 | Functional Domain | Total Contracts | Amended | Amendment Rate | Mean Cost Growth on Amended Contracts* |
 | :--- | :--- | :--- | :--- | :--- |
-| **Public Safety & Justice** | 3,342 | 1,792 | **53.6%** | 154.8% |
-| **General Enterprise IT** | 26,789 | 10,802 | **40.3%** | 97.3% |
-| **Transportation & Transit** | 2,831 | 1,138 | **40.2%** | 53.7% |
-| **Public Assistance & Social Services** | 9,527 | 3,513 | **36.9%** | 123.0% |
-| **Health Care** | 7,801 | 2,348 | **30.1%** | 129.5% |
-| **Environment & Natural Resources** | 2,140 | 638 | **29.8%** | 4,176.5% |
-| **Labor & Workforce** | 1,802 | 448 | **24.9%** | 112.8% |
-| **Administration & Finance** | 4,426 | 1,005 | **22.7%** | 165.3% |
+| **Health Care** | 8,661 | 3,296 | **38.1%** | 121.1% |
+| **Labor & Workforce** | 3,324 | 1,231 | **37.0%** | 236.9% |
+| **Public Assistance & Social Services** | 14,263 | 5,224 | **36.6%** | 189.3% |
+| **Transportation & Transit** | 2,445 | 845 | **34.6%** | 175.9% |
+| **Public Safety & Justice** | 3,937 | 1,120 | **28.5%** | 213.9% |
+| **Environment & Natural Resources** | 2,960 | 799 | **27.0%** | 188.6% |
+| **General Enterprise IT** | 30,628 | 8,192 | **26.7%** | 152.4% |
+| **Administration & Finance** | 4,540 | 970 | **21.4%** | 288.1% |
 
-\* Means are dominated by a few extreme contracts (medians are ~0%); read them as tail-risk indicators.
+\* Means are dominated by a few extreme contracts, including probable unit errors in DC (e.g. a $10M staffing contract recorded as reaching $10.03B; see [robustness_checks.md](robustness_checks.md), R16). Figure 4 reports geometric means, which are robust to them.
 
 ### D. Representative Overrun Case Studies by Domain
 - **Health Care**: *EDS (Oregon MMIS - Medicaid Management Information System)*: Initial award of \$82.7M expanded by **+\$259.5M** (+313.9%) across 25 revisions.
@@ -260,18 +282,25 @@ Run `python3 scripts/analyze_cooperative_resellers.py` for the full tables.
 | Delaware statewide central contracts | $1.31B | 75.3% | 8.3% | 16.5% | – | – |
 | Delaware external cooperative contracts | $213M | 65.6% | **21.0%** | 13.4% | – | – |
 
-**Amendment outcomes by channel** (pooled logit with tech, size, duration, and jurisdiction controls; N = 43,405):
+**Amendment outcomes by channel, vendor type and grade.** Logistic models of P(amended) with tech, contract size, duration and jurisdiction controls. Cells: odds ratio [95% CI]; **bold** = p < 0.05. Vertical and upward cooperative purchases are too few in the ledgers to estimate and are dropped.
 
-| Term | Odds ratio | 95% CI | p |
-| :--- | ---: | :--- | ---: |
-| `is_cooperative` (NASPO, Sourcewell, OMNIA, TIPS, E&I…) | **1.83** | [1.20, 2.78] | 0.005 |
-| `is_statewide_master` | **1.95** | [1.58, 2.40] | < 0.001 |
-| `is_reseller` (authorized reseller vs. prime/direct) | 0.86 | [0.71, 1.04] | 0.12 |
-| `cert_minority_or_women_owned` (vs. not certified) | **1.54** | [1.15, 2.06] | 0.004 |
-| `cert_veteran_owned` | 0.85 | [0.52, 1.40] | 0.53 |
-| `cert_small_business` | 0.91 | [0.76, 1.10] | 0.33 |
+| Term | Pooled (N = 40,861) | Washington only (N = 51,615) |
+| :--- | ---: | ---: |
+| Horizontal cooperative (peers pooling: NASPO, Sourcewell, OMNIA…) | 1.30 [0.70, 2.41] | **0.67** [0.46, 0.97] |
+| Central: state agency on its own state's contract (incl. DC Supply Schedule) | **1.43** [1.09, 1.87] | **0.69** [0.60, 0.78] |
+| Authorized reseller (vs. prime/direct) | **0.61** [0.52, 0.71] | **1.61** [1.36, 1.92] |
+| Multiple award (co-awardees on the contract) | **2.30** [1.69, 3.12] | **2.24** [2.04, 2.46] |
+| Vendor holds a GSA schedule | **0.91** [0.83, 0.99] | **1.31** [1.19, 1.45] |
+| Vendor is prime on a state cooperative vehicle | 0.90 [0.77, 1.05] | **1.46** [1.34, 1.60] |
+| Minority- or women-owned (vs. not certified) | **2.34** [1.42, 3.86] | **2.06** [1.77, 2.41] |
+| Small business | **1.42** [1.04, 1.94] | **1.60** [1.45, 1.75] |
+| Veteran-owned | **1.95** [1.11, 3.42] | 1.11 [0.90, 1.38] |
 
-In the **Washington-only model** (FY2021–FY2025, N = 51,362), where cooperative flags and certifications are recorded most completely, cooperative purchases (OR 1.57), statewide master contracts (OR 1.77), resellers (OR **1.36**, p < 0.001) and minority/women-owned vendors (OR 1.45) are all associated with higher amendment odds. NASPO ValuePoint purchases are amended at 66.2% (n = 402) vs. 29.2% for state master contracts. Contracts placed through cooperative vehicles are typically agency-level orders and renewals against an umbrella award, so "amendment" here partly reflects how these orders are extended and re-funded rather than scope failure.
+These are associations, not effects. Two things stand out:
+- **Some patterns hold in both models.** Multiple-award contracts, and minority- or women-owned and small-business vendors, are amended more often in both. (GSA-schedule vendors no longer do: the pooled odds ratio is now 0.91.)
+- **Channels and resellers are not stable.** Horizontal cooperatives, central state contracts and the reseller indicator move in different directions in the pooled and Washington-only models, so none of these should be read as an effect.
+
+The certification and vendor-type terms partly reflect *which* work these vendors do; [synthesis/next_steps.md](synthesis/next_steps.md) (step 5) sets out how to separate that.
 
 **Prime vendors vs. resellers in Texas DIR.** 26.4% of DIR sales ($11.0B) flow through an authorized reseller rather than the prime; the reseller share rose from 19% (FY2010) to roughly 29–34% (FY2017–FY2024). Almost all primes on reseller-routed sales are **not** HUB-certified (99.96%), while **27.7%** of reseller-routed dollars go through a HUB-certified reseller. Of the $7.29B in HUB-credited DIR sales (prime *or* reseller is HUB), **$3.04B (41.7%) is a non-HUB prime selling through a HUB reseller** — the reseller tier is how much of the program's HUB participation happens.
 
@@ -281,16 +310,44 @@ In the **Washington-only model** (FY2021–FY2025, N = 51,362), where cooperativ
 
 ## 6. Known Limitations
 
+- **Oregon Lottery** change orders are lines added to a purchase order on a later date; they are dated and sized, but orders have no contract term, so they feed escalation tests, not timing.
 - **Baton Rouge and NYC SCA are 100% "amended."** Baton Rouge records are purchase-order line items grouped by source document, so any multi-line PO counts as amended; NYC SCA is a change-order-only file. Both are excluded from the regressions (no outcome variation) and from the certification-grade comparison.
-- **Washington `cost_of_contract`** is undocumented; the pipeline treats the first row as the original value and the maximum as the final value.
+- **Washington amendments** come from the labelled rows of the FY2023–FY2025 reports. Each amendment row has its own effective date, and its `cost_of_contract` is the *change* made by that amendment (some are negative, many are zero), not a running total. Final value = base cost + sum of amendment changes. Contracts seen only in the unlabelled FY2021–22 reports are flagged `amendment_observable = 0`.
 - **Cooperative flags are sparse outside Washington.** Most ledgers don't record the vehicle, so `direct_or_unknown` mixes own solicitations with unflagged cooperative purchases; channel effects are best read from the Washington model.
 - **Reseller classification is a name-based heuristic** (see §4D). It recognizes resellers active on Texas DIR / NY OGS contracts or on the curated VAR list; regional resellers elsewhere may be tagged `prime_or_direct`.
 - **Texas DIR active-contracts HUB fields** report the same value for prime and reseller on 100% of rows, so prime-vs-reseller grade comparisons use the sales data instead. FY2026+ sales come from DIR's new Vendor Sales Reporting system; the drop in reseller share there may partly be a reporting change.
 - **West Hollywood** publishes amendment-count fields that are empty; amendments are inferred from original vs. current totals.
+- **New York City (Checkbook)** gives original vs. current amount and the latest version number, with no amendment dates. Versions include non-monetary changes, so 83% of amended NYC contracts show no value change. NYC informs counts and growth, not timing or escalation.
+- **District of Columbia (PASS)** amendments are option-period exercises (planned at award) and document-version modifications, without dates. A few DC records show implausible thousand-fold jumps (probable unit errors); medians and geometric means are robust to them, sums and arithmetic means are not.
+- **WA Dept. of Health** amendment dates are each version's period start. Its histories cover contracts active in SFY2016–19, so long-running contracts are over-represented.
+- **Ledger composition.** Ledgers differ in how they record amendments, and sectors are spread unevenly across them (most dated software contracts are Washington's). Pooled sector contrasts can therefore reflect ledgers rather than sectors; [robustness_checks.md](robustness_checks.md) (R15) reports within-ledger gaps, which revise several pooled findings.
+- **Not a probability sample.** See [sampling_frame.md](sampling_frame.md) for the frame (166 large governments), coverage (9 in sample) and the biases that follow.
 
 ---
 
-## 7. Figures
+## 7. Possible Extensions
+
+Open items from the sampling-frame and robustness work. Details are in [sampling_frame.md](sampling_frame.md) §7 and [robustness_checks.md](robustness_checks.md).
+
+**More data (public, replicable sources only; commercial aggregators are excluded because they can't be reproduced):**
+
+- **Federal contracts (FPDS / USAspending).** The planned next step, kept separate from this state-and-local sample.
+- **Virginia eVA.** Bulk purchase-order files exist (about 1 GB a year) but aren't ingested yet.
+- **Search-only state transparency systems.** NY Open Book, Florida FACTS, Texas LBB, Pennsylvania e-Library, Colorado CMS and the Illinois Comptroller have no bulk download. They need polite scrapers that respect each site's terms, or public-records requests.
+- **The 37 states where the catalog sweep found nothing.** Check state portals and procurement offices by hand; the sweep only covers Socrata, data.gov, ArcGIS Hub and OpenDataSoft.
+- **Snapshot-only governments** (14, for example Miami-Dade, Baltimore and Detroit). Repeated snapshots over time would turn current-value lists into amendment histories.
+
+**Better analysis:**
+
+- **Vendor-cluster bootstrap.** Confidence intervals for the vendor share of amendment risk need resampling by vendor; the contract-level bootstrap inflates it, so R15 reports point estimates only.
+- **Ledger-specific chance benchmarks.** The early/late timing tests use a pooled matched-chance benchmark; per-ledger benchmarks would match the within-ledger gaps.
+- **A sector × ledger model.** Estimate sector effects with ledger fixed effects and interactions in one model, instead of averaging within-ledger gaps.
+- **Sector classifier audit.** The keyword classifier mislabels some contracts (a DC staffing contract is tagged software because its title contains "application"). A hand-coded validation sample would measure the error rate.
+- **DC unit errors.** Flag or correct the probable thousand-fold jumps at the source rather than relying on robust statistics (R16).
+
+---
+
+## 8. Figures
 
 All figures are in [`figures/`](figures/) as SVG (vector, for papers) and 2× PNG. The numbers behind them are in `figures/figure_data.json`.
 
@@ -299,14 +356,22 @@ All figures are in [`figures/`](figures/) as SVG (vector, for papers) and 2× PN
 ![Figure 1](figures/fig1_network_dollars.png)
 ![Figure 2](figures/fig2_network_contracts.png)
 
-**Figure 3. Amendments snowball contract value.** Contract value as a multiple of the original award (geometric mean) in ledgers that report each amendment's dollar change (Chicago, Cook County, Oregon ORPIN / Treasury / Judicial). Panel A follows one fixed group of contracts (amended ≥ 6 times) amendment by amendment, so the climb is compounding rather than a change in which contracts are counted: hardware & telecom contracts reach 2.4× their original value after six amendments, general technology 2.0×, software & SaaS 1.8×, non-technology 1.5×. Panel B shows final value by total number of amendments.
+**Figure 3. Amendments snowball contract value.** Contract value as a multiple of the original award (geometric mean, 95% CIs) in ledgers that report each amendment's dollar change: Chicago, Cook County, Oregon ORPIN / Treasury / Judicial / Lottery, Washington and its Dept. of Health, and DC (where changes are ordered by option period and version).
+- **Panel A** follows one fixed group of contracts (amended ≥ 6 times) amendment by amendment, so the climb is compounding rather than a change in which contracts are counted. After six amendments:
+  - software & SaaS 2.87× (2.68–3.06, n = 690);
+  - hardware & telecom 2.56× (2.23–2.94);
+  - IT services 2.40× (1.84–3.12, n = 63);
+  - general technology 2.13× (1.96–2.32);
+  - non-technology 1.89× (1.85–1.93).
+- **Panel B** shows final value by total number of amendments. The 11+ points rest on few contracts (IT services 7.09×, 4.22–11.94, n = 20).
+- **Both panels pool ledgers.** Within the same ledger, software compounds about as much as non-technology, while hardware and general technology compound more ([robustness_checks.md](robustness_checks.md), R15).
 
 ![Figure 3](figures/fig3_amendment_snowball.png)
 
-**Figure 4. By program domain.** Share of contracts amended, value growth among amended contracts, and the share of amended contracts that at least doubled. Technology contracts in public assistance (1.55×), environment (1.49×) and general enterprise IT (1.46×) grow most when amended, against 1.11× for non-technology contracts.
+**Figure 4. By program domain.** Share of contracts amended, value growth among amended contracts, and the share of amended contracts that at least doubled. Technology contracts in labor & workforce (2.73×), environment (1.90×) and administration & finance (1.67×) grow most when amended, against 1.21× for non-technology contracts.
 
 ![Figure 4](figures/fig4_growth_by_domain.png)
 
-**Figure 5. Which sectors carry the fingerprints of designed amendments.** Simulated theory worlds (top) and sectors (bottom), each compared with a pure-chance world matched to its own amendment-count distribution. Every sector shows the end-of-term renewal regime. Vendor concentration separates design from chance and renewals; escalating amendment sizes separate lock-in. Software & SaaS and general enterprise IT carry both most strongly. Simulation code, results and figures S1–S3 are in [simulations/](simulations/README.md). See [game_theory/amendments/07_simulated_implications.md](game_theory/amendments/07_simulated_implications.md).
+**Figure 5. Which sectors carry the fingerprints of designed amendments.** Simulated theory worlds (top) and sectors (bottom), each compared with a pure-chance world matched to its own amendment-count distribution. Nearly every sector shows more end-of-term amendments than chance (the renewal regime). Vendor concentration separates design from chance and renewals; escalating amendment sizes separate lock-in. Software & SaaS and general enterprise IT carry both most strongly. Simulation code, results and figures S1–S3 are in [simulations/](simulations/README.md). See [game_theory/amendments/07_simulated_implications.md](game_theory/amendments/07_simulated_implications.md).
 
 ![Figure 5](figures/fig5_amendment_fingerprints.png)

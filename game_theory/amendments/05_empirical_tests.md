@@ -10,30 +10,30 @@ These facts are descriptive. Each is consistent with design, but none rules out 
 
 | Prior amendments \(k\) | 0 | 1 | 2 | 3 | 5 | 9 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| P(another \| \(k\)), tech | 0.30 | 0.50 | 0.62 | 0.65 | 0.73 | 0.81 |
-| P(another \| \(k\)), non-tech | 0.24 | 0.47 | 0.58 | 0.66 | 0.74 | 0.84 |
-| Poisson with the same mean, tech | 0.55 | 0.35 | 0.25 | 0.19 | 0.13 | 0.08 |
+| P(another \| \(k\)), tech | 0.31 | 0.53 | 0.61 | 0.65 | 0.71 | 0.81 |
+| P(another \| \(k\)), non-tech | 0.30 | 0.46 | 0.58 | 0.66 | 0.74 | 0.83 |
+| Poisson with the same mean, tech | 0.57 | 0.36 | 0.26 | 0.20 | 0.14 | 0.08 |
 
-The variance of amendment counts is 7.8× the mean for tech contracts and 13.4× for non-tech (a Poisson count would give 1×). Washington, Chicago, Cook County and Oregon ledgers; 46,166 tech and 278,380 non-tech contracts.
+The variance of amendment counts is 7.0× the mean for tech contracts and 13.4× for non-tech (a Poisson count would give 1×). Washington, Chicago, Cook County, Oregon ORPIN, Oregon Lottery and Oregon Treasury ledgers; 40,335 tech and 221,947 non-tech contracts.
 
 Two explanations fit this, and Model 10 allows both:
 - **Heterogeneity.** Some contracts are amendment-prone from the start (large \(g\), complex work).
 - **State dependence.** Each amendment raises the chance of the next, for example through dependence \(k\) that grows with the relationship.
 
-**Amendment rates cluster by vendor far beyond chance.** Among vendors with 20 or more contracts in a ledger, the spread of vendor amendment rates is 15.5× (Chicago), 11.8× (Oregon) and 6.1× (Washington) what binomial chance would produce. This is consistent with a vendor-level strategy, but also with vendors specializing in different kinds of work.
+**Amendment rates cluster by vendor far beyond chance.** Among vendors with 20 or more contracts in a ledger, the spread of vendor amendment rates is 15.5× (Chicago), 11.8× (Oregon), 11.5× (Oregon Lottery) and 10.1× (Washington) what binomial chance would produce. This is consistent with a vendor-level strategy, but also with vendors specializing in different kinds of work.
 
-**First amendments arrive late, and earlier for tech.**
+**When first amendments arrive.**
 
-| | Median days to first amendment | Within 180 days | In first quarter of term | In last 10% of term |
+| | Median days to first amendment | Within 180 days | In first quarter of term | In last 10% of term or later |
 | --- | ---: | ---: | ---: | ---: |
-| Tech | 342 | 27.5% | 17.4% | 45.4% |
-| Non-tech | 428 | 20.5% | 15.0% | 53.6% |
+| Tech | 312 | 35.1% | 29.6% | 38.7% |
+| Non-tech | 304 | 40.3% | 36.0% | 38.4% |
 
-Chicago, Oregon and Cook County. About half of first amendments come at the end of the original term. That is the signature of extensions and renewals that avoid re-competition (Model 10, extension 2). The early tail is thicker for tech, which fits gaps surfacing at implementation.
+Chicago, Oregon, Cook County, Washington and Oregon Treasury. Close to two in five first amendments come in the last tenth of the original term or after it, the signature of extensions and renewals (Model 10, extension 2). With Washington's dated amendments included, the median first amendment falls 67% (tech) and 61% (non-tech) of the way through the term, earlier than in the three-ledger version of this table.
 
 **Most Washington amendments extend time or add money; few add scope.** Classifying Washington's amendment text gives extension 18,000 and funding 17,600 against scope 5,400 for non-tech; for tech, extension 4,100, funding 3,200 and scope 850. About half the rows have uninformative text ("Amendment") and stay unclassified.
 
-**Value compounds with each amendment.** For a fixed group of contracts amended at least six times, typical value reaches 2.4× the original award for hardware/telecom and 2.0× for general technology, against 1.5× for non-technology ([Figure 3](../../figures/fig3_amendment_snowball.png)).
+**Value compounds with each amendment.** For a fixed group of contracts amended at least six times, typical value reaches 3.25× the original award for software & SaaS, 2.76× for hardware/telecom and 2.08× for general technology, against 1.75× for non-technology ([Figure 3](../../figures/fig3_amendment_snowball.png)).
 
 ## 2. Mapping model quantities to data
 

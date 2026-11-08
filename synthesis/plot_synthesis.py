@@ -161,6 +161,73 @@ def documents_figure(path: Path) -> None:
     svg.save(path)
 
 
+COVERAGE_ROWS = [  # jurisdiction, label, note on what limits it
+    ("washington_state", "Washington State", "Amendment rows only from FY2023+ reports"),
+    ("chicago", "Chicago", "Only ledger with documents online"),
+    ("oregon", "Oregon (ORPIN)", "Through 2021"),
+    ("cook_county", "Cook County", "No document links"),
+    ("oregon_lottery", "Oregon Lottery", "No contract term: no timing"),
+    ("oregon_treasury", "Oregon Treasury", "Few dated changes (213)"),
+    ("oregon_judicial", "Oregon Judicial", "Fiscal-year snapshots, no dates"),
+    ("wa_doh", "WA Dept. of Health", "Version histories from SFY2016–19 reports"),
+    ("nyc_checkbook", "New York City (Checkbook)", "Original vs. current + version count; no dates"),
+    ("dc", "District of Columbia (PASS)", "Options + versions; no dates"),
+    ("west_hollywood", "West Hollywood", "Original vs. current total only"),
+    ("baton_rouge", "Baton Rouge", "No amendment history (PO snapshot)"),
+    ("vermont", "Vermont", "No amendment history"),
+    ("austin", "Austin", "No amendment history"),
+    ("nyc_sca", "NYC School Constr. Auth.", "Change orders only"),
+]
+VALUE_GROWTH = {"chicago", "cook_county", "oregon", "oregon_treasury", "oregon_judicial", "washington_state",
+                "oregon_lottery", "wa_doh", "nyc_checkbook", "dc"}
+
+
+def coverage_figure(path: Path) -> None:
+    cov = json.loads((RES / "data_coverage.json").read_text())
+    docs = 0
+    if (RES / "document_codes.csv").exists():
+        docs = sum(1 for _ in csv.DictReader((RES / "document_codes.csv").open(encoding="utf-8")))
+    cols = [("Contracts\nnormalized", lambda j: cov["contracts"].get(j)),
+            ("Amendment history\n(rates, regressions)", lambda j: cov["observable"].get(j)),
+            ("Value growth\n(Figures 3–4)", lambda j: cov["observable"].get(j) if j in VALUE_GROWTH else None),
+            ("Timing in term\n(fingerprints)", lambda j: cov["timing"].get(j)),
+            ("Amendment sizes\n(escalation)", lambda j: cov["sizes"].get(j)),
+            ("Vendor share\nof risk", lambda j: cov["vendor"].get(j)),
+            ("Stated reasons\n(record text)", lambda j: cov["reasons"].get(j)),
+            ("Amendment\ndocuments (OCR)", lambda j: docs if j == "chicago" else None)]
+    W, top, rh, left, cw = 1240, 150, 30, 200, 100
+    H = top + rh * len(COVERAGE_ROWS) + 110
+    svg = Svg(W, H, "Y0. Which data feed which analysis")
+    svg.text(24, 36, "Y0. Which jurisdictions feed which analysis", size=18, weight="bold")
+    svg.text(24, 58, "Cells: contracts used (reasons: amendments with informative text; documents: amendment documents read). "
+                     "Dash: not usable, with the reason at right.", size=12.5, fill=INK2)
+    for ci, (lab, _) in enumerate(cols):
+        x = left + ci * cw + cw / 2
+        for li, line in enumerate(lab.split("\n")):
+            svg.text(x, top - 34 + li * 14, line, size=11, anchor="middle", weight="bold")
+    svg.text(left + len(cols) * cw + 10, top - 20, "What limits it", size=11, weight="bold")
+    for ri, (j, lab, note) in enumerate(COVERAGE_ROWS):
+        y = top + ri * rh
+        if ri % 2 == 0:
+            svg.add(f'<rect x="16" y="{y - 2}" width="{W - 32}" height="{rh}" fill="{BAND}"/>')
+        svg.text(24, y + rh / 2 + 3, lab, size=12)
+        for ci, (_, fn) in enumerate(cols):
+            v = fn(j)
+            x = left + ci * cw + cw / 2
+            if v:
+                svg.add(f'<rect x="{x - cw / 2 + 6}" y="{y + 3}" width="{cw - 12}" height="{rh - 8}" rx="4" fill="{BLUE}" '
+                        f'opacity="0.18"/>')
+                svg.text(x, y + rh / 2 + 3, f"{v:,}", size=11, anchor="middle")
+            else:
+                svg.text(x, y + rh / 2 + 3, "–", size=11, fill=INK3, anchor="middle")
+        svg.text(left + len(cols) * cw + 10, y + rh / 2 + 3, note, size=10.5, fill=INK2)
+    svg.text(24, H - 46, "Timing: contracts with dated amendments inside a known term. Sizes: contracts with two or more dated "
+                         "positive dollar changes.", size=11, fill=INK3)
+    svg.text(24, H - 28, "Cooperative-sales data (Texas DIR, Washington DES, Delaware) record spending, not amendments, and feed "
+                         "the network figures instead.", size=11, fill=INK3)
+    svg.save(path)
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     # Y1 (SMM estimates) is not drawn: parameter recovery showed the lock-in share is not identified
@@ -168,6 +235,8 @@ def main() -> int:
     counterfactual_figure(OUT / "y3_counterfactuals.svg")
     if (RES / "document_codes.csv").exists():
         documents_figure(OUT / "y4_documents.svg")
+    if (RES / "data_coverage.json").exists():
+        coverage_figure(OUT / "y0_data_coverage.svg")
     return 0
 
 

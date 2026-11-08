@@ -6,7 +6,7 @@ This folder is where the three strands of the project meet:
 | --- | --- | --- |
 | Theory | [game_theory/](../game_theory/README.md) | Mechanisms: lock-in bargaining (Model 1), paid remediation (Model 2), chance vs. design (Model 10) |
 | Simulation | [simulations/](../simulations/README.md) | Each mechanism's observable fingerprints, derived rather than assumed |
-| Empirical | [scripts/](../scripts/), `data/processed/` | Contract and amendment histories for 12 jurisdictions; cooperative purchasing; resellers; stated reasons |
+| Empirical | [scripts/](../scripts/), `data/processed/` | Contract and amendment histories for 15 ledgers (9 states and DC; see ../sampling_frame.md); cooperative purchasing; resellers; stated reasons |
 
 So far the simulations have been used to *classify* sectors by pattern: which fingerprints a sector carries relative to a matched chance world. The next steps turn that pattern match into *estimates*, *tests* and *counterfactuals*. The detailed plan is in [next_steps.md](next_steps.md).
 
